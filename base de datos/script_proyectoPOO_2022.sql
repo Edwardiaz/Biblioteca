@@ -125,6 +125,8 @@ CREATE TABLE `Privilegios`(
     `borrar` INT NOT NULL,
     `consultar` INT NOT NULL,
     `prestar` INT NOT NULL,
+    `numero_prestamos` INT NOT NULL,
+    `tiempo_prestamo` INT NOT NULL, /*En dias*/
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

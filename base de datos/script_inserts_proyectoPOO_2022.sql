@@ -86,9 +86,9 @@ INSERT INTO `Prestamos`(codigo_material, codigo_usuario, fecha_prestamo, fecha_d
 INSERT INTO `Prestamos`(codigo_material, codigo_usuario, fecha_prestamo, fecha_devolucion) VALUES('LIB00001', 3, '2022/09/20', '2022/09/30');
 
 /*registro privilegios*/
-INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar) VALUES(1,1,1,1,1);
-INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar) VALUES(1,1,0,1,0);
-INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar) VALUES(0,0,0,1,1);
+INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, tiempo_prestamo) VALUES(1,1,1,1,1,99,99);
+INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, tiempo_prestamo) VALUES(1,1,0,1,0,6,7);
+INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, tiempo_prestamo) VALUES(0,0,0,1,1,3,2);
 
 /*registro rol privilegio*/
 INSERT INTO `Permisos_por_Rol`(codigo_rol, codigo_privilegio) VALUES(1,1);
