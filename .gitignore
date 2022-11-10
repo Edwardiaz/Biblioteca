@@ -1,6 +1,19 @@
 # Compiled class file
 *.class
 
+# NetBeans specific #
+/Proyecto 1 - POO/nbproject/private/
+genfiles.properties
+build-impl.xml
+build.xml
+manifest.mf
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
 # Log file
 *.log
 
