@@ -5,42 +5,21 @@
  */
 package entidades;
 
-import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author Jorge Díaz
  */
-@Entity
-@Table(name = "rol")
-@NamedQueries({
-    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r")})
-public class Rol implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+public class Rol {
+
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "rol")
+
     private String rol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoRol")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoRol")
     private List<PermisosPorRol> permisosPorRolList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoRol")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoRol")
     private List<Usuarios> usuariosList;
 
     public Rol() {

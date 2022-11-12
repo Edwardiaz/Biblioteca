@@ -5,40 +5,14 @@
  */
 package entidades;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
 /**
  *
  * @author Jorge Díaz
  */
-@Entity
-@Table(name = "permisos_por_rol")
-@NamedQueries({
-    @NamedQuery(name = "PermisosPorRol.findAll", query = "SELECT p FROM PermisosPorRol p")})
-public class PermisosPorRol implements Serializable {
+public class PermisosPorRol {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "codigo_privilegio", referencedColumnName = "id")
-    @ManyToOne(optional = false)
     private Privilegios codigoPrivilegio;
-    @JoinColumn(name = "codigo_rol", referencedColumnName = "id")
-    @ManyToOne(optional = false)
     private Rol codigoRol;
 
     public PermisosPorRol() {

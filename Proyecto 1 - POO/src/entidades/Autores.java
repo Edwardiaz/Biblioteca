@@ -7,37 +7,15 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author Jorge Díaz
  */
-@Entity
-@Table(name = "autores")
-@NamedQueries({
-    @NamedQuery(name = "Autores.findAll", query = "SELECT a FROM Autores a")})
-public class Autores implements Serializable {
+public class Autores {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "nombre_autor")
     private String nombreAutor;
-    @OneToMany(mappedBy = "codigoAutor")
     private List<Materiales> materialesList;
 
     public Autores() {

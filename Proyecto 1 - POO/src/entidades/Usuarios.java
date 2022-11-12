@@ -5,65 +5,29 @@
  */
 package entidades;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author Jorge Díaz
  */
-@Entity
-@Table(name = "usuarios")
-@NamedQueries({
-    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")})
-public class Usuarios implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+public class Usuarios {
+
     private Integer id;
-    @Column(name = "nombre")
     private String nombre;
-    @Column(name = "apellido")
     private String apellido;
-    @Basic(optional = false)
-    @Column(name = "nickname")
     private String nickname;
-    @Basic(optional = false)
-    @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @Column(name = "pass")
     private String pass;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "mora")
     private Float mora;
-    @Basic(optional = false)
-    @Column(name = "fecha_nacimiento")
-    @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @JoinColumn(name = "codigo_rol", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    /*@JoinColumn(name = "codigo_rol", referencedColumnName = "id")
+    @ManyToOne(optional = false)*/
     private Rol codigoRol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoUsuario")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoUsuario")
     private List<Prestamos> prestamosList;
 
     public Usuarios() {

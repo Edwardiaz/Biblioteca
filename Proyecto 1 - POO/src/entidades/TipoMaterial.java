@@ -5,40 +5,18 @@
  */
 package entidades;
 
-import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author Jorge Díaz
  */
-@Entity
-@Table(name = "tipo_material")
-@NamedQueries({
-    @NamedQuery(name = "TipoMaterial.findAll", query = "SELECT t FROM TipoMaterial t")})
-public class TipoMaterial implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+public class TipoMaterial {
+
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "tipo_material")
     private String tipoMaterial;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTipoMaterial")
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoTipoMaterial")
     private List<Materiales> materialesList;
 
     public TipoMaterial() {

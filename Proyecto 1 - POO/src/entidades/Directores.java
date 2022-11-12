@@ -7,37 +7,15 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  *
  * @author Jorge Díaz
  */
-@Entity
-@Table(name = "directores")
-@NamedQueries({
-    @NamedQuery(name = "Directores.findAll", query = "SELECT d FROM Directores d")})
-public class Directores implements Serializable {
+public class Directores {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "nombre_director")
     private String nombreDirector;
-    @OneToMany(mappedBy = "codigoDirector")
     private List<Materiales> materialesList;
 
     public Directores() {
