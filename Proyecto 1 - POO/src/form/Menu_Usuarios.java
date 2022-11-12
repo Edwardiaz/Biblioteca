@@ -5,6 +5,10 @@
  */
 package form;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
@@ -223,7 +227,12 @@ public class Menu_Usuarios extends javax.swing.JFrame {
 
     private void lblVerUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerUsuarioMousePressed
         // TODO add your handling code here:
-        Ver_Usuario ver = new Ver_Usuario();
+        Ver_Usuario ver = null;
+        try {
+            ver = new Ver_Usuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
         ver.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblVerUsuarioMousePressed

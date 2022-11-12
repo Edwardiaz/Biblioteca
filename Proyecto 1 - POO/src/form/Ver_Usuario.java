@@ -5,6 +5,25 @@
  */
 package form;
 
+import clases.Globales;
+import clases.Usuario;
+import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import static sun.net.www.http.HttpClient.New;
+
 /**
  *
  * @author user
@@ -12,12 +31,40 @@ package form;
 public class Ver_Usuario extends javax.swing.JFrame {
 
     /**
-     * Creates new form Ver_Usuario
+     * Creates new form Ver Usuario
      */
-    public Ver_Usuario() {
+    public Ver_Usuario() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Usuarios en sistema");
+        
+        //Llamar metodo para agregar usuario a tabla
+        Usuario usuarios = new Usuario();        
+        //Nombres de columnas
+        String[] columnNames = {"Id","Nombre","Apellido","Nickname", "Email", "Perfil", "F.Nacimiento", "Mora"};
+
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        // The 0 argument is number rows.
+
+        //JTable tblUsuarios = new JTable(tableModel);
+        
+        ArrayList<ArrayList<String>> objs = usuarios.mostrarUsuarios();
+
+       for (int i = 0; i < objs.size(); i++){
+            String id = objs.get(i).get(0);
+            String nombre = objs.get(i).get(1);
+            String apellido = objs.get(i).get(2);
+            String nickname = objs.get(i).get(3);
+            String email = objs.get(i).get(4);
+            String rol = objs.get(i).get(5);
+            String fecha_nacimiento = objs.get(i).get(6);
+            String mora = "$ "+ objs.get(i).get(7);
+            
+            Object[] data = {id,nombre,apellido,nickname,email,rol,fecha_nacimiento,mora};
+            tableModel.addRow(data);
+       }
+        //Llenar tabla
+        tblUsuarios.setModel(tableModel);
     }
 
     /**
@@ -31,8 +78,8 @@ public class Ver_Usuario extends javax.swing.JFrame {
 
         pnlVerUser = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tblUsuarios = new javax.swing.JTable();
+        btnAtras = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
 
@@ -41,7 +88,7 @@ public class Ver_Usuario extends javax.swing.JFrame {
         pnlVerUser.setBackground(new java.awt.Color(0, 0, 51));
         pnlVerUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -52,40 +99,50 @@ public class Ver_Usuario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblUsuarios);
 
-        pnlVerUser.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 630, 370));
+        pnlVerUser.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 690, 370));
 
-        jButton1.setBackground(new java.awt.Color(153, 0, 0));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Atrás");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAtras.setBackground(new java.awt.Color(153, 0, 0));
+        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtras.setText("Atrás");
+        btnAtras.setBorder(null);
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton1MousePressed(evt);
+                btnAtrasMousePressed(evt);
             }
         });
-        pnlVerUser.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 160, 80, 40));
+        pnlVerUser.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 80, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 0, 204));
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.setText("Modificar");
         btnModificar.setBorder(null);
-        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnModificarMousePressed(evt);
+            }
+        });
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
-        pnlVerUser.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, 80, 40));
+        pnlVerUser.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 80, 40));
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 51));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.setBorder(null);
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pnlVerUser.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, 80, 40));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnEliminarMousePressed(evt);
+            }
+        });
+        pnlVerUser.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 80, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,17 +162,116 @@ public class Ver_Usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
+    private void btnAtrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMousePressed
         // TODO add your handling code here:
         Menu_Usuarios users = new Menu_Usuarios();
         users.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1MousePressed
+    }//GEN-LAST:event_btnAtrasMousePressed
+
+    private void btnModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMousePressed
+        //Verificamos perfil usuario para saber si es administrador y puede actualizar datos
+        Globales rolUsuario = new Globales();
+        int idRol = rolUsuario.rolUsuario;
+        //Evaluamos si es Administrador
+        if(idRol == 1){
+            //verificamos si hay algun registro seleccionado, si no mostramos un error
+            if(this.tblUsuarios.getSelectionModel().isSelectionEmpty()){
+                JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder actualizar datos!");
+            }
+            else{
+                try {
+                    //Seleccionamos numero de registro seleccionado
+                    int linea = this.tblUsuarios.getSelectedRow();
+                    int modelRow = tblUsuarios.convertRowIndexToModel(linea);
+                    String s = tblUsuarios.getModel().getValueAt(modelRow, 0)+"";
+                    
+                    EditarUser usr = new EditarUser(s);
+                    usr.setVisible(true);
+                    this.dispose();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Ver_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }        
+        }else{
+            JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar usuarios!");
+        }
+    }//GEN-LAST:event_btnModificarMousePressed
+
+    private void btnEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMousePressed
+        //Verificamos perfil usuario para saber si es administrador y puede actualizar datos
+        Globales rolUsuario = new Globales();
+        int idRol = rolUsuario.rolUsuario;
+        //Evaluamos si es Administrador
+        if(idRol == 1){
+            //verificamos si hay algun registro seleccionado, si no mostramos un error
+            if(this.tblUsuarios.getSelectionModel().isSelectionEmpty()){
+                JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder eliminarlo!");
+            }
+            else{
+                try {
+                    //Seleccionamos numero de registro seleccionado
+                    int linea = this.tblUsuarios.getSelectedRow();
+                    int modelRow = tblUsuarios.convertRowIndexToModel(linea);
+                    String s = tblUsuarios.getModel().getValueAt(modelRow, 0)+"";
+                    
+                    //Mosstrar dialogo de confirmacion
+                    JPanel panel = new JPanel();
+                    panel.setSize(new Dimension(250, 100));
+                    panel.setLayout(null);
+                    JLabel label1 = new JLabel("Accion para borrar usuario de sistema");
+                    label1.setVerticalAlignment(SwingConstants.BOTTOM);
+                    label1.setBounds(20, 20, 200, 30);
+                    label1.setHorizontalAlignment(SwingConstants.CENTER);
+                    panel.add(label1);
+                    JLabel label2 = new JLabel("Esta seguro de querer borrarlo?");
+                    label2.setVerticalAlignment(SwingConstants.TOP);
+                    label2.setHorizontalAlignment(SwingConstants.CENTER);
+                    label2.setBounds(20, 80, 200, 20);
+                    panel.add(label2);
+                    UIManager.put("OptionPane.minimumSize", new Dimension(400, 200));
+                    Icon icon;
+                    int res = JOptionPane.showConfirmDialog(null, panel, "File",
+                    JOptionPane.YES_NO_OPTION);
+                    if(res == 0) {
+                        //Eliminar usuario
+                        Usuario usr = new Usuario();
+                        usr.eliminarUsuario(s);
+                    } else {
+                        //Cerrar ventana y regresar a listado
+                        Ver_Usuario ver = null;
+                        try {
+                            ver = new Ver_Usuario();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        ver.setVisible(true);
+                        this.dispose(); 
+                    }                    
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(Ver_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }        
+        }else{
+            JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar usuarios!");
+        }
+        
+        //Cerrar ventana y regresar a listado
+        Ver_Usuario ver = null;
+        try {
+            ver = new Ver_Usuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ver.setVisible(true);
+        this.dispose();         
+    }//GEN-LAST:event_btnEliminarMousePressed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -138,21 +294,15 @@ public class Ver_Usuario extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Ver_Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ver_Usuario().setVisible(true);
-            }
-        });
+        new Ver_Usuario();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel pnlVerUser;
+    private javax.swing.JTable tblUsuarios;
     // End of variables declaration//GEN-END:variables
 }

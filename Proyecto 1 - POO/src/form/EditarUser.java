@@ -5,31 +5,53 @@
  */
 package form;
 
-import clases.Globales;
+
 import clases.Usuario;
-import datos.Conexion;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author user
  */
-public class AgregarUser extends javax.swing.JFrame {
+public class EditarUser extends javax.swing.JFrame {
 
     /**
      * Creates new form AgregarUser
      */
-    public AgregarUser() {
+    public EditarUser(){
+        
+    }
+    
+    public EditarUser(String idUsuario) throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Nuevo Usuario");
-    }
+        this.setTitle("Editar Usuario");
+        
+        //Llamar metodo verUsuario 
+        try{
+        Usuario usuario = new Usuario();
+        ArrayList<Usuario> usr = (ArrayList<Usuario>) usuario.verUsuario(idUsuario);
+       
+        //Llenar formulario
+        for (int i = 0; i < usr.size(); i++){
+            txtId.setText(Integer.toString(usr.get(i).id));
+            txtNombre.setText(usr.get(i).nombre);
+            txtApellido.setText(usr.get(i).apellido);
+            txtNickname.setText(usr.get(i).nickname);
+            txtEmail.setText(usr.get(i).email);
+            txtContra.setText(usr.get(i).pass);
+            txtMora.setText(Float.toString(usr.get(i).mora));
+            txtFechaNacimiento.setText(usr.get(i).fecha_nacimiento);
+            cmbRol.getModel().setSelectedItem(usr.get(i).rol);
+        }}
+        catch(SQLException ex){
+            Logger.getLogger(EditarUser.class.getName()).log(Level.SEVERE, null, ex); 
+        }}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,9 +67,9 @@ public class AgregarUser extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         txtUsuario = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
-        txtApellido = new javax.swing.JTextField();
+        txtMora = new javax.swing.JTextField();
         lblRol = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         txtNickname = new javax.swing.JTextField();
@@ -55,7 +77,6 @@ public class AgregarUser extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JSeparator();
         txtEmail = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
-        jSeparator10 = new javax.swing.JSeparator();
         lblNombre2 = new javax.swing.JLabel();
         jSeparator11 = new javax.swing.JSeparator();
         lblContra = new javax.swing.JLabel();
@@ -67,6 +88,10 @@ public class AgregarUser extends javax.swing.JFrame {
         lblApellido1 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        jSeparator13 = new javax.swing.JSeparator();
+        lblMora = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -78,7 +103,7 @@ public class AgregarUser extends javax.swing.JFrame {
         jSeparator6.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator6.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jSeparator6.setPreferredSize(new java.awt.Dimension(200, 10));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 183, -1));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 183, -1));
 
         txtUsuario.setBackground(new java.awt.Color(0, 0, 51));
         txtUsuario.setForeground(new java.awt.Color(204, 204, 204));
@@ -103,65 +128,66 @@ public class AgregarUser extends javax.swing.JFrame {
         lblNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(204, 204, 204));
         lblNombre.setText("Nombre:");
-        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
+        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
-        txtNombre.setBackground(new java.awt.Color(0, 0, 51));
-        txtNombre.setForeground(new java.awt.Color(204, 204, 204));
-        txtNombre.setText("Ingrese nombre");
-        txtNombre.setAlignmentX(0.8F);
-        txtNombre.setBorder(null);
-        txtNombre.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtNombre.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtNombre.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtNombre.setName("txtUsuario"); // NOI18N
-        txtNombre.setNextFocusableComponent(txtApellido);
-        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtId.setEditable(false);
+        txtId.setBackground(new java.awt.Color(0, 0, 51));
+        txtId.setForeground(new java.awt.Color(204, 204, 204));
+        txtId.setToolTipText("");
+        txtId.setBorder(null);
+        txtId.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtId.setEnabled(false);
+        txtId.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtId.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtId.setName("txtUsuario"); // NOI18N
+        txtId.setNextFocusableComponent(txtMora);
+        txtId.setSelectedTextColor(new java.awt.Color(0, 51, 153));
+        txtId.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNombreMousePressed(evt);
+                txtIdMousePressed(evt);
             }
         });
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+        txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
+                txtIdActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 180, 19));
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 40, 19));
 
         jSeparator7.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator7.setPreferredSize(new java.awt.Dimension(200, 10));
-        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 183, -1));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 183, -1));
 
-        txtApellido.setBackground(new java.awt.Color(0, 0, 51));
-        txtApellido.setForeground(new java.awt.Color(204, 204, 204));
-        txtApellido.setText("Ingrese apellido");
-        txtApellido.setAlignmentX(0.8F);
-        txtApellido.setBorder(null);
-        txtApellido.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtApellido.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtApellido.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtApellido.setName("txtUsuario"); // NOI18N
-        txtApellido.setNextFocusableComponent(txtNickname);
-        txtApellido.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtMora.setBackground(new java.awt.Color(0, 0, 51));
+        txtMora.setForeground(new java.awt.Color(204, 204, 204));
+        txtMora.setAlignmentX(0.8F);
+        txtMora.setBorder(null);
+        txtMora.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtMora.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtMora.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtMora.setName("txtMora"); // NOI18N
+        txtMora.setNextFocusableComponent(txtContra);
+        txtMora.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtApellidoMousePressed(evt);
+                txtMoraMousePressed(evt);
             }
         });
-        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+        txtMora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtApellidoActionPerformed(evt);
+                txtMoraActionPerformed(evt);
             }
         });
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 183, 19));
+        jPanel1.add(txtMora, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 183, 19));
 
         lblRol.setBackground(new java.awt.Color(0, 0, 51));
         lblRol.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblRol.setForeground(new java.awt.Color(204, 204, 204));
         lblRol.setText("Rol de usuario:");
-        jPanel1.add(lblRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, -1, -1));
+        jPanel1.add(lblRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, -1, -1));
 
         jSeparator8.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator8.setPreferredSize(new java.awt.Dimension(200, 10));
-        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 183, -1));
+        jPanel1.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 183, -1));
 
         txtNickname.setBackground(new java.awt.Color(0, 0, 51));
         txtNickname.setForeground(new java.awt.Color(204, 204, 204));
@@ -171,7 +197,7 @@ public class AgregarUser extends javax.swing.JFrame {
         txtNickname.setCaretColor(new java.awt.Color(255, 255, 255));
         txtNickname.setMargin(new java.awt.Insets(5, 15, 5, 5));
         txtNickname.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtNickname.setName("txtUsuario"); // NOI18N
+        txtNickname.setName("txtNickname"); // NOI18N
         txtNickname.setNextFocusableComponent(txtFechaNacimiento);
         txtNickname.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -183,17 +209,17 @@ public class AgregarUser extends javax.swing.JFrame {
                 txtNicknameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 183, 19));
+        jPanel1.add(txtNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 183, 19));
 
         lblNickname.setBackground(new java.awt.Color(0, 0, 51));
         lblNickname.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNickname.setForeground(new java.awt.Color(204, 204, 204));
         lblNickname.setText("Nickname:");
-        jPanel1.add(lblNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+        jPanel1.add(lblNickname, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
 
         jSeparator9.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator9.setPreferredSize(new java.awt.Dimension(200, 10));
-        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 183, -1));
+        jPanel1.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 183, -1));
 
         txtEmail.setBackground(new java.awt.Color(0, 0, 51));
         txtEmail.setForeground(new java.awt.Color(204, 204, 204));
@@ -203,8 +229,8 @@ public class AgregarUser extends javax.swing.JFrame {
         txtEmail.setCaretColor(new java.awt.Color(255, 255, 255));
         txtEmail.setMargin(new java.awt.Insets(5, 15, 5, 5));
         txtEmail.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtEmail.setName("txtUsuario"); // NOI18N
-        txtEmail.setNextFocusableComponent(txtContra);
+        txtEmail.setName("txtEmail"); // NOI18N
+        txtEmail.setNextFocusableComponent(txtMora);
         txtEmail.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtEmailMousePressed(evt);
@@ -215,37 +241,33 @@ public class AgregarUser extends javax.swing.JFrame {
                 txtEmailActionPerformed(evt);
             }
         });
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 183, 19));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, 183, 19));
 
         lblEmail.setBackground(new java.awt.Color(0, 0, 51));
         lblEmail.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblEmail.setForeground(new java.awt.Color(204, 204, 204));
         lblEmail.setText("Email:");
-        jPanel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, -1, -1));
-
-        jSeparator10.setForeground(new java.awt.Color(102, 0, 204));
-        jSeparator10.setPreferredSize(new java.awt.Dimension(200, 10));
-        jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 183, -1));
+        jPanel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
 
         lblNombre2.setBackground(new java.awt.Color(0, 0, 51));
         lblNombre2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblNombre2.setForeground(new java.awt.Color(204, 204, 204));
-        lblNombre2.setText("Nombre:");
+        lblNombre2.setText("Id:");
         jPanel1.add(lblNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
 
         jSeparator11.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator11.setPreferredSize(new java.awt.Dimension(200, 10));
-        jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 183, -1));
+        jPanel1.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 183, -1));
 
         lblContra.setBackground(new java.awt.Color(0, 0, 51));
         lblContra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblContra.setForeground(new java.awt.Color(204, 204, 204));
         lblContra.setText("Contraseña");
-        jPanel1.add(lblContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
+        jPanel1.add(lblContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
 
         jSeparator12.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator12.setPreferredSize(new java.awt.Dimension(200, 10));
-        jPanel1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 183, -1));
+        jPanel1.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 200, 183, -1));
 
         txtFechaNacimiento.setBackground(new java.awt.Color(0, 0, 51));
         txtFechaNacimiento.setForeground(new java.awt.Color(204, 204, 204));
@@ -255,7 +277,8 @@ public class AgregarUser extends javax.swing.JFrame {
         txtFechaNacimiento.setCaretColor(new java.awt.Color(255, 255, 255));
         txtFechaNacimiento.setMargin(new java.awt.Insets(5, 15, 5, 5));
         txtFechaNacimiento.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtFechaNacimiento.setName("txtUsuario"); // NOI18N
+        txtFechaNacimiento.setName("txtFechaNacimiento"); // NOI18N
+        txtFechaNacimiento.setNextFocusableComponent(txtEmail);
         txtFechaNacimiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtFechaNacimientoMousePressed(evt);
@@ -266,20 +289,21 @@ public class AgregarUser extends javax.swing.JFrame {
                 txtFechaNacimientoActionPerformed(evt);
             }
         });
-        jPanel1.add(txtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 183, 19));
+        jPanel1.add(txtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 183, 19));
 
         lblFecha.setBackground(new java.awt.Color(0, 0, 51));
         lblFecha.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(204, 204, 204));
         lblFecha.setText("Fecha de nacimiento(dd/mm/yyyy):");
-        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 220, -1));
+        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 220, -1));
 
         txtContra.setBackground(new java.awt.Color(0, 0, 51));
         txtContra.setForeground(new java.awt.Color(255, 255, 255));
         txtContra.setBorder(null);
         txtContra.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtContra.setName("txtContra"); // NOI18N
         txtContra.setNextFocusableComponent(cmbRol);
-        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 180, 20));
+        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 180, 20));
 
         cmbRol.setForeground(new java.awt.Color(0, 0, 51));
         cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " -", "Administrador", "Profesor", "Estudiante" }));
@@ -289,13 +313,13 @@ public class AgregarUser extends javax.swing.JFrame {
                 cmbRolActionPerformed(evt);
             }
         });
-        jPanel1.add(cmbRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, -1, -1));
+        jPanel1.add(cmbRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, 200, -1));
 
         lblApellido1.setBackground(new java.awt.Color(0, 0, 51));
         lblApellido1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblApellido1.setForeground(new java.awt.Color(204, 204, 204));
         lblApellido1.setText("Apellido:");
-        jPanel1.add(lblApellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, -1, -1));
+        jPanel1.add(lblApellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
 
         btnAgregar.setBackground(new java.awt.Color(0, 0, 255));
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
@@ -321,6 +345,60 @@ public class AgregarUser extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 80, 30));
+
+        txtNombre.setBackground(new java.awt.Color(0, 0, 51));
+        txtNombre.setForeground(new java.awt.Color(204, 204, 204));
+        txtNombre.setText("Ingrese nombre");
+        txtNombre.setAlignmentX(0.8F);
+        txtNombre.setBorder(null);
+        txtNombre.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNombre.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtNombre.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtNombre.setName("txtNombre"); // NOI18N
+        txtNombre.setNextFocusableComponent(txtMora);
+        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtNombreMousePressed(evt);
+            }
+        });
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 109, 180, 20));
+
+        jSeparator13.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator13.setPreferredSize(new java.awt.Dimension(200, 10));
+        jPanel1.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 183, -1));
+
+        lblMora.setBackground(new java.awt.Color(0, 0, 51));
+        lblMora.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblMora.setForeground(new java.awt.Color(204, 204, 204));
+        lblMora.setText("Mora");
+        jPanel1.add(lblMora, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, -1, -1));
+
+        txtApellido.setBackground(new java.awt.Color(0, 0, 51));
+        txtApellido.setForeground(new java.awt.Color(204, 204, 204));
+        txtApellido.setText("Ingrese apellido");
+        txtApellido.setAlignmentX(0.8F);
+        txtApellido.setBorder(null);
+        txtApellido.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtApellido.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtApellido.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtApellido.setName("txtApellido"); // NOI18N
+        txtApellido.setNextFocusableComponent(txtNickname);
+        txtApellido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtApellidoMousePressed(evt);
+            }
+        });
+        txtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 183, 19));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -350,21 +428,21 @@ public class AgregarUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
+    private void txtIdMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreMousePressed
+    }//GEN-LAST:event_txtIdMousePressed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    }//GEN-LAST:event_txtIdActionPerformed
 
-    private void txtApellidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtApellidoMousePressed
+    private void txtMoraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMoraMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoMousePressed
+    }//GEN-LAST:event_txtMoraMousePressed
 
-    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+    private void txtMoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMoraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtApellidoActionPerformed
+    }//GEN-LAST:event_txtMoraActionPerformed
 
     private void txtNicknameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNicknameMousePressed
         // TODO add your handling code here:
@@ -411,6 +489,7 @@ public class AgregarUser extends javax.swing.JFrame {
             txtNombre.requestFocus();
         } else {
             try {
+                String id = txtId.getText();
                 String nombre = txtNombre.getText();
                 String apellido = txtApellido.getText();
                 String nickname = txtNickname.getText();
@@ -430,13 +509,38 @@ public class AgregarUser extends javax.swing.JFrame {
 
                 //Llamar metodo para agregar usuario a tabla
                 Usuario usuario = new Usuario();
-                usuario.agregarUsuario(nombre, apellido, nickname, email, pass, mora, fecha_nacimiento, codigo_rol);
+                usuario.actualizarUsuario(id, nombre, apellido, nickname, email, pass, mora, fecha_nacimiento, codigo_rol);
             }
             catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(AgregarUser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        //Cerrar ventana y regresar a listado
+        Ver_Usuario ver = null;
+        try {
+            ver = new Ver_Usuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ver.setVisible(true);
+        this.dispose();        
     }//GEN-LAST:event_btnAgregarMousePressed
+
+    private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreMousePressed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtApellidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtApellidoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoMousePressed
+
+    private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -455,20 +559,23 @@ public class AgregarUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarUser().setVisible(true);
+                new EditarUser().setVisible(true);
             }
         });
     }
@@ -479,9 +586,9 @@ public class AgregarUser extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbRol;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
@@ -490,6 +597,7 @@ public class AgregarUser extends javax.swing.JFrame {
     private javax.swing.JLabel lblContra;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblMora;
     private javax.swing.JLabel lblNickname;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombre2;
@@ -498,42 +606,10 @@ public class AgregarUser extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFechaNacimiento;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtMora;
     private javax.swing.JTextField txtNickname;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-
-//    public void agregarUsuario (String nombre, String apellido, String nickname, String email, String pass, Float mora, String fecha_nacimiento, int codigo_rol) throws SQLException{
-//        //Crear objeto de tipo conexion
-//        Conexion co = new Conexion();
-//        Connection con = co.getConnection();
-//        
-//        //Codigo SQL para insertar registro a tabla
-//        String sql = "INSERT INTO `Usuarios`(nombre, apellido, nickname, email, pass, mora, fecha_nacimiento, codigo_rol) VALUES(?,?,?,?,?,?,STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s'),?)";
-//        //Preparar statement
-//        PreparedStatement stmt = null;
-//        int rows = 0;
-//
-//        try{
-//            con = Conexion.getConnection();
-//            stmt = con.prepareStatement(sql);
-//            int index = 1;
-//            stmt.setString(index++, nombre);
-//            stmt.setString(index++, apellido);
-//            stmt.setString(index++, nickname);
-//            stmt.setString(index++, email);
-//            stmt.setString(index++, pass);
-//            stmt.setFloat(index++, mora);
-//            stmt.setString(index++, fecha_nacimiento);
-//            stmt.setInt(index, codigo_rol);
-//
-//            rows = stmt.executeUpdate();
-//            System.out.println("Registros afectados " + rows);
-//        }catch(SQLException e){
-//            System.out.println("Error" + e);
-//        } finally{
-//            Conexion.close(stmt);
-//            Conexion.close(con);
-//        }
-//    } 
 }
