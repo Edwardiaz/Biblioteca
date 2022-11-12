@@ -5,51 +5,23 @@
  */
 package entidades;
 
-import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author Jorge Díaz
  */
-@Entity
-@Table(name = "prestamos")
-@NamedQueries({
-    @NamedQuery(name = "Prestamos.findAll", query = "SELECT p FROM Prestamos p")})
-public class Prestamos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
+public class Prestamos {
+
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "fecha_prestamo")
-    @Temporal(TemporalType.DATE)
     private Date fechaPrestamo;
-    @Basic(optional = false)
-    @Column(name = "fecha_devolucion")
-    @Temporal(TemporalType.DATE)
     private Date fechaDevolucion;
-    @JoinColumn(name = "codigo_material", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+/*    @JoinColumn(name = "codigo_material", referencedColumnName = "id")
+    @ManyToOne(optional = false)*/
     private Materiales codigoMaterial;
-    @JoinColumn(name = "codigo_usuario", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    /*@JoinColumn(name = "codigo_usuario", referencedColumnName = "id")
+    @ManyToOne(optional = false)*/
     private Usuarios codigoUsuario;
 
     public Prestamos() {
