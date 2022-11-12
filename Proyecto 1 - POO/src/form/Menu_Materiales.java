@@ -5,6 +5,10 @@
  */
 package form;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
@@ -44,6 +48,11 @@ public class Menu_Materiales extends javax.swing.JFrame {
         lblAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add_Material.png"))); // NOI18N
         lblAgregarMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAgregarMaterial.setName("lblAgregarMaterial"); // NOI18N
+        lblAgregarMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblAgregarMaterialMousePressed(evt);
+            }
+        });
 
         lblAddMaterial.setBackground(new java.awt.Color(0, 0, 51));
         lblAddMaterial.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -147,6 +156,17 @@ public class Menu_Materiales extends javax.swing.JFrame {
         db.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblRegresarMousePressed
+
+    private void lblAgregarMaterialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAgregarMaterialMousePressed
+        Menu_Tipo_Material tipo;
+        try {
+            tipo = new Menu_Tipo_Material();
+            tipo.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Materiales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblAgregarMaterialMousePressed
 
     /**
      * @param args the command line arguments
