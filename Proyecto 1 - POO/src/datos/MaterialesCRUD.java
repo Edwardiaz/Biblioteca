@@ -11,12 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author Jorge Díaz
  */
-public class MaterialesCRUD {
+public class MaterialesCRUD extends Utils{
      private final String SQL_INSERT_INTO_MATERIALES
             = "INSERT INTO materiales\n" +
               "(id, titulo, codigo_tipo_material, codigo_autor, "
@@ -41,7 +43,7 @@ public class MaterialesCRUD {
     
     
      /**
-     * Metodo que inserta un registro en la tabla Materiales
+     * Metodo que inserta un registro en la tabla Materiales de forma general
      *
      * @param id
      * @param titulo
@@ -146,6 +148,46 @@ public class MaterialesCRUD {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return rows;
+    }
+    
+    public int insertarLibros(String titulo, int pag, int idEditorial, String isbn, java.sql.Date conversion, int u_disponible, String autor, String editorial){        
+        String sql = "INSERT INTO materiales (id,titulo,codigo_tipo_material,"
+                + "codigo_autor,numero_de_paginas,codigo_editorial,isbn,"
+                + "fecha_publicacion,unidades_disponibles) VALUES (?,?,4,?,?,?,?,?,?)";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        //int resultado = 0;
+        //ResultSet rs = null;
+        int rows = 0;
+        
+        //Llamar a los siguientes métodos, pasándole parámetros para obtener sus respectivos ID
+        int autorID = consultarAutorPorNombre(autor);
+        int editorialID = consultarEditorialPorNombre(editorial);
+
+        try{
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            int index = 1;
+            stmt.setString(index++, crearID("LIB"));
+            stmt.setString(index++, titulo);
+            stmt.setInt(index++, autorID);
+            stmt.setInt(index++, pag);
+            stmt.setInt(index++, editorialID);
+            stmt.setString(index++, isbn);
+            stmt.setDate(index++, conversion);
+            stmt.setInt(index, u_disponible);
+
+            rows = stmt.executeUpdate();
+            //resultado = 2;
+            //System.out.println("Registros afectados " + rows);
+        }catch(SQLException e){
+            Logger.getLogger(MaterialesCRUD.class.getName()).log(Level.ERROR, "Hubo un problema durante la insercion de datos", e);
+            //resultado = 0;
+        } finally{
             Conexion.close(stmt);
             Conexion.close(conn);
         }

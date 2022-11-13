@@ -1,6 +1,7 @@
 package form;
 
 import datos.Conexion;
+import datos.MaterialesCRUD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -417,7 +418,8 @@ public class Agregar_Libro extends javax.swing.JFrame {
             try {
                 //Creación de variables que almacenan los datos introducidos
                 //String id = txtIdlibro.getText();
-                String id = crearID("LIB");
+                MaterialesCRUD crud = new MaterialesCRUD();
+                //String id = crud.crearID("LIB");
                 String titulo = txtTituloLibro.getText();
                 String autor = (String)jComboBox2.getSelectedItem();
                 String fecha = txtFecha.getText();
@@ -429,21 +431,21 @@ public class Agregar_Libro extends javax.swing.JFrame {
                 int u_disponible=0;
                 
                 //Variable que almacenará el incremento del id autor
-                int idAutor = 1;
-                try {
-                    idAutor = incremento_id();
+                //int idAutor = 1;
+                /*try {
+                    idAutor = crud.incremento_id();
                 } catch (SQLException ex) {
                     Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
                 
                 //Variable que almacenará el incremento del id editorial
                 int idEditorial = 1;
                 idEditorial = incrementarIdEditorial();
                 
                 //Condicional que evalua si se ha ingresado 8 caracteres dentro del apartado ID
-                if(id.length()== 8){
+                //if(id.length()== 8){
                     //Condicional que lanza mensaje de error si hay algún dato con tipo erróneo
-                    if(id == null || "".equals(id) || titulo == null || "".equals(titulo) || autor == null || "".equals(autor)
+                    if(titulo == null || "".equals(titulo) || autor == null || "".equals(autor)
                             || fecha == null || "".equals(fecha) || num_pag == null || "".equals(num_pag)
                             || editorial == null || "".equals(editorial) || isbn == null || "".equals(isbn)|| isbn.length()>13
                             || disponible == null
@@ -464,60 +466,38 @@ public class Agregar_Libro extends javax.swing.JFrame {
                             Date fecha_publicacion = formato.parse(fecha);
                             conversion = new java.sql.Date(fecha_publicacion.getTime());
                         }catch(Exception e){
-                            System.out.println("Error" + e);
+                            Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, "Hubo un error en la conversion de la FECHA DE PUBLICACION", e);
                         }
                         
                         //Llamar a los siguientes métodos, pasándole parámetros
-                        insertarAutor(idAutor, autor);
-                        insertarEditorial(idEditorial, editorial);
+//                        
+//                        insertarAutor(idAutor, autor);
+//
+//                        insertarEditorial(idEditorial, editorial);
+                        
                         //insertarTipo(tipo);
                         
-                        //Bloque de código para insertar información en tabla materiales
-                        String sql = "INSERT INTO materiales (id,titulo,codigo_tipo_material,codigo_autor,numero_de_paginas,codigo_editorial,isbn,fecha_publicacion,unidades_disponibles) "
-                                + "VALUES (?,?,4,?,?,?,?,?,?)";
-                        PreparedStatement stmt = null;
-                        //ResultSet rs = null;
-                        int rows = 0;
-                        
-                        try{
-                            con = Conexion.getConnection();
-                            stmt = con.prepareStatement(sql);
-                            int index = 1;
-                            stmt.setString(index++, id);
-                            stmt.setString(index++, titulo);
-                            stmt.setInt(index++, idAutor);
-                            stmt.setInt(index++, pag);
-                            stmt.setInt(index++, idEditorial);
-                            stmt.setString(index++, isbn);
-                            stmt.setDate(index++, conversion);
-                            stmt.setInt(index, u_disponible);
-                            
-                            rows = stmt.executeUpdate();
-                            System.out.println("Registros afectados " + rows);
-                        }catch(SQLException e){
-                            System.out.println("Error" + e);
-                        } finally{
-                            Conexion.close(stmt);
-                            Conexion.close(con);
-                        }
-                        //Llamada al método limpiar campos
-                        limpiarCampos();
-                        
-                        //Cerrar ventana
-                        //try {
+                        //Bloque de código para insertar información en tabla materiales                       
+                        if(crud.insertarLibros(titulo, pag, idEditorial, isbn, conversion, u_disponible, autor, editorial)>=1){
+                            //Llamada al método limpiar campos
+                            limpiarCampos();
+
+                            //Cerrar ventana
+                            //try {
                             JOptionPane.showMessageDialog(this, "Datos ingresados correctamente. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                             Dashboard dash = new Dashboard();
                             dash.setVisible(true);
                             this.dispose();
-                        /*} catch (SQLException ex) {
-                            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-                        }*/
+                            /*} catch (SQLException ex) {
+                                Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
+                            }*/
+                        }
                     }
-                } else if(id.length()<8) {
+                /*} else if(id.length()<8) {
                     JOptionPane.showMessageDialog(this, "Error en Campo ID. Pocos caracteres. Debe tener 8 caracteres \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 } else if(id.length()>8){
                     JOptionPane.showMessageDialog(this, "Error en Campo ID. Excede de 8 caracteres \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                }
+                }*/
                 
             } catch (SQLException ex) {
                 Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, ex);
@@ -560,28 +540,29 @@ public class Agregar_Libro extends javax.swing.JFrame {
         }
     }
     
-    public void consultarEditoriales(){
-        String sql = "SELECT nombre_editorial FROM EDITORIALES;";
+    public int consultarEditoriales(){
+        String sql = "SELECT id, nombre_editorial FROM EDITORIALES;";
         PreparedStatement stmt = null;
         ResultSet rs = null;
+        int id = 0;
         try {
             con = Conexion.getConnection();
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {                
-                String nombreAutor = rs.getString("nombre_editorial");
-                jComboBox3.addItem(nombreAutor);
-            }
-            
+                String nombreEditorial = rs.getString("nombre_editorial");
+                jComboBox3.addItem(nombreEditorial);
+            }   
         } catch (Exception e) {
             Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, e);
         } finally{
             Conexion.close(stmt);
             Conexion.close(con);
         }
+        return id;
     }
     
-    public String crearID(String tipoMaterial){
+    /*public String crearID(String tipoMaterial){
         //Estructura del ID: DVD00001
         String sql = "SELECT id FROM materiales";
         int[] arrayID = new int[8];
@@ -639,57 +620,10 @@ public class Agregar_Libro extends javax.swing.JFrame {
             Conexion.close(con);
         }
         return id;
-    }
+    }*/
     
-    public int insertarAutor (int idAutor, String autor){
         
-        String sql = "INSERT INTO autores (id,nombre_autor) values (?,?)";
-                    PreparedStatement stmt = null;
-                    int rows = 0;
-                    
-                    try{
-                        con = Conexion.getConnection();
-                        stmt = con.prepareStatement(sql);
-                        int index = 1;
-                        stmt.setInt(index++, idAutor);
-                        stmt.setString(index, autor);
-                        
-                        rows = stmt.executeUpdate();
-                        System.out.println("Registros afectados " + rows);
-                    }catch(SQLException e){
-                        Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, e);
-                    } finally{
-                        Conexion.close(stmt);
-                        Conexion.close(con);
-                    }
-                    return rows;
-    }
-    
-    public int insertarEditorial (int idEditorial,String editorial){
-        String sql = "INSERT INTO editoriales (id, nombre_editorial) values (?,?)";
-                    PreparedStatement stmt = null;
-                    //ResultSet rs = null;
-                    int rows = 0;
-                    
-                    try{
-                        con = Conexion.getConnection();
-                        stmt = con.prepareStatement(sql);
-                        int index = 1;
-                        stmt.setInt(index++, idEditorial);
-                        stmt.setString(index, editorial);
-                        
-                        rows = stmt.executeUpdate();
-                        System.out.println("Registros afectados " + rows);
-                    }catch(SQLException e){
-                        Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, e);
-                    } finally{
-                        Conexion.close(stmt);
-                        Conexion.close(con);
-                    }
-                    return rows;
-    }
-    
-    public int incremento_id () throws SQLException {
+    /*public int incremento_id () throws SQLException {
         int id = 1;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -708,7 +642,7 @@ public class Agregar_Libro extends javax.swing.JFrame {
             Conexion.close(rs);
         }
         return id;
-    }
+    }*/
     
     public int incrementarIdEditorial() throws SQLException{
         int id = 1;

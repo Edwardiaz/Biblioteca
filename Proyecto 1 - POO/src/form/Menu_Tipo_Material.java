@@ -345,11 +345,23 @@ public class Menu_Tipo_Material extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasMousePressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+         Agregar_Documento doc = new Agregar_Documento();
+         doc.setVisible(true);
+         this.dispose();
+     } catch (SQLException ex) {
+         Logger.getLogger(Menu_Tipo_Material.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        try {
+         Agregar_CV cv = new Agregar_CV();
+         cv.setVisible(true);
+         this.dispose();
+     } catch (SQLException ex) {
+         Logger.getLogger(Menu_Tipo_Material.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
