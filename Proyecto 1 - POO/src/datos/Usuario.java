@@ -1,5 +1,4 @@
-package clases;
-
+package datos;
 
 import datos.Conexion;
 import java.sql.Connection;

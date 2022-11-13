@@ -71,9 +71,9 @@ VALUES
 ('LIB00001', 'Harry Potter: La Piedra Filosofal', 4, 5, 254, 1, '8478884459', null, '1999/01/01', null, 4, null, null, null, 7);
 
 /*Insert para tipo usuario o rol*/
-INSERT INTO `rol`(rol) VALUES('Administrador');
-INSERT INTO `rol`(rol) VALUES('Profesor');
-INSERT INTO `rol`(rol) VALUES('Alumno');
+INSERT INTO `rol`(rol, numero_prestamos, dias_prestamo) VALUES('Administrador');
+INSERT INTO `rol`(rol, numero_prestamos, dias_prestamo) VALUES('Profesor');
+INSERT INTO `rol`(rol, numero_prestamos, dias_prestamo) VALUES('Alumno');
 
 /*Registro para usuario*/
 INSERT INTO `Usuarios`(nombre, apellido, nickname, email, pass, mora, fecha_nacimiento, codigo_rol) VALUES('Jorge Eduardo', 'Díaz Córdova', 'StarDestroyer', 'jorge@gmail.com', '123456', 0.00, '1995/09/04', 1);
@@ -85,13 +85,13 @@ INSERT INTO `Prestamos`(codigo_material, codigo_usuario, fecha_prestamo, fecha_d
 INSERT INTO `Prestamos`(codigo_material, codigo_usuario, fecha_prestamo, fecha_devolucion) VALUES('CDA00001', 2, '2022/08/27', '2022/09/12');
 INSERT INTO `Prestamos`(codigo_material, codigo_usuario, fecha_prestamo, fecha_devolucion) VALUES('LIB00001', 3, '2022/09/20', '2022/09/30');
 
-/*registro privilegios*/
-INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, tiempo_prestamo) VALUES(1,1,1,1,1,99,99);
-INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, tiempo_prestamo) VALUES(1,1,0,1,0,6,7);
-INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, tiempo_prestamo) VALUES(0,0,0,1,1,3,2);
+/*registro privilegios*//*
+INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, dias_prestamo) VALUES(1,1,1,1,1,99,99);
+INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, dias_prestamo) VALUES(0,0,0,1,1,6,7);
+INSERT INTO `Privilegios`(guardar, actualizar, borrar, consultar, prestar, numero_prestamos, dias_prestamo) VALUES(0,0,0,1,1,3,2);*/
 
-/*registro rol privilegio*/
+/*registro rol privilegio*/ /*
 INSERT INTO `Permisos_por_Rol`(codigo_rol, codigo_privilegio) VALUES(1,1);
 INSERT INTO `Permisos_por_Rol`(codigo_rol, codigo_privilegio) VALUES(2,2);
-INSERT INTO `Permisos_por_Rol`(codigo_rol, codigo_privilegio) VALUES(3,3);
+INSERT INTO `Permisos_por_Rol`(codigo_rol, codigo_privilegio) VALUES(3,3);*/
 

@@ -31,16 +31,6 @@ CREATE TABLE `Generos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*CREATE TABLE `Socios` (
-  `id` int NOT NULL auto_increment,
-  `nombre` varchar(75) NOT NULL,
-  `documento` varchar(25) NOT NULL,
-  `telefono` varchar(15) NOT NULL,
-  `correo_electronico` varchar(45) DEFAULT NULL,
-  `fecha_nacimiento` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;*/
-
 CREATE TABLE `Tipo_Material` (
   `id` int NOT NULL auto_increment,
   `tipo_material` varchar(45) NOT NULL,
@@ -65,28 +55,37 @@ CREATE TABLE `Materiales` (
   `codigo_director` int(11) DEFAULT NULL,
   `unidades_disponibles` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_Tipo_id` (`codigo_tipo_material`),
-  KEY `FK_Autor_id` (`codigo_autor`),
+  KEY `FK_Tipo` (`codigo_tipo_material`),
+  KEY `FK_Autor` (`codigo_autor`),
   KEY `FK_Editorial_id` (`codigo_editorial`),
-  KEY `FK_Artista_id` (`codigo_artista`),
+  KEY `FK_Artista` (`codigo_artista`),
   KEY `FK_Genero` (`codigo_genero`),
   KEY `FK_Director` (`codigo_director`),
-  CONSTRAINT `FK_Artista` FOREIGN KEY (`codigo_artista`) REFERENCES `Artistas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `FK_Tipo` FOREIGN KEY (`codigo_tipo_material`) REFERENCES `Tipo_Material` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_Autor` FOREIGN KEY (`codigo_autor`) REFERENCES `Autores` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `FK_Director` FOREIGN KEY (`codigo_director`) REFERENCES `Directores` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_Editorial` FOREIGN KEY (`codigo_editorial`) REFERENCES `Editoriales` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT `FK_Artista` FOREIGN KEY (`codigo_artista`) REFERENCES `Artistas` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_Genero` FOREIGN KEY (`codigo_genero`) REFERENCES `Generos` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `FK_Tipo` FOREIGN KEY (`codigo_tipo_material`) REFERENCES `Tipo_Material` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT `FK_Director` FOREIGN KEY (`codigo_director`) REFERENCES `Directores` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*CREATE TABLE `Tipo_Usuario`(
+/*
+CREATE TABLE `Privilegios`(
 	`id` INT NOT NULL AUTO_INCREMENT,
-    `tipo` VARCHAR(75) NOT NULL
+    `guardar` INT NOT NULL,
+    `actualizar` INT NOT NULL,
+    `borrar` INT NOT NULL,
+    `consultar` INT NOT NULL,
+    `prestar` INT NOT NULL,
+    `numero_prestamos` INT NOT NULL,
+    `dias_prestamo` INT NOT NULL, /*En dias
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;*/
 
 CREATE TABLE `Rol`(
 	`id` INT NOT NULL AUTO_INCREMENT,
     `rol` VARCHAR(75) NOT NULL,
+    `numero_prestamos` INT NOT NULL,
+    `dias_prestamo` INT NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -118,18 +117,7 @@ CREATE TABLE `Prestamos` (
   CONSTRAINT `FK_Usuario` FOREIGN KEY (`codigo_usuario`) REFERENCES `Usuarios` (`id`) ON DELETE NO ACTION ON UPDATE cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `Privilegios`(
-	`id` INT NOT NULL AUTO_INCREMENT,
-    `guardar` INT NOT NULL,
-    `actualizar` INT NOT NULL,
-    `borrar` INT NOT NULL,
-    `consultar` INT NOT NULL,
-    `prestar` INT NOT NULL,
-    `numero_prestamos` INT NOT NULL,
-    `tiempo_prestamo` INT NOT NULL, /*En dias*/
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+/*
 CREATE TABLE `Permisos_por_Rol` (
   `id` INT NOT NULL auto_increment,
   `codigo_rol` INT(10) NOT NULL,
@@ -139,11 +127,10 @@ CREATE TABLE `Permisos_por_Rol` (
   KEY `FK_Privilegio` (`codigo_privilegio`),
   CONSTRAINT `FK_Rol_privilegio` FOREIGN KEY (`codigo_rol`) REFERENCES `Rol` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_Privilegio` FOREIGN KEY (`codigo_privilegio`) REFERENCES `Privilegios` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;*/
 
 
 
 
 
 SELECT * FROM rol;
-SELECT * FROM privilegios;

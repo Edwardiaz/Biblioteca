@@ -5,8 +5,8 @@
  */
 package form;
 
-import clases.Globales;
-import clases.Usuario;
+import datos.Globales;
+import datos.Usuario;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.ArrayList;

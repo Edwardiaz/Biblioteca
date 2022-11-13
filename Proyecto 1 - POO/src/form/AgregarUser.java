@@ -5,8 +5,8 @@
  */
 package form;
 
-import clases.Globales;
-import clases.Usuario;
+import datos.Globales;
+import datos.Usuario;
 import datos.Conexion;
 import java.sql.Connection;
 import java.sql.Date;
