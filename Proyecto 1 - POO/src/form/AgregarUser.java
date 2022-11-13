@@ -5,7 +5,7 @@
  */
 package form;
 
-import clases.Globales;
+import datos.Globales;
 import clases.Usuario;
 import datos.Conexion;
 import java.sql.Connection;
@@ -282,7 +282,7 @@ public class AgregarUser extends javax.swing.JFrame {
         jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 180, 20));
 
         cmbRol.setForeground(new java.awt.Color(0, 0, 51));
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " -", "Administrador", "Profesor", "Estudiante" }));
+        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " -", "Administrador", "Profesor", "Alumno" }));
         cmbRol.setNextFocusableComponent(btnAgregar);
         cmbRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

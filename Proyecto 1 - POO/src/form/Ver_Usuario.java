@@ -5,7 +5,7 @@
  */
 package form;
 
-import clases.Globales;
+import datos.Globales;
 import clases.Usuario;
 import java.awt.Dimension;
 import java.sql.SQLException;
