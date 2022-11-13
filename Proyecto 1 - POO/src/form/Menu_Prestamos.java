@@ -5,6 +5,10 @@
  */
 package form;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
@@ -29,6 +33,8 @@ public class Menu_Prestamos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         lblPrestarMa = new javax.swing.JLabel();
         lblDevolverMat = new javax.swing.JLabel();
@@ -36,6 +42,22 @@ public class Menu_Prestamos extends javax.swing.JFrame {
         lblDev = new javax.swing.JLabel();
         lblRegresar = new javax.swing.JLabel();
         lblReturn = new javax.swing.JLabel();
+        lblVerPres2 = new javax.swing.JLabel();
+        lblVerP = new javax.swing.JLabel();
+        lblVerPrestamos = new javax.swing.JLabel();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,10 +66,20 @@ public class Menu_Prestamos extends javax.swing.JFrame {
         lblPrestarMa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Prestar.png"))); // NOI18N
         lblPrestarMa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPrestarMa.setName("lblPrestarMa"); // NOI18N
+        lblPrestarMa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPrestarMaMousePressed(evt);
+            }
+        });
 
         lblDevolverMat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Return.png"))); // NOI18N
         lblDevolverMat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblDevolverMat.setName("lblDevolverMat"); // NOI18N
+        lblDevolverMat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblDevolverMatMousePressed(evt);
+            }
+        });
 
         lblNewMat.setBackground(new java.awt.Color(0, 0, 51));
         lblNewMat.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -76,33 +108,68 @@ public class Menu_Prestamos extends javax.swing.JFrame {
         lblReturn.setText("Regresar");
         lblReturn.setName("lblReturn"); // NOI18N
 
+        lblVerPres2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerPres2.setName("lblPrestarMa"); // NOI18N
+        lblVerPres2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblVerPres2MousePressed(evt);
+            }
+        });
+
+        lblVerP.setBackground(new java.awt.Color(0, 0, 51));
+        lblVerP.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblVerP.setForeground(new java.awt.Color(255, 255, 255));
+        lblVerP.setText("Ver préstamos");
+        lblVerP.setName("lblNewMat"); // NOI18N
+        lblVerP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblVerPMousePressed(evt);
+            }
+        });
+
+        lblVerPrestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ver.png"))); // NOI18N
+        lblVerPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblVerPrestamosMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(lblVerPres2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblRegresar)
+                .addGap(91, 91, 91))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(85, 85, 85)
+                            .addComponent(lblPrestarMa))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(lblNewMat)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(85, 85, 85)
-                        .addComponent(lblPrestarMa))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(lblNewMat)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblVerPrestamos)
+                            .addComponent(lblVerP))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblDevolverMat)
-                        .addGap(26, 26, 26))
-                    .addComponent(lblDev, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(74, 74, 74))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(241, 241, 241)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRegresar)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblReturn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblDevolverMat)
+                                .addGap(26, 26, 26))
+                            .addComponent(lblDev, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblReturn)
+                        .addGap(99, 99, 99))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,11 +182,21 @@ public class Menu_Prestamos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNewMat)
                     .addComponent(lblDev))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(lblRegresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblReturn)
-                .addGap(65, 65, 65))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRegresar)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblVerPres2)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblVerPrestamos)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(lblReturn))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblVerP)))
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,12 +213,43 @@ public class Menu_Prestamos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblVerPrestamosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerPrestamosMousePressed
+        try {
+            // TODO add your handling code here:
+            Ver_Prestamo ver = new Ver_Prestamo();
+            ver.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Prestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblVerPrestamosMousePressed
+
+    private void lblVerPMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerPMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblVerPMousePressed
+
+    private void lblVerPres2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerPres2MousePressed
+
+    }//GEN-LAST:event_lblVerPres2MousePressed
+
     private void lblRegresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegresarMousePressed
         // TODO add your handling code here:
         Dashboard db = new Dashboard();
         db.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblRegresarMousePressed
+
+    private void lblDevolverMatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDevolverMatMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_lblDevolverMatMousePressed
+
+    private void lblPrestarMaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrestarMaMousePressed
+        // TODO add your handling code here:
+        Prestar_Material prestar = new Prestar_Material();
+        prestar.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblPrestarMaMousePressed
 
     /**
      * @param args the command line arguments
@@ -180,11 +288,16 @@ public class Menu_Prestamos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDev;
     private javax.swing.JLabel lblDevolverMat;
     private javax.swing.JLabel lblNewMat;
     private javax.swing.JLabel lblPrestarMa;
     private javax.swing.JLabel lblRegresar;
     private javax.swing.JLabel lblReturn;
+    private javax.swing.JLabel lblVerP;
+    private javax.swing.JLabel lblVerPres2;
+    private javax.swing.JLabel lblVerPrestamos;
     // End of variables declaration//GEN-END:variables
 }

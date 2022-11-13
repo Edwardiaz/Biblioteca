@@ -1,12 +1,18 @@
 package form;
 
+import clases.Usuario;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @grupo 02
  */
 public class Login extends javax.swing.JFrame {
 
-    
+    Usuario l = new Usuario();
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -31,8 +37,6 @@ public class Login extends javax.swing.JFrame {
         lblPass = new javax.swing.JLabel();
         lblUser = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
-        lblCuenta = new javax.swing.JLabel();
-        btnNuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -90,29 +94,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        lblCuenta.setBackground(new java.awt.Color(0, 0, 51));
-        lblCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        lblCuenta.setText("¿No tienes cuenta? ");
-        lblCuenta.setName("lblNuevo"); // NOI18N
-
-        btnNuevo.setBackground(new java.awt.Color(255, 0, 51));
-        btnNuevo.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevo.setText("   Registrarse  ");
-        btnNuevo.setBorder(null);
-        btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNuevo.setMargin(new java.awt.Insets(15, 14, 15, 14));
-
         javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
         pnlLogin.setLayout(pnlLoginLayout);
         pnlLoginLayout.setHorizontalGroup(
             pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlLoginLayout.createSequentialGroup()
                 .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlLoginLayout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(lblCuenta)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnNuevo))
                     .addGroup(pnlLoginLayout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +113,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(pnlLoginLayout.createSequentialGroup()
                         .addGap(147, 147, 147)
                         .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblLogin)
@@ -151,23 +138,21 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCuenta)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 380, 450));
+        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 380, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMousePressed
-        // TODO add your handling code here:
-        Dashboard db = new Dashboard();
-        db.setVisible(true);
-        this.dispose();
+        try {
+            // TODO add your handling code here:
+            validarAcceso();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnIngresarMousePressed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
@@ -179,9 +164,21 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtUsuarioMousePressed
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    public void validarAcceso() throws SQLException{
+        String user = txtUsuario.getText();
+        String pass = txtPass.getText();
+        
+        if (!user.equals("") && !pass.equals("")) {
+            l.login(user);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Rellene los campos. Intente nuevamente", "AVISO", JOptionPane.ERROR_MESSAGE); 
+        }
+        
+        
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -216,10 +213,8 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
-    private javax.swing.JButton btnNuevo;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JLabel lblCuenta;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblUser;

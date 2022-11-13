@@ -13,5 +13,5 @@ public class Globales {
     public static int IdUsuario;
     public static String nombreUsuario;
     public static String nickname;
-    public static int rolUsuario = 1;    
+    public static int rolUsuario;    
 }
