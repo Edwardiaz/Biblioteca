@@ -5,9 +5,13 @@
  */
 package form;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +26,14 @@ public class Menu_Usuarios extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Usuarios");
+        
+        //DESHABILITAR BOTON CERRAR
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Usar el boton SALIR del menu inicio!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+          }
+        });
     }
 
     /**
@@ -52,7 +64,7 @@ public class Menu_Usuarios extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 51));
 
         lblAgregarUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add-user.png"))); // NOI18N
-        lblAgregarUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAgregarUser.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAgregarUser.setName("lblAgregarUser"); // NOI18N
         lblAgregarUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -61,8 +73,13 @@ public class Menu_Usuarios extends javax.swing.JFrame {
         });
 
         lblPrivilegios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/privilegios.png"))); // NOI18N
-        lblPrivilegios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblPrivilegios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblPrivilegios.setName("lblPrivilegios"); // NOI18N
+        lblPrivilegios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblPrivilegiosMousePressed(evt);
+            }
+        });
 
         lblNuevo.setBackground(new java.awt.Color(0, 0, 51));
         lblNuevo.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -77,7 +94,7 @@ public class Menu_Usuarios extends javax.swing.JFrame {
         lblPrivi.setName("lblPrivi"); // NOI18N
 
         lblVerUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ver user.png"))); // NOI18N
-        lblVerUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblVerUsuario.setName("lblVerUsuario"); // NOI18N
         lblVerUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -92,7 +109,7 @@ public class Menu_Usuarios extends javax.swing.JFrame {
         lblVer.setName("lblNuevo"); // NOI18N
 
         lblRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Regresar.png"))); // NOI18N
-        lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblRegresar.setName("lblRegresar"); // NOI18N
         lblRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -108,7 +125,12 @@ public class Menu_Usuarios extends javax.swing.JFrame {
 
         lblRestablecer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Restablecer.png"))); // NOI18N
         lblRestablecer.setToolTipText("");
-        lblRestablecer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRestablecer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblRestablecer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblRestablecerMousePressed(evt);
+            }
+        });
 
         lblRes.setBackground(new java.awt.Color(0, 0, 51));
         lblRes.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -159,11 +181,11 @@ public class Menu_Usuarios extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblRestablecer)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1)
-                                .addGap(139, 139, 139))
+                                .addComponent(jLabel1))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lblRes2)
-                                .addComponent(lblRes))))))
+                                .addComponent(lblRes)))
+                        .addGap(139, 139, 139))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,8 +243,7 @@ public class Menu_Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         AgregarUser user = new AgregarUser();
         user.setVisible(true);
-        this.dispose();
-        
+        this.dispose();        
     }//GEN-LAST:event_lblAgregarUserMousePressed
 
     private void lblVerUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerUsuarioMousePressed
@@ -236,6 +257,25 @@ public class Menu_Usuarios extends javax.swing.JFrame {
         ver.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblVerUsuarioMousePressed
+
+    private void lblPrivilegiosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrivilegiosMousePressed
+        // TODO add your handling code here:
+        Ver_Roles ver = null;
+        try {
+            ver = new Ver_Roles();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ver.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblPrivilegiosMousePressed
+
+    private void lblRestablecerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRestablecerMousePressed
+        // TODO add your handling code here:
+        cambiarClave usr = new cambiarClave();
+        usr.setVisible(true);
+        this.dispose(); 
+    }//GEN-LAST:event_lblRestablecerMousePressed
 
     /**
      * @param args the command line arguments

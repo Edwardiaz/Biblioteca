@@ -1,14 +1,18 @@
 package datos;
 
-import datos.Globales;
-import datos.Conexion;
 import form.Dashboard;
+import form.Menu_Usuarios;
+import form.Ver_Usuario;
+import form.cambiarClave;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -41,8 +45,7 @@ public class Usuario {
     //Metodo agregar usuario
     public void agregarUsuario(String nombre, String apellido, String nickname, String email, String pass, Float mora, String fecha_nacimiento, int codigo_rol) throws SQLException {
         //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
+        Connection con = Conexion.getConnection();
 
         //Codigo SQL para insertar registro a tabla
         String sql = "INSERT INTO `usuarios`(nombre, apellido, nickname, email, pass, mora, fecha_nacimiento, codigo_rol) VALUES(?,?,?,?,?,?,STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s'),?)";
@@ -65,6 +68,18 @@ public class Usuario {
 
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados " + rows);
+                //Confirmar cambio efectivo
+                if(rows > 0){
+                    JOptionPane.showMessageDialog(null, "Nuevo usuario agregado exitosamente !", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "usuario no pudo ser agregado!", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);
+                }            
         } catch (SQLException e) {
             System.out.println("Error" + e);
         } finally {
@@ -76,10 +91,9 @@ public class Usuario {
     //Metodo select all users
     public ArrayList<ArrayList<String>> mostrarUsuarios() throws SQLException {
         //Crear Lista
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
         //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -91,7 +105,7 @@ public class Usuario {
         rs = ps.executeQuery();
 
         while (rs.next()) {
-            ArrayList<String> row = new ArrayList<String>();
+            ArrayList<String> row = new ArrayList<>();
             row.add(rs.getString("idUser"));
             row.add(rs.getString("nombre"));
             row.add(rs.getString("apellido"));
@@ -109,8 +123,7 @@ public class Usuario {
     //Definir variables globales al ingresar a sistema
     public void login(String nickname) throws SQLException {
         //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
@@ -149,7 +162,7 @@ public class Usuario {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             System.out.println(e);
         } finally {
             Conexion.close(con);
@@ -160,12 +173,11 @@ public class Usuario {
 
     public List<Usuario> verUsuario(String idUsuario) throws SQLException {
         //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        List<Usuario> usr = new ArrayList<Usuario>();
+        List<Usuario> usr = new ArrayList<>();
 
         try {
             String sql = "SELECT usuarios.id AS id,nombre, apellido, nickname, email, pass, mora, date_format(fecha_nacimiento, \"%d/%m/%Y\") AS fecha_nacimiento, codigo_rol, rol "
@@ -188,7 +200,7 @@ public class Usuario {
                 usr.add(usrData);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         } finally {
             Conexion.close(con);
@@ -211,8 +223,7 @@ public class Usuario {
 
     public void actualizarUsuario(String id, String nombre, String apellido, String nickname, String email, String pass, Float mora, String fecha_nacimiento, int codigo_rol) throws SQLException {
         //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement stmt = null;
         int rows = 0;
 
@@ -234,6 +245,18 @@ public class Usuario {
 
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados " + rows);
+                //Confirmar cambio efectivo
+                if(rows > 0){
+                    JOptionPane.showMessageDialog(null, "Datos de usuario actualizados!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Usuario no se pudo actualizar", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);
+                }            
         } catch (SQLException e) {
             System.out.println("Error" + e);
         } finally {
@@ -244,8 +267,7 @@ public class Usuario {
 
     public void eliminarUsuario(String id) throws SQLException {
         //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement stmt = null;
         int rows = 0;
 
@@ -258,6 +280,18 @@ public class Usuario {
 
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados " + rows);
+                //Confirmar cambio efectivo
+                if(rows > 0){
+                    JOptionPane.showMessageDialog(null, "usuario eliminado!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "El usuario no se pudo eliminar!", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);
+                }            
         } catch (SQLException e) {
             System.out.println("Error" + e);
         } finally {
@@ -265,4 +299,46 @@ public class Usuario {
             Conexion.close(con);
         }
     }
+
+
+    public void cambiarClave(String id, String nuevoPass, String nickname, String email, String pass) throws SQLException {
+        //Crear objeto de tipo conexion
+        Connection con = Conexion.getConnection();
+        PreparedStatement stmt = null;
+        int rows = 0;
+
+        try {
+            String sql = "UPDATE usuarios SET pass = ? WHERE id = ? AND nickname = ? AND email = ? AND pass = ?";
+            stmt = con.prepareStatement(sql);
+
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            int index = 1;
+            stmt.setString(index++, nuevoPass);
+            stmt.setString(index++, id);
+            stmt.setString(index++, nickname);
+            stmt.setString(index++, email);
+            stmt.setString(index, pass);
+
+            rows = stmt.executeUpdate();
+            System.out.println("Registros afectados " + rows);
+                //Confirmar cambio efectivo
+                if(rows > 0){
+                    JOptionPane.showMessageDialog(null, "Contraseña actualizada!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Datos no coicinden, intente de nuevo", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    Menu_Usuarios ver = null;
+                    ver = new Menu_Usuarios();
+                    ver.setVisible(true);
+                }
+        } catch (SQLException e) {
+            System.out.println("Error" + e);
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+    }   
 }

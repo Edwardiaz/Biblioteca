@@ -6,13 +6,12 @@
 package form;
 
 import datos.Globales;
-import datos.Usuario;
+import datos.Rol;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -20,25 +19,23 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
  * @author user
  */
-public class Ver_Usuario extends javax.swing.JFrame {
+public class Ver_Roles extends javax.swing.JFrame {
 
     /**
-     * Creates new form Ver Usuario
+     * Creates new form Ver Rol
      */
-    public Ver_Usuario() throws SQLException {
+    public Ver_Roles() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Usuarios en sistema");
+        this.setTitle("Roles en sistema");
         
         //DESHABILITAR BOTON CERRAR
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -48,33 +45,27 @@ public class Ver_Usuario extends javax.swing.JFrame {
           }
         });           
         
-        //Llamar metodo para agregar usuario a tabla
-        Usuario usuarios = new Usuario();        
+        //Llamar metodo para agregar rol a tabla
+        Rol roles = new Rol();        
         //Nombres de columnas
-        String[] columnNames = {"Id","Nombre","Apellido","Nickname", "Email", "Perfil", "F.Nacimiento", "Mora"};
+        String[] columnNames = {"Id","Rol","N.Prestamos","N.Dias"};
 
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         // The 0 argument is number rows.
 
-        //JTable tblUsuarios = new JTable(tableModel);
-        
-        ArrayList<ArrayList<String>> objs = usuarios.mostrarUsuarios();
+        ArrayList<ArrayList<String>> objs = roles.mostrarRoles();
 
        for (int i = 0; i < objs.size(); i++){
             String id = objs.get(i).get(0);
-            String nombre = objs.get(i).get(1);
-            String apellido = objs.get(i).get(2);
-            String nickname = objs.get(i).get(3);
-            String email = objs.get(i).get(4);
-            String rol = objs.get(i).get(5);
-            String fecha_nacimiento = objs.get(i).get(6);
-            String mora = "$ "+ objs.get(i).get(7);
+            String rol = objs.get(i).get(1);
+            String numero_prestamos = objs.get(i).get(2);
+            String dias_prestamo = objs.get(i).get(3);
             
-            Object[] data = {id,nombre,apellido,nickname,email,rol,fecha_nacimiento,mora};
+            Object[] data = {id,rol,numero_prestamos,dias_prestamo};
             tableModel.addRow(data);
        }
         //Llenar tabla
-        tblUsuarios.setModel(tableModel);
+        tblRoles.setModel(tableModel);
     }
 
     /**
@@ -88,17 +79,18 @@ public class Ver_Usuario extends javax.swing.JFrame {
 
         pnlVerUser = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblUsuarios = new javax.swing.JTable();
+        tblRoles = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnlVerUser.setBackground(new java.awt.Color(0, 0, 51));
         pnlVerUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        tblRoles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -109,7 +101,7 @@ public class Ver_Usuario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblUsuarios);
+        jScrollPane1.setViewportView(tblRoles);
 
         pnlVerUser.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 690, 370));
 
@@ -123,7 +115,36 @@ public class Ver_Usuario extends javax.swing.JFrame {
                 btnAtrasMousePressed(evt);
             }
         });
-        pnlVerUser.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 80, 40));
+        pnlVerUser.add(btnAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 210, 80, 40));
+
+        btnAgregar.setBackground(new java.awt.Color(0, 0, 204));
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setText("Agregar");
+        btnAgregar.setBorder(null);
+        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAgregarMousePressed(evt);
+            }
+        });
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        pnlVerUser.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 80, 40));
+
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 51));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setBorder(null);
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnEliminarMousePressed(evt);
+            }
+        });
+        pnlVerUser.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 80, 40));
 
         btnModificar.setBackground(new java.awt.Color(0, 0, 204));
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,19 +161,7 @@ public class Ver_Usuario extends javax.swing.JFrame {
                 btnModificarActionPerformed(evt);
             }
         });
-        pnlVerUser.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 80, 40));
-
-        btnEliminar.setBackground(new java.awt.Color(255, 0, 51));
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setBorder(null);
-        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnEliminarMousePressed(evt);
-            }
-        });
-        pnlVerUser.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 80, 40));
+        pnlVerUser.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 80, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,9 +177,9 @@ public class Ver_Usuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnModificarActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnAtrasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMousePressed
         // TODO add your handling code here:
@@ -179,34 +188,12 @@ public class Ver_Usuario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAtrasMousePressed
 
-    private void btnModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMousePressed
-        //Verificamos perfil usuario para saber si es administrador y puede actualizar datos
-        Globales rolUsuario = new Globales();
-        int idRol = rolUsuario.rolUsuario;
-        //Evaluamos si es Administrador
-        if(idRol == 1){
-            //verificamos si hay algun registro seleccionado, si no mostramos un error
-            if(this.tblUsuarios.getSelectionModel().isSelectionEmpty()){
-                JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder actualizar datos!");
-            }
-            else{
-                try {
-                    //Seleccionamos numero de registro seleccionado
-                    int linea = this.tblUsuarios.getSelectedRow();
-                    int modelRow = tblUsuarios.convertRowIndexToModel(linea);
-                    String s = tblUsuarios.getModel().getValueAt(modelRow, 0)+"";
-                    
-                    EditarUser usr = new EditarUser(s);
-                    usr.setVisible(true);
-                    this.dispose();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Ver_Usuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }        
-        }else{
-            JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar usuarios!");
-        }
-    }//GEN-LAST:event_btnModificarMousePressed
+    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
+        // TODO add your handling code here:
+        AgregarRol rol = new AgregarRol();
+        rol.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAgregarMousePressed
 
     private void btnEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMousePressed
         //Verificamos perfil usuario para saber si es administrador y puede actualizar datos
@@ -215,21 +202,21 @@ public class Ver_Usuario extends javax.swing.JFrame {
         //Evaluamos si es Administrador
         if(idRol == 1){
             //verificamos si hay algun registro seleccionado, si no mostramos un error
-            if(this.tblUsuarios.getSelectionModel().isSelectionEmpty()){
+            if(this.tblRoles.getSelectionModel().isSelectionEmpty()){
                 JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder eliminarlo!");
             }
             else{
                 try {
                     //Seleccionamos numero de registro seleccionado
-                    int linea = this.tblUsuarios.getSelectedRow();
-                    int modelRow = tblUsuarios.convertRowIndexToModel(linea);
-                    String s = tblUsuarios.getModel().getValueAt(modelRow, 0)+"";
+                    int linea = this.tblRoles.getSelectedRow();
+                    int modelRow = tblRoles.convertRowIndexToModel(linea);
+                    String s = tblRoles.getModel().getValueAt(modelRow, 0)+"";
                     
                     //Mosstrar dialogo de confirmacion
                     JPanel panel = new JPanel();
                     panel.setSize(new Dimension(250, 100));
                     panel.setLayout(null);
-                    JLabel label1 = new JLabel("Accion para borrar usuario de sistema");
+                    JLabel label1 = new JLabel("Accion para borrar rol de sistema");
                     label1.setVerticalAlignment(SwingConstants.BOTTOM);
                     label1.setBounds(20, 20, 200, 30);
                     label1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -244,14 +231,14 @@ public class Ver_Usuario extends javax.swing.JFrame {
                     int res = JOptionPane.showConfirmDialog(null, panel, "File",
                     JOptionPane.YES_NO_OPTION);
                     if(res == 0) {
-                        //Eliminar usuario
-                        Usuario usr = new Usuario();
-                        usr.eliminarUsuario(s);
+                        //Eliminar rol
+                        Rol rol = new Rol();
+                        rol.eliminarRol(s);
                     } else {
                         //Cerrar ventana y regresar a listado
-                        Ver_Usuario ver = null;
+                        Ver_Roles ver = null;
                         try {
-                            ver = new Ver_Usuario();
+                            ver = new Ver_Roles();
                         } catch (SQLException ex) {
                             Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -260,23 +247,46 @@ public class Ver_Usuario extends javax.swing.JFrame {
                     }                    
                     
                 } catch (SQLException ex) {
-                    Logger.getLogger(Ver_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Ver_Roles.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }        
         }else{
-            JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar usuarios!");
+            JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar roles!");
         }
-        
-        //Cerrar ventana y regresar a listado
-        Ver_Usuario ver = null;
-        try {
-            ver = new Ver_Usuario();
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ver.setVisible(true);
-        this.dispose();         
     }//GEN-LAST:event_btnEliminarMousePressed
+
+    private void btnModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMousePressed
+        //Verificamos perfil usuario para saber si es administrador y puede actualizar datos
+        Globales rolUsuario = new Globales();
+        int idRol = rolUsuario.rolUsuario;
+        //Evaluamos si es Administrador
+        if(idRol == 1){
+            //verificamos si hay algun registro seleccionado, si no mostramos un error
+            if(this.tblRoles.getSelectionModel().isSelectionEmpty()){
+                JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder actualizar datos!");
+            }
+            else{
+                try {
+                    //Seleccionamos numero de registro seleccionado
+                    int linea = this.tblRoles.getSelectedRow();
+                    int modelRow = tblRoles.convertRowIndexToModel(linea);
+                    String s = tblRoles.getModel().getValueAt(modelRow, 0)+"";
+                    
+                    EditarRol rol = new EditarRol(s);
+                    rol.setVisible(true);
+                    this.dispose();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Ver_Roles.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }        
+        }else{
+            JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar roles!");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarMousePressed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,24 +305,25 @@ public class Ver_Usuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ver_Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ver_Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ver_Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ver_Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ver_Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ver_Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ver_Usuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Ver_Roles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        new Ver_Usuario();
+        new Ver_Roles();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlVerUser;
-    private javax.swing.JTable tblUsuarios;
+    private javax.swing.JTable tblRoles;
     // End of variables declaration//GEN-END:variables
 }

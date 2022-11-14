@@ -1,6 +1,8 @@
 package form;
 
 import datos.Conexion;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +26,14 @@ public class Agregar_Revista extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Agregar Libro.");
+        
+        //DESHABILITAR BOTON CERRAR
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Usar el boton SALIR del menu inicio!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+          }
+        });           
     }
 
     /**

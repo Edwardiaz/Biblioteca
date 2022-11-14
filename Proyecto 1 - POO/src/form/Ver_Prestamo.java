@@ -1,12 +1,16 @@
 package form;
 
 import datos.Conexion;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,6 +25,14 @@ public class Ver_Prestamo extends javax.swing.JFrame {
     public Ver_Prestamo() throws SQLException{
         initComponents();
         verPrestamos();
+        
+        //DESHABILITAR BOTON CERRAR
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Usar el boton SALIR del menu inicio!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+          }
+        });           
     }
 
     /**

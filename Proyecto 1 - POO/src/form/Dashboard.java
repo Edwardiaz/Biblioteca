@@ -1,5 +1,11 @@
 package form;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import static java.lang.System.exit;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @grupo 02
@@ -13,6 +19,14 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Bienvenido/a");
+        
+        //DESHABILITAR BOTON CERRAR
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+            JOptionPane.showMessageDialog(null, "Usar el boton SALIR del menu inicio!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+          }
+        });        
     }
 
     /**
@@ -37,6 +51,7 @@ public class Dashboard extends javax.swing.JFrame {
         lblEjemplares1 = new javax.swing.JLabel();
         lblVerInfo = new javax.swing.JLabel();
         lblAcerca = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         jInternalFrame1.setVisible(true);
 
@@ -83,7 +98,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         lblVerUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menu_usuario.png"))); // NOI18N
-        lblVerUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblVerUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblVerUsuariosMousePressed(evt);
@@ -96,7 +111,7 @@ public class Dashboard extends javax.swing.JFrame {
         lblUsuarios.setText("Usuarios");
 
         lblVerMateriales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menu_ejemplares.png"))); // NOI18N
-        lblVerMateriales.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerMateriales.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblVerMateriales.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblVerMaterialesMousePressed(evt);
@@ -109,7 +124,7 @@ public class Dashboard extends javax.swing.JFrame {
         lblPrestar.setText("Préstamos");
 
         lblVerPrestamos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menu_prestar.png"))); // NOI18N
-        lblVerPrestamos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerPrestamos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblVerPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblVerPrestamosMousePressed(evt);
@@ -122,7 +137,7 @@ public class Dashboard extends javax.swing.JFrame {
         lblEjemplares1.setText("Materiales");
 
         lblVerInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/menu_info.png"))); // NOI18N
-        lblVerInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblVerInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 lblVerInfoMousePressed(evt);
@@ -133,6 +148,14 @@ public class Dashboard extends javax.swing.JFrame {
         lblAcerca.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         lblAcerca.setForeground(new java.awt.Color(255, 255, 255));
         lblAcerca.setText("Acerca de");
+
+        btnSalir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnSalir.setText("SALIR");
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSalirMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -161,6 +184,10 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(lblAcerca)))
                 .addGap(162, 162, 162))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(49, 49, 49))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +214,9 @@ public class Dashboard extends javax.swing.JFrame {
                                 .addComponent(lblVerInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblAcerca)))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,6 +261,12 @@ public class Dashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblVerPrestamosMousePressed
 
+    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Cerrando Sistema!", "ERROR",JOptionPane.ERROR_MESSAGE);
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -268,6 +303,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSalir;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

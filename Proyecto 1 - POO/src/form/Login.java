@@ -1,6 +1,6 @@
 package form;
 
-import clases.Usuario;
+import datos.Usuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
