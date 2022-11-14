@@ -5,6 +5,7 @@
  */
 package form;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -70,27 +71,52 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
         jLabel1.setText("ELEGIR TIPO DE MATERIAL A CONSULTAR");
         pnlVerUser.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 520, -1));
 
-        btncd.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\CDDAlogo.png")); // NOI18N
-        btncd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btncdMousePressed(evt);
+        btncd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/CDDAlogo.png"))); // NOI18N
+        btncd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncdActionPerformed(evt);
             }
         });
         pnlVerUser.add(btncd, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 130, 90));
 
         btndvd.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\DVD_logo.png")); // NOI18N
+        btndvd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndvdActionPerformed(evt);
+            }
+        });
         pnlVerUser.add(btndvd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 160, 90));
 
         btnrevistas.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\png-transparent-magazine-computer-icons-book-skeptic-icon-magazine-logo-symbol-skeptic.png")); // NOI18N
+        btnrevistas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrevistasActionPerformed(evt);
+            }
+        });
         pnlVerUser.add(btnrevistas, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 120, 90));
 
         btnlibros.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\libro.png")); // NOI18N
+        btnlibros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnlibrosActionPerformed(evt);
+            }
+        });
         pnlVerUser.add(btnlibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 130, 90));
 
         btndocumentos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\documentos.png")); // NOI18N
+        btndocumentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndocumentosActionPerformed(evt);
+            }
+        });
         pnlVerUser.add(btndocumentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, 90));
 
         btntesis.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\tesis.png")); // NOI18N
+        btntesis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntesisActionPerformed(evt);
+            }
+        });
         pnlVerUser.add(btntesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, 120, 90));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -176,17 +202,77 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rSButtonGradiente10ActionPerformed
 
-    private void btncdMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btncdMousePressed
+    private void btncdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncdActionPerformed
         // TODO add your handling code here:
-        VistaCD cd;
-        try{
+        VistaCD cd = null;
+        try {
             cd = new VistaCD();
-            this.dispose();
-        }catch (Exception e){
-                            Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, "Error en clic", e);
-                        }
-        
-    }//GEN-LAST:event_btncdMousePressed
+        } catch (SQLException ex) {
+            Logger.getLogger(ElegirVistaMateriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cd.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btncdActionPerformed
+
+    private void btndvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndvdActionPerformed
+        // TODO add your handling code here:
+        VistaDVD dvd = null;
+        try {
+            dvd = new VistaDVD();
+        } catch (SQLException ex) {
+            Logger.getLogger(ElegirVistaMateriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dvd.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btndvdActionPerformed
+
+    private void btnrevistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrevistasActionPerformed
+        // TODO add your handling code here:
+        VistaRevistas rev = null;
+        try {
+            rev = new VistaRevistas();
+        } catch (SQLException ex) {
+            Logger.getLogger(ElegirVistaMateriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        rev.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnrevistasActionPerformed
+
+    private void btnlibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlibrosActionPerformed
+        // TODO add your handling code here:
+        VistaLibros lib = null;
+        try {
+            lib = new VistaLibros();
+        } catch (SQLException ex) {
+            Logger.getLogger(ElegirVistaMateriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        lib.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnlibrosActionPerformed
+
+    private void btndocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndocumentosActionPerformed
+        // TODO add your handling code here:
+        VistaDocumentos doc = null;
+        try {
+            doc = new VistaDocumentos();
+        } catch (SQLException ex) {
+            Logger.getLogger(ElegirVistaMateriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        doc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btndocumentosActionPerformed
+
+    private void btntesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntesisActionPerformed
+        // TODO add your handling code here:
+        VistaTesis tes = null;
+        try {
+            tes = new VistaTesis();
+        } catch (SQLException ex) {
+            Logger.getLogger(ElegirVistaMateriales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btntesisActionPerformed
 
     /**
      * @param args the command line arguments

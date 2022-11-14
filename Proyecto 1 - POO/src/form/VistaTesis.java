@@ -14,13 +14,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @erick alas
  */
-public class VistaCD extends javax.swing.JFrame {
+public class VistaTesis extends javax.swing.JFrame {
 
-    public VistaCD() throws SQLException {
+    public VistaTesis() throws SQLException {
         initComponents();
-        this.setTitle("CD's en sistema");
+        this.setTitle("Tesis en sistema");
         this.setLocationRelativeTo(null);
-        EditarCD();
+        EditarDVD();
     }
     
     @SuppressWarnings("unchecked")
@@ -72,8 +72,8 @@ public class VistaCD extends javax.swing.JFrame {
         lblCD.setBackground(new java.awt.Color(255, 255, 255));
         lblCD.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
         lblCD.setForeground(new java.awt.Color(255, 255, 255));
-        lblCD.setText("CD- Biblioteca");
-        jPanel1.add(lblCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 190, -1));
+        lblCD.setText("Tesis- Biblioteca");
+        jPanel1.add(lblCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 220, -1));
 
         btnAtras1.setBackground(new java.awt.Color(255, 255, 255));
         btnAtras1.setFont(new java.awt.Font("Century", 0, 14)); // NOI18N
@@ -147,7 +147,7 @@ public class VistaCD extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAtras1ActionPerformed
 
-    public ArrayList<ArrayList<String>> EditarCD() throws SQLException{
+    public ArrayList<ArrayList<String>> EditarDVD() throws SQLException{
         //Crear Lista
         ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
         //Crear objeto de tipo conexion
@@ -193,14 +193,76 @@ public class VistaCD extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaTesis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaTesis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaTesis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaCD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaTesis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -208,9 +270,9 @@ public class VistaCD extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new VistaCD().setVisible(true);
+                    new VistaTesis().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(VistaCD.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(VistaTesis.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
