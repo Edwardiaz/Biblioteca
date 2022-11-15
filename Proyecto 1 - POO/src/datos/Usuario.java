@@ -1,6 +1,7 @@
 package datos;
 
 import form.Dashboard;
+import form.Login;
 import form.Menu_Usuarios;
 import form.Ver_Usuario;
 import form.cambiarClave;
@@ -55,7 +56,6 @@ public class Usuario {
         int rows = 0;
 
         try {
-            con = Conexion.getConnection();
             stmt = con.prepareStatement(sql);
             int index = 1;
             stmt.setString(index++, nombre);
@@ -132,47 +132,53 @@ public class Usuario {
         try {
             //Codigo SQL para insertar registro a tabla
             //String sql = "SELECT * FROM `Usuarios` WHERE nickname ='"+nickname+"'";
-            String sql = "SELECT nombre, pass, apellido, nickname, codigo_rol FROM usuarios WHERE nickname='" + nickname + "' AND pass='" + pass + "'";
+            String sql = "SELECT id, nombre, apellido, nickname, codigo_rol FROM usuarios WHERE nickname='"+nickname+"' AND pass='"+pass+"'";
             //Preparar statement
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                //Globales.IdUsuario = rs.getInt("id");
+                Globales.IdUsuario = rs.getInt("id");
                 String u = Globales.nombreUsuario = rs.getString("nombre") + " " + rs.getString("apellido");
                 Globales.nickname = rs.getString("nickname");
                 int rolU = Globales.rolUsuario = rs.getInt("codigo_rol");
 
+                //Instanciar objeto dashboard
+                Dashboard db = new Dashboard();
+                                        
                 switch (rolU) {
                     case 1:
-                        
                         JOptionPane.showMessageDialog(null, "Bienvenido Administrador: " + u);
-                        
-                        
-                        db.setVisible(true);
+                        //Abrir dashboard Administrador
+                        //Abrir dashboard general
+                        //Dashboard db = new Dashboard();
+                        db.setVisible(true);                          
                         break;
                     case 2:
                         JOptionPane.showMessageDialog(null, "Bienvenido Profesor: " + u);
-                        db.setVisible(true);
+                        //Abrir dashboard Profesor
+                        //Abrir dashboard general
+                        //Dashboard db = new Dashboard();
+                        db.setVisible(true);                        
                         break;
                     case 3:
                         JOptionPane.showMessageDialog(null, "Bienvenido Alumno: " + u);
-
+                        //Abrir dashboard Alumno
+                        //Abrir dashboard general
+                        //Dashboard db = new Dashboard();
+                        db.setVisible(true);                        
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Usuario no encontrado. ");
                         break;
                 }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario/Contraseña no coinciden", "ERROR", JOptionPane.ERROR_MESSAGE);
-                /*Login.txtUsuario.setText("");
-                Login.txtPass.setText("");*/
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuario/Contraseña, no coinciden!", "ERROR",JOptionPane.ERROR_MESSAGE);
                 new Login().setVisible(true);
+                
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error en datos proporcionados.");
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
         } finally {
             Conexion.close(con);
             Conexion.close(ps);
@@ -240,7 +246,6 @@ public class Usuario {
             String sql = "UPDATE usuarios SET nombre = ?, apellido = ?, nickname = ?, email = ?,pass = ?, mora = ?, fecha_nacimiento = STR_TO_DATE(?, '%d/%m/%Y %H:%i:%s'), codigo_rol = ? WHERE usuarios.id ='" + id + "'";
             stmt = con.prepareStatement(sql);
 
-            con = Conexion.getConnection();
             stmt = con.prepareStatement(sql);
             int index = 1;
             stmt.setString(index++, nombre);
@@ -257,13 +262,13 @@ public class Usuario {
                 //Confirmar cambio efectivo
                 if(rows > 0){
                     JOptionPane.showMessageDialog(null, "Datos de usuario actualizados!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
-                    Menu_Usuarios ver = null;
-                    ver = new Menu_Usuarios();
+                    Ver_Usuario ver = null;
+                    ver = new Ver_Usuario();
                     ver.setVisible(true);                    
                 }else{
                     JOptionPane.showMessageDialog(null, "Usuario no se pudo actualizar", "ERROR",JOptionPane.ERROR_MESSAGE);
-                    Menu_Usuarios ver = null;
-                    ver = new Menu_Usuarios();
+                    Ver_Usuario ver = null;
+                    ver = new Ver_Usuario();
                     ver.setVisible(true);
                 }            
         } catch (SQLException e) {
@@ -284,7 +289,6 @@ public class Usuario {
             String sql = "DELETE FROM usuarios WHERE usuarios.id ='" + id + "'";
             stmt = con.prepareStatement(sql);
 
-            con = Conexion.getConnection();
             stmt = con.prepareStatement(sql);
 
             rows = stmt.executeUpdate();
@@ -292,13 +296,13 @@ public class Usuario {
                 //Confirmar cambio efectivo
                 if(rows > 0){
                     JOptionPane.showMessageDialog(null, "usuario eliminado!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
-                    Menu_Usuarios ver = null;
-                    ver = new Menu_Usuarios();
+                    Ver_Usuario ver = null;
+                    ver = new Ver_Usuario();
                     ver.setVisible(true);                    
                 }else{
                     JOptionPane.showMessageDialog(null, "El usuario no se pudo eliminar!", "ERROR",JOptionPane.ERROR_MESSAGE);
-                    Menu_Usuarios ver = null;
-                    ver = new Menu_Usuarios();
+                    Ver_Usuario ver = null;
+                    ver = new Ver_Usuario();
                     ver.setVisible(true);
                 }            
         } catch (SQLException e) {
@@ -320,7 +324,6 @@ public class Usuario {
             String sql = "UPDATE usuarios SET pass = ? WHERE id = ? AND nickname = ? AND email = ? AND pass = ?";
             stmt = con.prepareStatement(sql);
 
-            con = Conexion.getConnection();
             stmt = con.prepareStatement(sql);
             int index = 1;
             stmt.setString(index++, nuevoPass);

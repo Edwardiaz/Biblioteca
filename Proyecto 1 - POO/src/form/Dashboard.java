@@ -1,8 +1,8 @@
 package form;
 
+import datos.Globales;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import static java.lang.System.exit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -234,10 +234,17 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblVerUsuariosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerUsuariosMousePressed
-        // TODO add your handling code here:
-        Menu_Usuarios user = new Menu_Usuarios();
-        user.setVisible(true);
-        this.dispose();
+        //Verificamos perfil usuario para saber si es administrador y puede actualizar datos
+        Globales rolUsuario = new Globales();
+        int idRol = rolUsuario.rolUsuario;
+        //Evaluamos si es Administrador
+        if(idRol == 1){
+            Menu_Usuarios user = new Menu_Usuarios();
+            user.setVisible(true);
+            this.dispose();        
+        }else{
+            JOptionPane.showMessageDialog(null,"Usted no posee permiso para visualizar usuarios!");
+        }  
     }//GEN-LAST:event_lblVerUsuariosMousePressed
 
     private void lblVerMaterialesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMaterialesMousePressed
