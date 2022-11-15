@@ -5,6 +5,7 @@ import form.Menu_Usuarios;
 import form.Ver_Usuario;
 import form.cambiarClave;
 import java.awt.HeadlessException;
+import form.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -121,16 +122,17 @@ public class Usuario {
     }
 
     //Definir variables globales al ingresar a sistema
-    public void login(String nickname) throws SQLException {
+    public void login(String nickname, String pass) throws SQLException {
         //Crear objeto de tipo conexion
         Connection con = Conexion.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-
+        Dashboard db = new Dashboard();
+        
         try {
             //Codigo SQL para insertar registro a tabla
             //String sql = "SELECT * FROM `Usuarios` WHERE nickname ='"+nickname+"'";
-            String sql = "SELECT nombre, apellido, nickname, codigo_rol FROM usuarios WHERE nickname='"+nickname+"'";
+            String sql = "SELECT nombre, pass, apellido, nickname, codigo_rol FROM usuarios WHERE nickname='" + nickname + "' AND pass='" + pass + "'";
             //Preparar statement
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -143,14 +145,15 @@ public class Usuario {
 
                 switch (rolU) {
                     case 1:
-                        JOptionPane.showMessageDialog(null, "Bienvenido Administrador: " + u);
-                        Dashboard db = new Dashboard();
-                        db.setVisible(true);
                         
+                        JOptionPane.showMessageDialog(null, "Bienvenido Administrador: " + u);
+                        
+                        
+                        db.setVisible(true);
                         break;
                     case 2:
                         JOptionPane.showMessageDialog(null, "Bienvenido Profesor: " + u);
-
+                        db.setVisible(true);
                         break;
                     case 3:
                         JOptionPane.showMessageDialog(null, "Bienvenido Alumno: " + u);
@@ -160,10 +163,16 @@ public class Usuario {
                         JOptionPane.showMessageDialog(null, "Usuario no encontrado. ");
                         break;
                 }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario/Contraseña no coinciden", "ERROR", JOptionPane.ERROR_MESSAGE);
+                /*Login.txtUsuario.setText("");
+                Login.txtPass.setText("");*/
+                new Login().setVisible(true);
             }
 
-        } catch (HeadlessException | SQLException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en datos proporcionados.");
         } finally {
             Conexion.close(con);
             Conexion.close(ps);

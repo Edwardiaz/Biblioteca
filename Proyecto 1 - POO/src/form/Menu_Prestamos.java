@@ -252,15 +252,25 @@ public class Menu_Prestamos extends javax.swing.JFrame {
     }//GEN-LAST:event_lblRegresarMousePressed
 
     private void lblDevolverMatMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDevolverMatMousePressed
-        // TODO add your handling code here:
-
+        try {
+            // TODO add your handling code here:
+            Devolver_Material dev = new Devolver_Material();
+            dev.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Prestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lblDevolverMatMousePressed
 
     private void lblPrestarMaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrestarMaMousePressed
-        // TODO add your handling code here:
-        Prestar_Material prestar = new Prestar_Material();
-        prestar.setVisible(true);
-        this.dispose();
+        try {
+            // TODO add your handling code here:
+            Prestar_Material prestar = new Prestar_Material();
+            prestar.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Prestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_lblPrestarMaMousePressed
 
     /**
