@@ -1,6 +1,6 @@
 package form;
 
-import clases.Usuario;
+import datos.Usuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -151,7 +151,7 @@ public class Login extends javax.swing.JFrame {
             // TODO add your handling code here:
             validarAcceso();
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error en datos. Intente nuevamente. ");
         }
     }//GEN-LAST:event_btnIngresarMousePressed
 
@@ -170,11 +170,13 @@ public class Login extends javax.swing.JFrame {
         String pass = txtPass.getText();
         
         if (!user.equals("") && !pass.equals("")) {
-            l.login(user);
+            l.login(user, pass);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Rellene los campos. Intente nuevamente", "AVISO", JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showMessageDialog(null, "Rellene los campos solicitados.", "AVISO", JOptionPane.ERROR_MESSAGE); 
         }
+        
+        
         
         
     }
@@ -219,7 +221,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblPass;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPanel pnlLogin;
-    private javax.swing.JPasswordField txtPass;
-    private javax.swing.JTextField txtUsuario;
+    public static javax.swing.JPasswordField txtPass;
+    public static javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

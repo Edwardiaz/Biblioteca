@@ -1,6 +1,13 @@
 package form;
 
+import datos.Globales;
+import datos.Prestamo;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -8,11 +15,43 @@ import javax.swing.JOptionPane;
  */
 public class Prestar_Material extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Prestar_Material
-     */
-    public Prestar_Material() {
+    Prestamo prestamos = new Prestamo();
+
+    public Prestar_Material() throws SQLException {
         initComponents();
+
+        //Llamar metodo para agregar usuario a tabla
+        Prestamo prestamos = new Prestamo();
+        //Nombres de columnas
+        String[] columnNames = {"ID", "Título", "Material", "Autor", "Número de Páginas", "Editorial", "ISBN", "Periodicidad", "Fecha de Pub.", "Artista", "Género", "Duración", "Número de canciones", "Director", "Disponibles"};
+
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        // The 0 argument is number rows.
+
+        //JTable tblUsuarios = new JTable(tableModel);
+        ArrayList<ArrayList<String>> objs = prestamos.mostrarMaterial();
+
+        for (int i = 0; i < objs.size(); i++) {
+            String id = objs.get(i).get(0);
+            String titulo = objs.get(i).get(1);
+            String material = objs.get(i).get(2);
+            String autor = objs.get(i).get(3);
+            String paginas = objs.get(i).get(4);
+            String editorial = objs.get(i).get(5);
+            String isbn = objs.get(i).get(6);
+            String period = objs.get(i).get(7);
+            String artista = objs.get(i).get(8);
+            String genre = objs.get(i).get(9);
+            String duracion = objs.get(i).get(10);
+            String canciones = objs.get(i).get(11);
+            String director = objs.get(i).get(12);
+            String unidades = objs.get(i).get(13);
+
+            Object[] data = {id, titulo, material, autor, paginas, editorial, isbn, period, artista, genre, duracion, canciones, director, unidades};
+            tableModel.addRow(data);
+        }
+        //Llenar tabla
+        tblMateriales.setModel(tableModel);
     }
 
     /**
@@ -26,7 +65,7 @@ public class Prestar_Material extends javax.swing.JFrame {
 
         pnlVerUser = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVerMat = new javax.swing.JTable();
+        tblMateriales = new javax.swing.JTable();
         btnPrestar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtUsuario = new javax.swing.JTextField();
@@ -38,7 +77,7 @@ public class Prestar_Material extends javax.swing.JFrame {
         pnlVerUser.setBackground(new java.awt.Color(0, 0, 51));
         pnlVerUser.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblVerMat.setModel(new javax.swing.table.DefaultTableModel(
+        tblMateriales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -49,8 +88,8 @@ public class Prestar_Material extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblVerMat.setSelectionBackground(new java.awt.Color(0, 0, 51));
-        jScrollPane1.setViewportView(tblVerMat);
+        tblMateriales.setSelectionBackground(new java.awt.Color(0, 0, 51));
+        jScrollPane1.setViewportView(tblMateriales);
 
         pnlVerUser.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 650, 260));
 
@@ -110,9 +149,7 @@ public class Prestar_Material extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlVerUser, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pnlVerUser, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,8 +162,48 @@ public class Prestar_Material extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestarActionPerformed
+        try {
+            //Variable para almacenar el valor de la fla seleccionada
+            int fila = tblMateriales.getSelectedRow();
 
-            
+            String idMater = tblMateriales.getValueAt(fila, 0).toString();
+            String usuario = txtUsuario.getText();
+            int rolId = Globales.rolUsuario;
+
+            //Condicionales
+            if (!prestamos.existeMaterial(idMater)) {
+                JOptionPane.showMessageDialog(this, "No existe ningún material con ese ID. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            } else if (usuario.equals("") || usuario == null) {
+                JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO", JOptionPane.ERROR_MESSAGE);
+            }
+
+            //Bloque de código para verificar si el socio existe en el sistema
+            boolean aceptado = prestamos.existeUsuario(usuario);
+            if (!aceptado) {
+                JOptionPane.showMessageDialog(this, "No existe ningún usuario con ese documento. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                txtUsuario.setText("");
+                txtUsuario.requestFocus();
+            } else if (prestamos.verificarMora(usuario)) {
+                JOptionPane.showMessageDialog(this, "El usuario " + usuario + " no puede realizar prestamo. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                txtUsuario.setText("");
+            } else if (prestamos.verificarPrestamo(usuario, idMater)) {
+                JOptionPane.showMessageDialog(this, "El usuario " + usuario + " ya cuenta con el material seleccionado. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                txtUsuario.setText("");
+            } else if (!prestamos.materialDisp(idMater)) {
+                JOptionPane.showMessageDialog(this, "No contamos con unidades de ese material. Intenta con otro \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                txtUsuario.setText("");
+                txtUsuario.requestFocus();
+            }else {
+                // Insertar el prestamo a la DB.
+                prestamos.insertarPrestamo(usuario, idMater);
+                JOptionPane.showMessageDialog(this, "¡Prestamo realizado exitosamente! \n", "HECHO", JOptionPane.INFORMATION_MESSAGE);
+                txtUsuario.setText("");
+                //mostrarMaterial();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Seleccione una fila de la tabla. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnPrestarActionPerformed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
@@ -174,7 +251,11 @@ public class Prestar_Material extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Prestar_Material().setVisible(true);
+                try {
+                    new Prestar_Material().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Prestar_Material.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -186,7 +267,7 @@ public class Prestar_Material extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lblNickname;
     private javax.swing.JPanel pnlVerUser;
-    private javax.swing.JTable tblVerMat;
+    private javax.swing.JTable tblMateriales;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
