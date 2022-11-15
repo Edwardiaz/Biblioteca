@@ -75,6 +75,11 @@ public class Menu_Materiales extends javax.swing.JFrame {
         lblVerMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ver user.png"))); // NOI18N
         lblVerMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblVerMaterial.setName("lblVerMaterial"); // NOI18N
+        lblVerMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblVerMaterialMousePressed(evt);
+            }
+        });
 
         lblMostrarMat.setBackground(new java.awt.Color(0, 0, 51));
         lblMostrarMat.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -179,6 +184,13 @@ public class Menu_Materiales extends javax.swing.JFrame {
             Logger.getLogger(Menu_Materiales.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_lblAgregarMaterialMousePressed
+
+    private void lblVerMaterialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerMaterialMousePressed
+        // TODO add your handling code here:
+        ElegirVistaMateriales evm = new ElegirVistaMateriales();
+        evm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblVerMaterialMousePressed
 
     /**
      * @param args the command line arguments
