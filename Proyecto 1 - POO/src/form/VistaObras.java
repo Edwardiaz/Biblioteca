@@ -14,13 +14,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @erick alas
  */
-public class VistaDocumentos extends javax.swing.JFrame {
+public class VistaObras extends javax.swing.JFrame {
 
-    public VistaDocumentos() throws SQLException {
+    public VistaObras() throws SQLException {
         initComponents();
-        this.setTitle("Documentos en sistema");
+        this.setTitle("Obras en sistema");
         this.setLocationRelativeTo(null);
-        EditarDVD();
+        EditarOBRA();
     }
     
     @SuppressWarnings("unchecked")
@@ -29,7 +29,7 @@ public class VistaDocumentos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCD = new javax.swing.JTable();
+        tblOBR = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         lblCD = new javax.swing.JLabel();
         btnAtras1 = new javax.swing.JButton();
@@ -39,8 +39,8 @@ public class VistaDocumentos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblCD.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        tblCD.setModel(new javax.swing.table.DefaultTableModel(
+        tblOBR.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
+        tblOBR.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -48,7 +48,7 @@ public class VistaDocumentos extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tblCD);
+        jScrollPane1.setViewportView(tblOBR);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 900, -1));
 
@@ -72,7 +72,7 @@ public class VistaDocumentos extends javax.swing.JFrame {
         lblCD.setBackground(new java.awt.Color(255, 255, 255));
         lblCD.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
         lblCD.setForeground(new java.awt.Color(255, 255, 255));
-        lblCD.setText("Documentos- Biblioteca");
+        lblCD.setText("Obras- Biblioteca");
         jPanel1.add(lblCD, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 250, -1));
 
         btnAtras1.setBackground(new java.awt.Color(255, 255, 255));
@@ -113,14 +113,14 @@ public class VistaDocumentos extends javax.swing.JFrame {
     private void btnUpdateMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMousePressed
         try{
             //verificamos si hay algun registro seleccionado, si no mostramos un error
-            if(this.tblCD.getSelectionModel().isSelectionEmpty()){
+            if(this.tblOBR.getSelectionModel().isSelectionEmpty()){
                 JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder actualizar datos!");
             }
             else{
                 //Seleccionamos numero de registro seleccionado
-                int linea = this.tblCD.getSelectedRow();
-                int modelRow = tblCD.convertRowIndexToModel(linea);
-                String s = tblCD.getModel().getValueAt(modelRow, 0)+"";
+                int linea = this.tblOBR.getSelectedRow();
+                int modelRow = tblOBR.convertRowIndexToModel(linea);
+                String s = tblOBR.getModel().getValueAt(modelRow, 0)+"";
 
                 EditarCD cd = new EditarCD(s);
                 cd.setVisible(true);
@@ -147,35 +147,56 @@ public class VistaDocumentos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAtras1ActionPerformed
 
-    public ArrayList<ArrayList<String>> EditarDVD() throws SQLException{
-        //Crear Lista
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-        //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
+    public void  EditarOBRA() throws SQLException{
         PreparedStatement ps = null;
-        ResultSet rs = null;        
-        
-        //Codigo SQL para insertar registro a tabla
-        String sql = "SELECT materiales.id, materiales.titulo, artistas.nombre_artista as Artista, generos.nombre_genero AS Genero, materiales.duracion, materiales.numero_de_canciones, materiales.unidades_disponibles, tipo_material.tipo_material AS Tipo from materiales LEFT JOIN artistas on artistas.id = materiales.codigo_artista LEFT JOIN generos ON generos.id = materiales.codigo_genero LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=1";
-        //Preparar statement
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
+        ResultSet rs = null;
+        Conexion conn = new Conexion();
+        Connection con = conn.getConnection();
     
-        while(rs.next()){
-            ArrayList<String> row = new ArrayList<String>();
-                row.add(rs.getString("id"));
-                row.add(rs.getString("titulo"));
-                row.add(rs.getString("Tipo"));
-                row.add(rs.getString("Artista"));
-                row.add(rs.getString("Genero"));
-                row.add(rs.getString("duracion"));
-                row.add(rs.getString("numero_de_canciones"));
-                row.add(rs.getString("unidades_disponibles"));
-            result.add(row);
+        try{
+            String sql = "SELECT materiales.id, materiales.titulo, autores.nombre_autor as Autor, materiales.numero_de_paginas, editoriales.nombre_editorial AS Editorial, materiales.isbn, materiales.fecha_publicacion, materiales.unidades_disponibles, tipo_material.tipo_material AS Tipo from materiales LEFT JOIN autores on autores.id = materiales.codigo_autor LEFT JOIN editoriales ON editoriales.id = materiales.codigo_editorial LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=4";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            int count = 0;
+            while(rs.next()){
+                count++;
+            }
+            
+            String list[][] = new String[count][9];
+            int i = 0;
+            ResultSet re = ps.executeQuery("SELECT materiales.id, materiales.titulo, autores.nombre_autor as Autor, materiales.numero_de_paginas, editoriales.nombre_editorial AS Editorial, materiales.isbn, materiales.fecha_publicacion, materiales.unidades_disponibles, tipo_material.tipo_material AS Tipo from materiales LEFT JOIN autores on autores.id = materiales.codigo_autor LEFT JOIN editoriales ON editoriales.id = materiales.codigo_editorial LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=4");
+            while(re.next()){
+                list[i][0] = re.getString("id");
+                list[i][1] = re.getString("titulo");
+                list[i][2] = re.getString("Tipo");
+                list[i][3] = re.getString("Autor");
+                list[i][4] = re.getString("numero_de_paginas");
+                list[i][5] = re.getString("Editorial");
+                list[i][6] = re.getString("isbn");
+                //list[i][7] = re.getString("periodicidad");
+                list[i][7] = re.getString("fecha_publicacion");
+               // list[i][9] = re.getString("codigo_artista");
+                //list[i][10] = re.getString("codigo_genero");
+               // list[i][11] = re.getString("duracion");
+               // list[i][12] = re.getString("numero_de_canciones");
+                //list[i][13] = re.getString("codigo_director");
+                list[i][8] = re.getString("unidades_disponibles");
+                i++;
+            }
+            
+            tblOBR.setModel(new DefaultTableModel(
+        list,
+        new String [] {
+            "ID", "Título","Material", "Autor","Número de Páginas", "Editorial","ISBN", "Fecha de Pub.", "Disponibles"
+        }));
+        } catch (SQLException ex) {
+            System.out.println("ERROR: " + ex);
+        } finally{
+            Conexion.close(con);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
-        
-        return result;    
     }
     
     
@@ -193,14 +214,46 @@ public class VistaDocumentos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaDocumentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaObras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaDocumentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaObras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaDocumentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaObras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaDocumentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaObras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -238,9 +291,9 @@ public class VistaDocumentos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new VistaDocumentos().setVisible(true);
+                    new VistaObras().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(VistaDocumentos.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(VistaObras.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -252,6 +305,6 @@ public class VistaDocumentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCD;
-    private javax.swing.JTable tblCD;
+    private javax.swing.JTable tblOBR;
     // End of variables declaration//GEN-END:variables
 }

@@ -140,42 +140,57 @@ public class VistaCD extends javax.swing.JFrame {
         // TODO add your handling code here:
         ElegirVistaMateriales vista = new ElegirVistaMateriales();
         vista.setVisible(true);
-        this.dispose();        
+        this.dispose();
     }//GEN-LAST:event_btnAtras1MousePressed
 
     private void btnAtras1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtras1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAtras1ActionPerformed
 
-    public ArrayList<ArrayList<String>> EditarCD() throws SQLException{
-        //Crear Lista
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-        //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;        
-        
-        //Codigo SQL para insertar registro a tabla
-        String sql = "SELECT materiales.id, materiales.titulo, artistas.nombre_artista as Artista, generos.nombre_genero AS Genero, materiales.duracion, materiales.numero_de_canciones, materiales.unidades_disponibles, tipo_material.tipo_material AS Tipo from materiales LEFT JOIN artistas on artistas.id = materiales.codigo_artista LEFT JOIN generos ON generos.id = materiales.codigo_genero LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=1";
-        //Preparar statement
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
-    
-        while(rs.next()){
-            ArrayList<String> row = new ArrayList<String>();
-                row.add(rs.getString("id"));
-                row.add(rs.getString("titulo"));
-                row.add(rs.getString("Tipo"));
-                row.add(rs.getString("Artista"));
-                row.add(rs.getString("Genero"));
-                row.add(rs.getString("duracion"));
-                row.add(rs.getString("numero_de_canciones"));
-                row.add(rs.getString("unidades_disponibles"));
-            result.add(row);
-        }
-        
-        return result;    
+    public void EditarCD () throws SQLException{
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       Conexion conn = new Conexion();
+       Connection con = conn.getConnection();
+       
+       try{
+           String sql = "SELECT materiales.id, materiales.titulo, artistas.nombre_artista as Artista, generos.nombre_genero AS Genero, materiales.duracion, materiales.numero_de_canciones, materiales.unidades_disponibles, tipo_material.tipo_material AS Tipo from materiales LEFT JOIN artistas on artistas.id = materiales.codigo_artista LEFT JOIN generos ON generos.id = materiales.codigo_genero LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=1";
+           ps = con.prepareStatement(sql);
+           rs = ps.executeQuery();
+           
+           int cont = 0;
+           while(rs.next()){
+               cont++;
+           }
+           
+           String list [][] = new String [cont][8];
+           int i = 0;
+           ResultSet re = ps.executeQuery("SELECT materiales.id, materiales.titulo, artistas.nombre_artista as Artista, generos.nombre_genero AS Genero, materiales.duracion, materiales.numero_de_canciones, materiales.unidades_disponibles, tipo_material.tipo_material AS Tipo from materiales LEFT JOIN artistas on artistas.id = materiales.codigo_artista LEFT JOIN generos ON generos.id = materiales.codigo_genero LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=1");
+           while(re.next()){
+               list[i][0] = re.getString("id");
+               list[i][1] = re.getString("titulo");
+               list[i][2] = re.getString("Tipo");
+               list[i][3] = re.getString("Artista");
+               list[i][4] = re.getString("Genero");
+               list[i][5] = re.getString("duracion");
+               list[i][6] = re.getString("numero_de_canciones");
+               list[i][7] = re.getString("unidades_disponibles");
+               i++;
+           }
+           tblCD.setModel(new DefaultTableModel(
+           list,
+                new String[]{
+                    "ID", "Título","Material","Artista","Género", "Duración","Num. Canciones", "Disponibles"
+                }
+           ));
+           
+       } catch(Exception e){
+           System.out.println(e);
+       } finally {
+           Conexion.close(con);
+           Conexion.close(ps);
+           Conexion.close(rs);
+       }
     }
     
     

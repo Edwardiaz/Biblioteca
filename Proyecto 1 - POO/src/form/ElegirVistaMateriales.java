@@ -146,8 +146,8 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("DOCUMENTOS");
-        pnlVerUser.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, -1, -1));
+        jLabel7.setText("OBRAS");
+        pnlVerUser.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,8 +165,8 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         // TODO add your handling code here:
-        Menu_Usuarios users = new Menu_Usuarios();
-        users.setVisible(true);
+        Menu_Materiales mat = new Menu_Materiales();
+        mat.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -252,13 +252,13 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
 
     private void btndocumentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndocumentosActionPerformed
         // TODO add your handling code here:
-        VistaDocumentos doc = null;
+        VistaObras obr = null;
         try {
-            doc = new VistaDocumentos();
+            obr = new VistaObras();
         } catch (SQLException ex) {
             Logger.getLogger(ElegirVistaMateriales.class.getName()).log(Level.SEVERE, null, ex);
         }
-        doc.setVisible(true);
+        obr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btndocumentosActionPerformed
 

@@ -29,7 +29,7 @@ public class VistaDVD extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCD = new javax.swing.JTable();
+        tblDVD = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         lblCD = new javax.swing.JLabel();
         btnAtras1 = new javax.swing.JButton();
@@ -39,8 +39,8 @@ public class VistaDVD extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tblCD.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        tblCD.setModel(new javax.swing.table.DefaultTableModel(
+        tblDVD.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
+        tblDVD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -48,7 +48,7 @@ public class VistaDVD extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tblCD);
+        jScrollPane1.setViewportView(tblDVD);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 900, -1));
 
@@ -113,14 +113,14 @@ public class VistaDVD extends javax.swing.JFrame {
     private void btnUpdateMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMousePressed
         try{
             //verificamos si hay algun registro seleccionado, si no mostramos un error
-            if(this.tblCD.getSelectionModel().isSelectionEmpty()){
+            if(this.tblDVD.getSelectionModel().isSelectionEmpty()){
                 JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder actualizar datos!");
             }
             else{
                 //Seleccionamos numero de registro seleccionado
-                int linea = this.tblCD.getSelectedRow();
-                int modelRow = tblCD.convertRowIndexToModel(linea);
-                String s = tblCD.getModel().getValueAt(modelRow, 0)+"";
+                int linea = this.tblDVD.getSelectedRow();
+                int modelRow = tblDVD.convertRowIndexToModel(linea);
+                String s = tblDVD.getModel().getValueAt(modelRow, 0)+"";
 
                 EditarCD cd = new EditarCD(s);
                 cd.setVisible(true);
@@ -147,35 +147,48 @@ public class VistaDVD extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAtras1ActionPerformed
 
-    public ArrayList<ArrayList<String>> EditarDVD() throws SQLException{
-        //Crear Lista
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-        //Crear objeto de tipo conexion
-        Conexion co = new Conexion();
-        Connection con = co.getConnection();
-        PreparedStatement ps = null;
-        ResultSet rs = null;        
-        
-        //Codigo SQL para insertar registro a tabla
-        String sql = "SELECT materiales.id, materiales.titulo, artistas.nombre_artista as Artista, generos.nombre_genero AS Genero, materiales.duracion, materiales.numero_de_canciones, materiales.unidades_disponibles, tipo_material.tipo_material AS Tipo from materiales LEFT JOIN artistas on artistas.id = materiales.codigo_artista LEFT JOIN generos ON generos.id = materiales.codigo_genero LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=1";
-        //Preparar statement
-        ps = con.prepareStatement(sql);
-        rs = ps.executeQuery();
-    
-        while(rs.next()){
-            ArrayList<String> row = new ArrayList<String>();
-                row.add(rs.getString("id"));
-                row.add(rs.getString("titulo"));
-                row.add(rs.getString("Tipo"));
-                row.add(rs.getString("Artista"));
-                row.add(rs.getString("Genero"));
-                row.add(rs.getString("duracion"));
-                row.add(rs.getString("numero_de_canciones"));
-                row.add(rs.getString("unidades_disponibles"));
-            result.add(row);
-        }
-        
-        return result;    
+    public void EditarDVD() throws SQLException{
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       Conexion conn = new Conexion();
+       Connection con = conn.getConnection();
+       
+       try{
+           String sql = "SELECT materiales.id, materiales.titulo, directores.nombre_director as Director, materiales.duracion, generos.nombre_genero AS Genero,tipo_material.tipo_material AS Tipo from materiales LEFT JOIN directores on directores.id = materiales.codigo_director LEFT JOIN generos ON generos.id = materiales.codigo_genero LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=2";
+           ps = con.prepareStatement(sql);
+           rs = ps.executeQuery();
+           
+           int cont = 0;
+           while(rs.next()){
+               cont++;
+           }
+           
+           String list [][] = new String [cont][6];
+           int i = 0;
+           ResultSet re = ps.executeQuery("SELECT materiales.id, materiales.titulo, directores.nombre_director as Director, materiales.duracion, generos.nombre_genero AS Genero,tipo_material.tipo_material AS Tipo from materiales LEFT JOIN directores on directores.id = materiales.codigo_director LEFT JOIN generos ON generos.id = materiales.codigo_genero LEFT JOIN tipo_material ON tipo_material.id = materiales.codigo_tipo_material where codigo_tipo_material=2");
+           while(re.next()){
+               list[i][0] = re.getString("id");
+               list[i][1] = re.getString("titulo");
+               list[i][2] = re.getString("Tipo");
+               list[i][3] = re.getString("Director");
+               list[i][4] = re.getString("Genero");
+               list[i][5] = re.getString("duracion");
+               i++;
+           }
+           tblDVD.setModel(new DefaultTableModel(
+           list,
+                new String[]{
+                    "ID", "Título","Material","Director","Género", "Duración"
+                }
+           ));
+           
+       } catch(SQLException e){
+           System.out.println("ERROR: " + e);
+       } finally {
+           Conexion.close(con);
+           Conexion.close(ps);
+           Conexion.close(rs);
+       }
     }
     
     
@@ -224,6 +237,6 @@ public class VistaDVD extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCD;
-    private javax.swing.JTable tblCD;
+    private javax.swing.JTable tblDVD;
     // End of variables declaration//GEN-END:variables
 }
