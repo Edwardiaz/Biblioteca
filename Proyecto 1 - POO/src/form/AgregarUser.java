@@ -5,16 +5,10 @@
  */
 package form;
 
-import datos.Globales;
 import datos.Usuario;
-import datos.Conexion;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -442,6 +436,8 @@ public class AgregarUser extends javax.swing.JFrame {
                 //Llamar metodo para agregar usuario a tabla
                 Usuario usuario = new Usuario();
                 usuario.agregarUsuario(nombre, apellido, nickname, email, pass, mora, fecha_nacimiento, codigo_rol);
+                //Cerrar ventana
+                this.dispose();
             }
             catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(AgregarUser.class.getName()).log(Level.SEVERE, null, ex);

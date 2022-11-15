@@ -12,7 +12,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -20,11 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -180,32 +177,24 @@ public class Ver_Usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasMousePressed
 
     private void btnModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMousePressed
-        //Verificamos perfil usuario para saber si es administrador y puede actualizar datos
-        Globales rolUsuario = new Globales();
-        int idRol = rolUsuario.rolUsuario;
-        //Evaluamos si es Administrador
-        if(idRol == 1){
-            //verificamos si hay algun registro seleccionado, si no mostramos un error
-            if(this.tblUsuarios.getSelectionModel().isSelectionEmpty()){
-                JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder actualizar datos!");
-            }
-            else{
-                try {
-                    //Seleccionamos numero de registro seleccionado
-                    int linea = this.tblUsuarios.getSelectedRow();
-                    int modelRow = tblUsuarios.convertRowIndexToModel(linea);
-                    String s = tblUsuarios.getModel().getValueAt(modelRow, 0)+"";
-                    
-                    EditarUser usr = new EditarUser(s);
-                    usr.setVisible(true);
-                    this.dispose();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Ver_Usuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }        
-        }else{
-            JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar usuarios!");
+        //verificamos si hay algun registro seleccionado, si no mostramos un error
+        if(this.tblUsuarios.getSelectionModel().isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null,"Debe seleccionar un registro para poder actualizar datos!");
         }
+        else{
+            try {
+                //Seleccionamos numero de registro seleccionado
+                int linea = this.tblUsuarios.getSelectedRow();
+                int modelRow = tblUsuarios.convertRowIndexToModel(linea);
+                String s = tblUsuarios.getModel().getValueAt(modelRow, 0)+"";
+
+                EditarUser usr = new EditarUser(s);
+                usr.setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(Ver_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
     }//GEN-LAST:event_btnModificarMousePressed
 
     private void btnEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMousePressed
@@ -248,15 +237,7 @@ public class Ver_Usuario extends javax.swing.JFrame {
                         Usuario usr = new Usuario();
                         usr.eliminarUsuario(s);
                     } else {
-                        //Cerrar ventana y regresar a listado
-                        Ver_Usuario ver = null;
-                        try {
-                            ver = new Ver_Usuario();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        ver.setVisible(true);
-                        this.dispose(); 
+                        JOptionPane.showMessageDialog(null, "Acción cancelada!", "AVISO",JOptionPane.INFORMATION_MESSAGE);
                     }                    
                     
                 } catch (SQLException ex) {
@@ -266,16 +247,6 @@ public class Ver_Usuario extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null,"Usted no posee permiso para modificar usuarios!");
         }
-        
-        //Cerrar ventana y regresar a listado
-        Ver_Usuario ver = null;
-        try {
-            ver = new Ver_Usuario();
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ver.setVisible(true);
-        this.dispose();         
     }//GEN-LAST:event_btnEliminarMousePressed
 
     /**

@@ -11,7 +11,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -97,7 +96,7 @@ public class EditarUser extends javax.swing.JFrame {
         txtContra = new javax.swing.JPasswordField();
         cmbRol = new javax.swing.JComboBox<>();
         lblApellido1 = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         jSeparator13 = new javax.swing.JSeparator();
@@ -318,7 +317,7 @@ public class EditarUser extends javax.swing.JFrame {
 
         cmbRol.setForeground(new java.awt.Color(0, 0, 51));
         cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " -", "Administrador", "Profesor", "Alumno" }));
-        cmbRol.setNextFocusableComponent(btnAgregar);
+        cmbRol.setNextFocusableComponent(btnActualizar);
         cmbRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbRolActionPerformed(evt);
@@ -332,18 +331,18 @@ public class EditarUser extends javax.swing.JFrame {
         lblApellido1.setText("Apellido:");
         jPanel1.add(lblApellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
 
-        btnAgregar.setBackground(new java.awt.Color(0, 0, 255));
-        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar.setText("Agregar");
-        btnAgregar.setBorder(null);
-        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnAgregar.setNextFocusableComponent(btnCancelar);
-        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnActualizar.setBackground(new java.awt.Color(0, 0, 255));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setBorder(null);
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizar.setNextFocusableComponent(btnCancelar);
+        btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnAgregarMousePressed(evt);
+                btnActualizarMousePressed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 80, 30));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, 80, 30));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 51));
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -490,7 +489,7 @@ public class EditarUser extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbRolActionPerformed
 
-    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
+    private void btnActualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMousePressed
         //Comprobar que los datos no sean nulos ni vaciós
         if(txtNombre.getText().equals("Ingrese nombre") || txtApellido.getText().equals("Ingrese apellido")
             || txtNickname.getText().equals("Ingrese nickname") || txtFechaNacimiento.getText().equals("Ingrese fecha")
@@ -521,21 +520,14 @@ public class EditarUser extends javax.swing.JFrame {
                 //Llamar metodo para agregar usuario a tabla
                 Usuario usuario = new Usuario();
                 usuario.actualizarUsuario(id, nombre, apellido, nickname, email, pass, mora, fecha_nacimiento, codigo_rol);
+                //Cerrar ventana
+                this.dispose();                
             }
             catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(AgregarUser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //Cerrar ventana y regresar a listado
-        Ver_Usuario ver = null;
-        try {
-            ver = new Ver_Usuario();
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ver.setVisible(true);
-        this.dispose(); 
-    }//GEN-LAST:event_btnAgregarMousePressed
+    }//GEN-LAST:event_btnActualizarMousePressed
 
     private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
         // TODO add your handling code here:
@@ -592,7 +584,7 @@ public class EditarUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cmbRol;
     private javax.swing.JComboBox<String> jComboBox1;

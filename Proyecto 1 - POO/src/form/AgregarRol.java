@@ -10,7 +10,6 @@ import datos.Rol;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -318,20 +317,13 @@ public class AgregarRol extends javax.swing.JFrame {
                 //Llamar metodo para agregar rol a tabla
                 Rol newRol = new Rol();
                 newRol.agregarRol(rol, numero_prestamos, dias_prestamo);
+                this.dispose();
             }
             catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(AgregarRol.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //Cerrar ventana y regresar a listado
-        Ver_Roles ver = null;
-        try {
-            ver = new Ver_Roles();
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ver.setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_btnAgregarMousePressed
 
     private void txtDiasPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiasPrestamoActionPerformed

@@ -81,7 +81,7 @@ public class EditarRol extends javax.swing.JFrame {
         txtDiasPrestamo = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         lblNombre2 = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtRol = new javax.swing.JTextField();
 
@@ -235,18 +235,18 @@ public class EditarRol extends javax.swing.JFrame {
         lblNombre2.setText("Id:");
         jPanel1.add(lblNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
 
-        btnAgregar.setBackground(new java.awt.Color(0, 0, 255));
-        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar.setText("Agregar");
-        btnAgregar.setBorder(null);
-        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnAgregar.setNextFocusableComponent(btnCancelar);
-        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnActualizar.setBackground(new java.awt.Color(0, 0, 255));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Actualizar");
+        btnActualizar.setBorder(null);
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizar.setNextFocusableComponent(btnCancelar);
+        btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnAgregarMousePressed(evt);
+                btnActualizarMousePressed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 80, 30));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 80, 30));
 
         btnCancelar.setBackground(new java.awt.Color(204, 0, 51));
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
@@ -320,7 +320,7 @@ public class EditarRol extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarMousePressed
 
-    private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
+    private void btnActualizarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMousePressed
         //Comprobar que los datos no sean nulos ni vaciós
         if(txtRol.getText().equals("Ingrese nombre de rol") || txtNumeroPrestamos.getText().equals("Ingrese numero maximo de prestamos")
             || txtDiasPrestamo.getText().equals("Ingrese maximo de dias")){
@@ -336,21 +336,13 @@ public class EditarRol extends javax.swing.JFrame {
                 //Llamar metodo para agregar rol a tabla
                 Rol newRol = new Rol();
                 newRol.actualizarRol(id, rol, numero_prestamos, dias_prestamo);
+                this.dispose();
             }
             catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(EditarRol.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //Cerrar ventana y regresar a listado
-        Ver_Roles ver = null;
-        try {
-            ver = new Ver_Roles();
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu_Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ver.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAgregarMousePressed
+    }//GEN-LAST:event_btnActualizarMousePressed
 
     private void txtDiasPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiasPrestamoActionPerformed
         // TODO add your handling code here:
@@ -435,7 +427,7 @@ public class EditarRol extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;

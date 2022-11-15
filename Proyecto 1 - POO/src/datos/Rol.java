@@ -3,6 +3,7 @@ package datos;
 import datos.Globales;
 import datos.Conexion;
 import form.Dashboard;
+import form.Ver_Roles;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +45,6 @@ public class Rol {
         int rows = 0;
 
         try {
-            con = Conexion.getConnection();
             stmt = con.prepareStatement(sql);
             int index = 1;
             stmt.setString(index++, rol);
@@ -53,6 +53,18 @@ public class Rol {
 
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados " + rows);
+                //Confirmar cambio efectivo
+                if(rows > 0){
+                    JOptionPane.showMessageDialog(null, "Nuevo rol agregado exitosamente !", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+                    Ver_Roles ver = null;
+                    ver = new Ver_Roles();
+                    ver.setVisible(true);                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Rol no pudo ser agregado!", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    Ver_Roles ver = null;
+                    ver = new Ver_Roles();
+                    ver.setVisible(true);
+                }            
         } catch (SQLException e) {
             System.out.println("Error" + e);
         } finally {
@@ -138,8 +150,6 @@ public class Rol {
             String sql = "UPDATE rol SET rol = ?, numero_prestamos = ?, dias_prestamo = ? WHERE id ='" + id + "'";
             stmt = con.prepareStatement(sql);
 
-            con = Conexion.getConnection();
-            stmt = con.prepareStatement(sql);
             int index = 1;
             stmt.setString(index++, rol);
             stmt.setString(index++, numero_prestamos);
@@ -147,6 +157,18 @@ public class Rol {
 
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados " + rows);
+                //Confirmar cambio efectivo
+                if(rows > 0){
+                    JOptionPane.showMessageDialog(null, "Rol actualizado exitosamente !", "AVISO",JOptionPane.INFORMATION_MESSAGE);
+                    Ver_Roles ver = null;
+                    ver = new Ver_Roles();
+                    ver.setVisible(true);                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Rol no pudo ser actualizado!", "ERROR",JOptionPane.ERROR_MESSAGE);
+                    Ver_Roles ver = null;
+                    ver = new Ver_Roles();
+                    ver.setVisible(true);
+                }              
         } catch (SQLException e) {
             System.out.println("Error" + e);
         } finally {
@@ -163,9 +185,6 @@ public class Rol {
 
         try {
             String sql = "DELETE FROM rol WHERE id ='" + id + "'";
-            stmt = con.prepareStatement(sql);
-
-            con = Conexion.getConnection();
             stmt = con.prepareStatement(sql);
 
             rows = stmt.executeUpdate();

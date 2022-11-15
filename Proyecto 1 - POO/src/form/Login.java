@@ -170,7 +170,7 @@ public class Login extends javax.swing.JFrame {
         String pass = txtPass.getText();
         
         if (!user.equals("") && !pass.equals("")) {
-            l.login(user);
+            l.login(user,pass);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Rellene los campos. Intente nuevamente", "AVISO", JOptionPane.ERROR_MESSAGE); 
