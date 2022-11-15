@@ -53,6 +53,8 @@ CREATE TABLE `Materiales` (
   `duracion` varchar(15) DEFAULT NULL,
   `numero_de_canciones` varchar(2) DEFAULT NULL,
   `codigo_director` int(11) DEFAULT NULL,
+  `ubicacion` VARCHAR(100) DEFAULT NULL,
+  `nombre_autor_CV` VARCHAR(150) DEFAULT NULL,
   `unidades_disponibles` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Tipo` (`codigo_tipo_material`),
@@ -128,9 +130,3 @@ CREATE TABLE `Permisos_por_Rol` (
   CONSTRAINT `FK_Rol_privilegio` FOREIGN KEY (`codigo_rol`) REFERENCES `Rol` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_Privilegio` FOREIGN KEY (`codigo_privilegio`) REFERENCES `Privilegios` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;*/
-
-
-
-
-
-SELECT * FROM rol;

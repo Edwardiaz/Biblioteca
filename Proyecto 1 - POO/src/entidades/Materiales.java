@@ -21,6 +21,8 @@ public class Materiales {
     private Integer codigoArtista;
     private Integer codigoAutor;
     private Integer codigoDirector;
+    private String ubicacion;
+    private String nombre_autor_CV;
     private Integer codigoEditorial;
     private Integer codigoGenero;
     private Integer codigoTipoMaterial;
@@ -39,7 +41,7 @@ public class Materiales {
         this.titulo = titulo;
     }
     
-    public Materiales(String id, String titulo, String numeroDePaginas, String isbn, String periodicidad, Date fechaPublicacion, String duracion, String numeroDeCanciones, Integer unidadesDisponibles, Integer codigoArtista, Integer codigoAutor, Integer codigoDirector, Integer codigoEditorial, Integer codigoGenero, Integer codigoTipoMaterial) {
+    public Materiales(String id, String titulo, String numeroDePaginas, String isbn, String periodicidad, Date fechaPublicacion, String duracion, String numeroDeCanciones, Integer unidadesDisponibles, Integer codigoArtista, Integer codigoAutor, Integer codigoDirector, String ubicacion, String nombre_autor_CV, Integer codigoEditorial, Integer codigoGenero, Integer codigoTipoMaterial) {
         this.id = id;
         this.titulo = titulo;
         this.numeroDePaginas = numeroDePaginas;
@@ -52,6 +54,8 @@ public class Materiales {
         this.codigoArtista = codigoArtista;
         this.codigoAutor = codigoAutor;
         this.codigoDirector = codigoDirector;
+        this.ubicacion = ubicacion;
+        this.nombre_autor_CV = nombre_autor_CV;
         this.codigoEditorial = codigoEditorial;
         this.codigoGenero = codigoGenero;
         this.codigoTipoMaterial = codigoTipoMaterial;
@@ -151,6 +155,22 @@ public class Materiales {
 
     public void setCodigoDirector(Integer codigoDirector) {
         this.codigoDirector = codigoDirector;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public String getNombre_autor_CV() {
+        return nombre_autor_CV;
+    }
+
+    public void setNombre_autor_CV(String nombre_autor_CV) {
+        this.nombre_autor_CV = nombre_autor_CV;
     }
 
     public Integer getCodigoEditorial() {

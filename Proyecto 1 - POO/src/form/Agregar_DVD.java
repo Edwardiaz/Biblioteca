@@ -1,29 +1,33 @@
 package form;
 
 import datos.Conexion;
+import datos.MaterialesCRUD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author user
+ * @Jorge Díaz
  */
 public class Agregar_DVD extends javax.swing.JFrame {
-
-    Conexion co = new Conexion();
-    Connection con = co.getConnection();
-    
-    public Agregar_DVD() throws SQLException{
+   
+   Conexion co = new Conexion();
+   Connection con = co.getConnection();
+   
+    public Agregar_DVD() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Agregar Libro.");
+        this.setTitle("Agregar DVD al sistema");
+        consultarGenero();
+        consultarDirector();
     }
 
     /**
@@ -35,93 +39,43 @@ public class Agregar_DVD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jRadioButtonMenuItem2 = new javax.swing.JRadioButtonMenuItem();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jSeparator4 = new javax.swing.JSeparator();
         pnlAgregarMenu = new javax.swing.JPanel();
-        txtIdlibro = new javax.swing.JTextField();
-        lblIdLibro = new javax.swing.JLabel();
         lblNewLibro = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
-        txtTituloLibro = new javax.swing.JTextField();
-        lblTituloLibro = new javax.swing.JLabel();
-        jSeparator8 = new javax.swing.JSeparator();
-        txtAutorLibro = new javax.swing.JTextField();
-        lblAutorLibro = new javax.swing.JLabel();
-        jSeparator9 = new javax.swing.JSeparator();
-        txtPaginas = new javax.swing.JTextField();
-        lblPaginas = new javax.swing.JLabel();
+        txtTitulodvd = new javax.swing.JTextField();
+        lblTitulodvd = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
-        txtEditorial = new javax.swing.JTextField();
-        lblEditorial = new javax.swing.JLabel();
+        lblDirector = new javax.swing.JLabel();
         jSeparator12 = new javax.swing.JSeparator();
-        txtIsbn = new javax.swing.JTextField();
-        lblIsbn = new javax.swing.JLabel();
+        lblGenero = new javax.swing.JLabel();
         jSeparator13 = new javax.swing.JSeparator();
-        txtFecha = new javax.swing.JTextField();
+        txtDuracion = new javax.swing.JTextField();
         lblFecha = new javax.swing.JLabel();
-        jSeparator14 = new javax.swing.JSeparator();
-        txtDisponible = new javax.swing.JTextField();
-        lblDisponible = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jSeparator15 = new javax.swing.JSeparator();
-        txtTipo = new javax.swing.JTextField();
-        lblTipo = new javax.swing.JLabel();
-
-        jRadioButtonMenuItem1.setSelected(true);
-        jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
-
-        jMenu5.setText("jMenu5");
-
-        jRadioButtonMenuItem2.setSelected(true);
-        jRadioButtonMenuItem2.setText("jRadioButtonMenuItem2");
-
-        jMenuItem1.setText("jMenuItem1");
-
-        jSeparator4.setForeground(new java.awt.Color(204, 204, 204));
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator4.setPreferredSize(new java.awt.Dimension(200, 10));
+        lblCanciones1 = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
+        jSeparator16 = new javax.swing.JSeparator();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        lblDisponible = new javax.swing.JLabel();
+        txtDisponible = new javax.swing.JTextField();
+        jSeparator17 = new javax.swing.JSeparator();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
 
-        pnlAgregarMenu.setBackground(new java.awt.Color(255, 255, 255));
+        pnlAgregarMenu.setBackground(new java.awt.Color(0, 0, 51));
         pnlAgregarMenu.setForeground(new java.awt.Color(102, 0, 204));
         pnlAgregarMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtIdlibro.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtIdlibro.setForeground(new java.awt.Color(102, 102, 102));
-        txtIdlibro.setText("Ingrese ID del Libro");
-        txtIdlibro.setAlignmentX(0.8F);
-        txtIdlibro.setBorder(null);
-        txtIdlibro.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtIdlibro.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtIdlibro.setName("txtIdlibro"); // NOI18N
-        txtIdlibro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtIdlibroMousePressed(evt);
-            }
-        });
-        pnlAgregarMenu.add(txtIdlibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 260, 30));
-
-        lblIdLibro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblIdLibro.setForeground(new java.awt.Color(102, 0, 204));
-        lblIdLibro.setText("Libro ID");
-        lblIdLibro.setName("lblId"); // NOI18N
-        pnlAgregarMenu.add(lblIdLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
-
         lblNewLibro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblNewLibro.setForeground(new java.awt.Color(102, 0, 204));
-        lblNewLibro.setText("Agregar Libro");
+        lblNewLibro.setForeground(new java.awt.Color(255, 255, 255));
+        lblNewLibro.setText("Agregar DVD");
         pnlAgregarMenu.add(lblNewLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
         pnlAgregarMenu.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 92, -1, 170));
         pnlAgregarMenu.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, -1, -1));
@@ -133,140 +87,135 @@ public class Agregar_DVD extends javax.swing.JFrame {
 
         jSeparator6.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator6.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 260, 10));
+        pnlAgregarMenu.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 260, 10));
 
         jSeparator7.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator7.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 260, 10));
+        pnlAgregarMenu.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 260, 10));
 
-        txtTituloLibro.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtTituloLibro.setForeground(new java.awt.Color(102, 102, 102));
-        txtTituloLibro.setText("Ingrese título");
-        txtTituloLibro.setAlignmentX(0.8F);
-        txtTituloLibro.setBorder(null);
-        txtTituloLibro.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtTituloLibro.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtTituloLibro.setName("txtTituloLibro"); // NOI18N
-        txtTituloLibro.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtTitulodvd.setBackground(new java.awt.Color(0, 0, 51));
+        txtTitulodvd.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txtTitulodvd.setForeground(new java.awt.Color(102, 102, 102));
+        txtTitulodvd.setText("Ingrese título");
+        txtTitulodvd.setAlignmentX(0.8F);
+        txtTitulodvd.setBorder(null);
+        txtTitulodvd.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtTitulodvd.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtTitulodvd.setName("txtTitulodvd"); // NOI18N
+        txtTitulodvd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtTitulodvdMouseEntered(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtTituloLibroMousePressed(evt);
+                txtTitulodvdMousePressed(evt);
             }
         });
-        pnlAgregarMenu.add(txtTituloLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 260, 30));
-
-        lblTituloLibro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTituloLibro.setForeground(new java.awt.Color(102, 0, 204));
-        lblTituloLibro.setText("Título");
-        lblTituloLibro.setName("lblTituloLibro"); // NOI18N
-        pnlAgregarMenu.add(lblTituloLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
-
-        jSeparator8.setForeground(new java.awt.Color(102, 0, 204));
-        jSeparator8.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 260, 10));
-
-        txtAutorLibro.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtAutorLibro.setForeground(new java.awt.Color(102, 102, 102));
-        txtAutorLibro.setText("Ingrese autor");
-        txtAutorLibro.setAlignmentX(0.8F);
-        txtAutorLibro.setBorder(null);
-        txtAutorLibro.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtAutorLibro.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtAutorLibro.setName("txtAutorLibro"); // NOI18N
-        txtAutorLibro.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtAutorLibroMousePressed(evt);
+        txtTitulodvd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitulodvdActionPerformed(evt);
             }
         });
-        pnlAgregarMenu.add(txtAutorLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 260, 30));
+        pnlAgregarMenu.add(txtTitulodvd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 260, 30));
 
-        lblAutorLibro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblAutorLibro.setForeground(new java.awt.Color(102, 0, 204));
-        lblAutorLibro.setText("Autor");
-        lblAutorLibro.setName("lblAutorLibro"); // NOI18N
-        pnlAgregarMenu.add(lblAutorLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
-
-        jSeparator9.setForeground(new java.awt.Color(102, 0, 204));
-        jSeparator9.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 260, 10));
-
-        txtPaginas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtPaginas.setForeground(new java.awt.Color(102, 102, 102));
-        txtPaginas.setText("Ingrese número de páginas");
-        txtPaginas.setAlignmentX(0.8F);
-        txtPaginas.setBorder(null);
-        txtPaginas.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtPaginas.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtPaginas.setName("txtPaginas"); // NOI18N
-        txtPaginas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtPaginasMousePressed(evt);
-            }
-        });
-        pnlAgregarMenu.add(txtPaginas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 260, 30));
-
-        lblPaginas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblPaginas.setForeground(new java.awt.Color(102, 0, 204));
-        lblPaginas.setText("Páginas");
-        lblPaginas.setName("lblPaginas"); // NOI18N
-        pnlAgregarMenu.add(lblPaginas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
+        lblTitulodvd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTitulodvd.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulodvd.setText("Título");
+        lblTitulodvd.setName("llblTituloRevista"); // NOI18N
+        pnlAgregarMenu.add(lblTitulodvd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
 
         jSeparator10.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator10.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, 260, 10));
+        pnlAgregarMenu.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 260, 10));
 
-        txtEditorial.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtEditorial.setForeground(new java.awt.Color(102, 102, 102));
-        txtEditorial.setText("Ingrese nombre de editorial");
-        txtEditorial.setAlignmentX(0.8F);
-        txtEditorial.setBorder(null);
-        txtEditorial.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtEditorial.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtEditorial.setName("txtEditorial"); // NOI18N
-        txtEditorial.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtEditorialMousePressed(evt);
-            }
-        });
-        pnlAgregarMenu.add(txtEditorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 260, 30));
-
-        lblEditorial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblEditorial.setForeground(new java.awt.Color(102, 0, 204));
-        lblEditorial.setText("Editorial");
-        lblEditorial.setName("lblEditorial"); // NOI18N
-        pnlAgregarMenu.add(lblEditorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
+        lblDirector.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDirector.setForeground(new java.awt.Color(255, 255, 255));
+        lblDirector.setText("Director");
+        lblDirector.setName("lblDirector"); // NOI18N
+        pnlAgregarMenu.add(lblDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         jSeparator12.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator12.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 260, 10));
+        pnlAgregarMenu.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 260, 10));
 
-        txtIsbn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtIsbn.setForeground(new java.awt.Color(102, 102, 102));
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-        txtIsbn.setAlignmentX(0.8F);
-        txtIsbn.setBorder(null);
-        txtIsbn.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtIsbn.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtIsbn.setName("txtIsbn"); // NOI18N
-        txtIsbn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtIsbnMousePressed(evt);
-            }
-        });
-        pnlAgregarMenu.add(txtIsbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 260, 30));
-
-        lblIsbn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblIsbn.setForeground(new java.awt.Color(102, 0, 204));
-        lblIsbn.setText("ISBN");
-        lblIsbn.setName("lblIsbn"); // NOI18N
-        pnlAgregarMenu.add(lblIsbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, -1, -1));
+        lblGenero.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblGenero.setForeground(new java.awt.Color(255, 255, 255));
+        lblGenero.setText("Género");
+        lblGenero.setName("lblGenero"); // NOI18N
+        pnlAgregarMenu.add(lblGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
         jSeparator13.setForeground(new java.awt.Color(102, 0, 204));
         jSeparator13.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, 260, 10));
+        pnlAgregarMenu.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 260, 10));
 
+        txtDuracion.setBackground(new java.awt.Color(0, 0, 51));
+        txtDuracion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txtDuracion.setForeground(new java.awt.Color(102, 102, 102));
+        txtDuracion.setText("Ingrese duracion");
+        txtDuracion.setAlignmentX(0.8F);
+        txtDuracion.setBorder(null);
+        txtDuracion.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtDuracion.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtDuracion.setName("txtDuracion"); // NOI18N
+        txtDuracion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtDuracionMousePressed(evt);
+            }
+        });
+        txtDuracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDuracionActionPerformed(evt);
+            }
+        });
+        pnlAgregarMenu.add(txtDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, 260, 30));
+
+        lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(255, 255, 255));
+        lblFecha.setText("Duración (En minutos)");
+        lblFecha.setName("lblFecha"); // NOI18N
+        pnlAgregarMenu.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, 20));
+
+        btnAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(51, 0, 153));
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn-agregar.png"))); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAgregar.setName("btnAgregar"); // NOI18N
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAgregarMousePressed(evt);
+            }
+        });
+        pnlAgregarMenu.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 420, 110, 40));
+
+        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(51, 0, 153));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn-salir.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCancelar.setName("btnCancelar"); // NOI18N
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCancelarMousePressed(evt);
+            }
+        });
+        pnlAgregarMenu.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, 110, 40));
+
+        jSeparator15.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator15.setPreferredSize(new java.awt.Dimension(200, 10));
+        pnlAgregarMenu.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 260, 10));
+
+        lblCanciones1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCanciones1.setForeground(new java.awt.Color(255, 255, 255));
+        lblCanciones1.setText("Fecha de publicación");
+        lblCanciones1.setName("lblCanciones"); // NOI18N
+        pnlAgregarMenu.add(lblCanciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, -1, -1));
+
+        txtFecha.setBackground(new java.awt.Color(0, 0, 51));
         txtFecha.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         txtFecha.setForeground(new java.awt.Color(102, 102, 102));
-        txtFecha.setText("dia/mes/año");
+        txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año)");
         txtFecha.setAlignmentX(0.8F);
         txtFecha.setBorder(null);
         txtFecha.setMargin(new java.awt.Insets(5, 15, 5, 5));
@@ -277,18 +226,22 @@ public class Agregar_DVD extends javax.swing.JFrame {
                 txtFechaMousePressed(evt);
             }
         });
-        pnlAgregarMenu.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 260, 30));
+        pnlAgregarMenu.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 260, 30));
 
-        lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblFecha.setForeground(new java.awt.Color(102, 0, 204));
-        lblFecha.setText("Fecha de Publicación");
-        lblFecha.setName("lblFecha"); // NOI18N
-        pnlAgregarMenu.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, -1, 20));
+        jSeparator16.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator16.setPreferredSize(new java.awt.Dimension(200, 10));
+        pnlAgregarMenu.add(jSeparator16, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 260, 10));
 
-        jSeparator14.setForeground(new java.awt.Color(102, 0, 204));
-        jSeparator14.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 260, 10));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- -  - -" }));
+        pnlAgregarMenu.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 260, -1));
 
+        lblDisponible.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDisponible.setForeground(new java.awt.Color(255, 255, 255));
+        lblDisponible.setText("Unidades disponibles");
+        lblDisponible.setName("lblDisponible"); // NOI18N
+        pnlAgregarMenu.add(lblDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, -1, -1));
+
+        txtDisponible.setBackground(new java.awt.Color(0, 0, 51));
         txtDisponible.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         txtDisponible.setForeground(new java.awt.Color(102, 102, 102));
         txtDisponible.setText("Ingrese cantidad");
@@ -302,71 +255,19 @@ public class Agregar_DVD extends javax.swing.JFrame {
                 txtDisponibleMousePressed(evt);
             }
         });
-        pnlAgregarMenu.add(txtDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 260, 30));
-
-        lblDisponible.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblDisponible.setForeground(new java.awt.Color(102, 0, 204));
-        lblDisponible.setText("Unidades disponibles");
-        lblDisponible.setName("lblDisponible"); // NOI18N
-        pnlAgregarMenu.add(lblDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, -1));
-
-        btnAgregar.setBackground(new java.awt.Color(255, 255, 255));
-        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnAgregar.setForeground(new java.awt.Color(51, 0, 153));
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn-agregar.png"))); // NOI18N
-        btnAgregar.setText("Agregar");
-        btnAgregar.setBorder(null);
-        btnAgregar.setName("btnAgregar"); // NOI18N
-        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnAgregarMousePressed(evt);
-            }
-        });
-        pnlAgregarMenu.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 393, 110, 40));
-
-        btnCancelar.setBackground(new java.awt.Color(255, 255, 255));
-        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnCancelar.setForeground(new java.awt.Color(51, 0, 153));
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn-salir.png"))); // NOI18N
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setBorder(null);
-        btnCancelar.setName("btnCancelar"); // NOI18N
-        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                btnCancelarMousePressed(evt);
-            }
-        });
-        pnlAgregarMenu.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 393, 110, 40));
-
-        jSeparator15.setForeground(new java.awt.Color(102, 0, 204));
-        jSeparator15.setPreferredSize(new java.awt.Dimension(200, 10));
-        pnlAgregarMenu.add(jSeparator15, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, 260, 10));
-
-        txtTipo.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        txtTipo.setForeground(new java.awt.Color(102, 102, 102));
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-        txtTipo.setAlignmentX(0.8F);
-        txtTipo.setBorder(null);
-        txtTipo.setMargin(new java.awt.Insets(5, 15, 5, 5));
-        txtTipo.setMinimumSize(new java.awt.Dimension(5, 20));
-        txtTipo.setName("txtTipo"); // NOI18N
-        txtTipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtTipoMousePressed(evt);
-            }
-        });
-        txtTipo.addActionListener(new java.awt.event.ActionListener() {
+        txtDisponible.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTipoActionPerformed(evt);
+                txtDisponibleActionPerformed(evt);
             }
         });
-        pnlAgregarMenu.add(txtTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 260, 30));
+        pnlAgregarMenu.add(txtDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 260, 30));
 
-        lblTipo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTipo.setForeground(new java.awt.Color(102, 0, 204));
-        lblTipo.setText("Tipo material");
-        lblTipo.setName("lblTipo"); // NOI18N
-        pnlAgregarMenu.add(lblTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
+        jSeparator17.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator17.setPreferredSize(new java.awt.Dimension(200, 10));
+        pnlAgregarMenu.add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 260, 10));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- -  - -" }));
+        pnlAgregarMenu.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 260, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -382,404 +283,116 @@ public class Agregar_DVD extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIdlibroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIdlibroMousePressed
+    private void txtTitulodvdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTitulodvdMouseEntered
         // TODO add your handling code here:
-       if(txtIdlibro.getText().equals("Ingrese ID del Libro"))
-        txtIdlibro.setText("");
+    }//GEN-LAST:event_txtTitulodvdMouseEntered
 
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-       
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad"); 
-       
-       if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtIdlibroMousePressed
+    private void txtTitulodvdMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTitulodvdMousePressed
+        // TODO add your handling code here:
 
-    private void txtTituloLibroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTituloLibroMousePressed
-        
-       if(txtTituloLibro.getText().equals("Ingrese título"))
-        txtTituloLibro.setText("");
-        
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del Libro");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-       
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad"); 
-       
-       if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtTituloLibroMousePressed
+        if(txtTitulodvd.getText().equals("Ingrese título"))
+        txtTitulodvd.setText("");
 
-    private void txtAutorLibroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAutorLibroMousePressed
-       
-       if(txtAutorLibro.getText().equals("Ingrese autor"))
-        txtAutorLibro.setText("");
-        
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del Libro");
-        
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-        
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-       
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad"); 
-       
-       if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtAutorLibroMousePressed
+        if(txtDuracion.getText().equals("") || txtDuracion.getText() == null)
+            txtDuracion.setText("Ingrese duracion");
 
-    private void txtPaginasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPaginasMousePressed
-        
-       if(txtPaginas.getText().equals("Ingrese número de páginas"))
-        txtPaginas.setText("");
-        
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del Libro");
-        
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-       
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad");
-       
-      if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtPaginasMousePressed
+        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+            txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año))");
+    }//GEN-LAST:event_txtTitulodvdMousePressed
 
-    private void txtEditorialMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtEditorialMousePressed
-        
-       if(txtEditorial.getText().equals("Ingrese nombre de editorial"))
-        txtEditorial.setText("");
-       
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del Libro");
-        
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-       
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad");
-       
-       if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtEditorialMousePressed
+    private void txtTitulodvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitulodvdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTitulodvdActionPerformed
 
-    private void txtIsbnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIsbnMousePressed
-        
-       if(txtIsbn.getText().equals("Ingrese los 13 digitos del ISBN"))
-        txtIsbn.setText(""); 
-        
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del Libro");
-        
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad");
-       
-       if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtIsbnMousePressed
+    private void txtDuracionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDuracionMousePressed
+        // TODO add your handling code here:
 
-    private void txtFechaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMousePressed
-       
-       if(txtFecha.getText().equals("dia/mes/año"))
-        txtFecha.setText("");
-          
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del Libro");
-        
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad");
-       
-       if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtFechaMousePressed
+        if(txtDuracion.getText().equals("Ingrese duracion"))
+            txtDuracion.setText("");
 
-    private void txtDisponibleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDisponibleMousePressed
-         
-       if(txtDisponible.getText().equals("Ingrese cantidad"))
-        txtDisponible.setText("");
+        if(txtTitulodvd.getText().equals("") || txtTitulodvd.getText() == null)
+            txtTitulodvd.setText("Ingrese título");
         
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del Libro");
-        
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-              
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtTipo.getText().equals("") || txtTipo.getText() == null)
-        txtTipo.setText("Ingrese tipo material (LIBRO)");
-    }//GEN-LAST:event_txtDisponibleMousePressed
+        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+            txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año))");
+    }//GEN-LAST:event_txtDuracionMousePressed
+
+    private void txtDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuracionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDuracionActionPerformed
 
     private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
-        
+
         //Comprobar que los datos no sean nulos ni vaciós
-        if(txtIdlibro.getText().equals("Ingrese ID del Libro") || txtTituloLibro.getText().equals("Ingrese Título")
-            || txtAutorLibro.getText().equals("Ingrese autor") || txtFecha.getText().equals("dia/mes/año")
-            || txtPaginas.getText().equals("Ingrese número de páginas")|| txtEditorial.getText().equals("Ingrese nombre de editorial")
-            || txtIsbn.getText().equals("Ingrese ISBN (13 carácteres)")|| txtDisponible.getText().equals("Ingrese cantidad")
-            || txtTipo.getText().equals("Ingrese tipo material (LIBRO)")){
-            JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO",JOptionPane.INFORMATION_MESSAGE);
-            txtIdlibro.requestFocus();
-        } else { 
+        if(txtTitulodvd.getText().equals("Ingrese título")
+            || txtDuracion.getText().equals("Ingrese duracion")
+            || txtFecha.getText().equals("Ingrese fecha de pulicación (dia/mes/año))")){
+            JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
             try {
                 //Creación de variables que almacenan los datos introducidos
-                String id = txtIdlibro.getText();
-                String titulo = txtTituloLibro.getText();
-                String autor = txtAutorLibro.getText();
+                MaterialesCRUD crud = new MaterialesCRUD();
+                String titulo = txtTitulodvd.getText();
+                String director = (String)jComboBox1.getSelectedItem();
+                String genre = (String)jComboBox2.getSelectedItem();
+                String duracion = txtDuracion.getText();
                 String fecha = txtFecha.getText();
-                String num_pag = txtPaginas.getText();
-                String editorial = txtEditorial.getText();
-                String isbn = txtIsbn.getText();
                 String disponible = txtDisponible.getText();
-                String tipo = txtTipo.getText();
-                int pag=0;
-                int u_disponible=0;
                 
-                //Variable que almacenará el incremento del id autor
-                int idAutor = 1;
-                try {
-                    idAutor = incremento_id();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Agregar_DVD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                //Variable que almacenará el incremento del id editorial
-                int idEditorial = 1;
-                idEditorial = incrementarIdEditorial();
-                
+                //Variable que almacenará el incremento del id artista y género
+                int idDirector = 1;
+                idDirector = incrementarDirector();
+
+                int idGenero = 1;
+                idGenero = incrementarGenero();
+
                 //Condicional que evalua si se ha ingresado 8 caracteres dentro del apartado ID
-                if(id.length()== 8){
+                //if(id.length()== 8){
                     //Condicional que lanza mensaje de error si hay algún dato con tipo erróneo
-                    if(id == null || "".equals(id) || titulo == null || "".equals(titulo) || autor == null || "".equals(autor)
-                            || fecha == null || "".equals(fecha) || num_pag == null || "".equals(num_pag)
-                            || editorial == null || "".equals(editorial) || isbn == null || "".equals(isbn)|| isbn.length()>13
-                            || disponible == null
-                            || "".equals(disponible) || tipo == null || "".equals(tipo)){
-                        JOptionPane.showMessageDialog(this, "Rellenar los campos solicitados de forma correcta \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                        txtIdlibro.requestFocus();
-                    } else {
-                        
-                        //Convertir datos de tipo String a enteros
-                        pag = Integer.parseInt(num_pag);
-                        u_disponible = Integer.parseInt(disponible);
-                        
-                        //Convetir dato ingresado a formato Fecha
-                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                        java.sql.Date conversion = null;
-                        
-                        try {
-                            Date fecha_publicacion = formato.parse(fecha);
-                            conversion = new java.sql.Date(fecha_publicacion.getTime());
-                        }catch(Exception e){
-                            System.out.println("Error" + e);
-                        }
-                        
-                        //Llamar a los siguientes métodos, pasándole parámetros
-                        insertarAutor(idAutor, autor);
-                        insertarEditorial(idEditorial, editorial);
-                        //insertarTipo(tipo);
-                        
-                        //Bloque de código para insertar información en tabla materiales
-                        String sql = "INSERT INTO materiales (id,titulo,codigo_tipo_material,codigo_autor,numero_de_paginas,codigo_editorial,isbn,fecha_publicacion,unidades_disponibles) "
-                                + "VALUES (?,?,4,?,?,?,?,?,?)";
-                        PreparedStatement stmt = null;
-                        //ResultSet rs = null;
-                        int rows = 0;
-                        
-                        try{
-                            con = Conexion.getConnection();
-                            stmt = con.prepareStatement(sql);
-                            int index = 1;
-                            stmt.setString(index++, id);
-                            stmt.setString(index++, titulo);
-                            stmt.setInt(index++, idAutor);
-                            stmt.setInt(index++, pag);
-                            stmt.setInt(index++, idEditorial);
-                            stmt.setString(index++, isbn);
-                            stmt.setDate(index++, conversion);
-                            stmt.setInt(index, u_disponible);
-                            
-                            rows = stmt.executeUpdate();
-                            System.out.println("Registros afectados " + rows);
-                        }catch(SQLException e){
-                            System.out.println("Error" + e);
-                        } finally{
-                            Conexion.close(stmt);
-                            Conexion.close(con);
-                        }
-                        //Llamada al método limpiar campos
-                        limpiarCampos();
-                        
-                        //Cerrar ventana
-                        //try {
-                            JOptionPane.showMessageDialog(this, "Datos ingresados correctamente. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                            Dashboard dash = new Dashboard();
-                            dash.setVisible(true);
-                            this.dispose();
-                        /*} catch (SQLException ex) {
-                            Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-                        }*/
+                if( titulo == null || "".equals(titulo)
+                    || director == null || "".equals(director)
+                    || genre == null || "".equals(genre)
+                    || duracion == null || "".equals(duracion)
+                    || fecha == null || "".equals(fecha)){
+                    JOptionPane.showMessageDialog(this, "Rellenar los campos solicitados \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+
+                    //Llamar a los siguientes métodos, pasándole parámetros
+                        //insertarDirector(idDirector, director);
+                        //insertarGenero(idGenero, genre);
+
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date conversion = null;
+                    Date fecha_publicacion;
+
+                    try {
+                        fecha_publicacion = formato.parse(fecha);
+                        conversion = new java.sql.Date(fecha_publicacion.getTime());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Agregar_CD.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else if(id.length()<8) {
-                    JOptionPane.showMessageDialog(this, "Error en Campo ID. Pocos caracteres. Debe tener 8 caracteres \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                } else if(id.length()>8){
-                    JOptionPane.showMessageDialog(this, "Error en Campo ID. Excede de 8 caracteres \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+
+                    //Bloque de código para insertar información en tabla materiales
+                    if(crud.insertarDVD(titulo, director, genre, duracion, conversion, disponible)>=1){
+                    //Llamada al método limpiar campos
+                    limpiarCampos();
+
+                    //Cerrar ventana
+                    JOptionPane.showMessageDialog(this, "Datos ingresados correctamente. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                    Dashboard dash = new Dashboard();
+                    dash.setVisible(true);
+                    this.dispose();
+                    }
                 }
-                
             } catch (SQLException ex) {
                 Logger.getLogger(Agregar_DVD.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
         }
     }//GEN-LAST:event_btnAgregarMousePressed
 
-    private void txtTipoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTipoMousePressed
-        
-       if(txtTipo.getText().equals("Ingrese tipo material (LIBRO)"))
-        txtTipo.setText("");
-        
-       if(txtIdlibro.getText().equals("") || txtIdlibro.getText() == null)
-        txtIdlibro.setText("Ingrese ID del libro");
-        
-       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
-        txtTituloLibro.setText("Ingrese título");
-       
-       if(txtAutorLibro.getText().equals("") || txtAutorLibro.getText() == null)
-        txtAutorLibro.setText("Ingrese autor");
-       
-       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
-        txtPaginas.setText("Ingrese número de páginas");
-       
-       if(txtEditorial.getText().equals("") || txtEditorial.getText() == null)
-        txtEditorial.setText("Ingrese nombre de editorial");
-       
-       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
-        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
-       
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-        txtFecha.setText("dia/mes/año");
-       
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-        txtDisponible.setText("Ingrese cantidad"); 
-        
-    }//GEN-LAST:event_txtTipoMousePressed
-
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
-
-        JOptionPane.showMessageDialog(this, "Acción cancelada. Volviendo al menú. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-        
+        // TODO add your handling code here:
         try {
             Menu_Tipo_Material tipo = new Menu_Tipo_Material();
             tipo.setVisible(true);
@@ -789,37 +402,43 @@ public class Agregar_DVD extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCancelarMousePressed
 
-    private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTipoActionPerformed
+    private void txtFechaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMousePressed
 
-    
-    public int insertarAutor (int idAutor, String autor){
-        
-        String sql = "INSERT INTO autores (id,nombre_autor) values (?,?)";
-                    PreparedStatement stmt = null;
-                    int rows = 0;
-                    
-                    try{
-                        con = Conexion.getConnection();
-                        stmt = con.prepareStatement(sql);
-                        int index = 1;
-                        stmt.setInt(index++, idAutor);
-                        stmt.setString(index, autor);
-                        
-                        rows = stmt.executeUpdate();
-                        System.out.println("Registros afectados " + rows);
-                    }catch(SQLException e){
-                        System.out.println("Error" + e);
-                    } finally{
-                        Conexion.close(stmt);
-                        Conexion.close(con);
-                    }
-                    return rows;
-    }
-    
-    public int insertarEditorial (int idEditorial,String editorial){
-        String sql = "INSERT INTO editoriales (id, nombre_editorial) values (?,?)";
+        if(txtFecha.getText().equals("Ingrese fecha de pulicación (dia/mes/año)"))
+        txtFecha.setText("");
+
+        if(txtTitulodvd.getText().equals("") || txtTitulodvd.getText() == null)
+        txtTitulodvd.setText("Ingrese título");
+
+        if(txtDuracion.getText().equals("") || txtDuracion.getText() == null)
+        txtDuracion.setText("Ingrese duracion");
+
+        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
+        txtDisponible.setText("Ingrese cantidad");
+    }//GEN-LAST:event_txtFechaMousePressed
+
+    private void txtDisponibleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDisponibleMousePressed
+
+        if(txtDisponible.getText().equals("Ingrese cantidad"))
+        txtDisponible.setText("");
+
+        if(txtTitulodvd.getText().equals("") || txtTitulodvd.getText() == null)
+        txtTitulodvd.setText("Ingrese título");
+
+        if(txtDuracion.getText().equals("") || txtDuracion.getText() == null)
+        txtDuracion.setText("Ingrese duracion");
+
+        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+        txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año)");
+    }//GEN-LAST:event_txtDisponibleMousePressed
+
+    private void txtDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDisponibleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDisponibleActionPerformed
+
+    /*
+    public int insertarGenero(int idGenero, String genre){
+        String sql = "INSERT INTO generos (id,nombre_genero) values (?,?)";
                     PreparedStatement stmt = null;
                     //ResultSet rs = null;
                     int rows = 0;
@@ -828,8 +447,8 @@ public class Agregar_DVD extends javax.swing.JFrame {
                         con = Conexion.getConnection();
                         stmt = con.prepareStatement(sql);
                         int index = 1;
-                        stmt.setInt(index++, idEditorial);
-                        stmt.setString(index, editorial);
+                        stmt.setInt(index++, idGenero);
+                        stmt.setString(index, genre);
                         
                         rows = stmt.executeUpdate();
                         System.out.println("Registros afectados " + rows);
@@ -840,15 +459,57 @@ public class Agregar_DVD extends javax.swing.JFrame {
                         Conexion.close(con);
                     }
                     return rows;
+    }*/
+    
+    public void consultarGenero(){
+        String sql = "SELECT nombre_genero FROM GENEROS;";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {                
+                String nombreGenero = rs.getString("nombre_genero");
+                jComboBox2.addItem(nombreGenero);
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(Agregar_CD.class.getName()).log(Level.SEVERE, null, e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
     }
     
-    public int incremento_id () throws SQLException {
+    public void consultarDirector(){
+        String sql = "SELECT nombre_director FROM DIRECTORES;";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {                
+                String nombreDirector = rs.getString("nombre_director");
+                jComboBox1.addItem(nombreDirector);
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(Agregar_CD.class.getName()).log(Level.SEVERE, null, e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+    }
+    
+    public int incrementarDirector() throws SQLException{
         int id = 1;
         PreparedStatement ps = null;
         ResultSet rs = null;
         con = Conexion.getConnection();
         try{
-            ps = con.prepareStatement("SELECT MAX(id) FROM autores");
+            ps = con.prepareStatement("SELECT MAX(id) FROM directores");
             rs = ps.executeQuery();
             while(rs.next()){
                 id = rs.getInt(1) + 1;
@@ -863,13 +524,14 @@ public class Agregar_DVD extends javax.swing.JFrame {
         return id;
     }
     
-    public int incrementarIdEditorial() throws SQLException{
+    
+    public int incrementarGenero() throws SQLException{
         int id = 1;
         PreparedStatement ps = null;
         ResultSet rs = null;
         con = Conexion.getConnection();
         try{
-            ps = con.prepareStatement("SELECT MAX(id) FROM editoriales");
+            ps = con.prepareStatement("SELECT MAX(id) FROM generos");
             rs = ps.executeQuery();
             while(rs.next()){
                 id = rs.getInt(1) + 1;
@@ -885,59 +547,76 @@ public class Agregar_DVD extends javax.swing.JFrame {
     }
     
     public void limpiarCampos(){
-                txtIdlibro.setText("");
-                txtTituloLibro.setText("");
-                txtAutorLibro.setText("");
-                txtFecha.setText("");
-                txtPaginas.setText("");
-                txtEditorial.setText("");
-                txtIsbn.setText("");
-                txtDisponible.setText("");
-                txtTipo.setText("");
+        txtTitulodvd.setText("");
+        txtDuracion.setText("");
+        txtFecha.setText("");
+        txtDisponible.setText("");
     }
     
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Agregar_DVD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Agregar_DVD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Agregar_DVD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Agregar_DVD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new Agregar_DVD().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Agregar_DVD.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
-    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator15;
+    private javax.swing.JSeparator jSeparator16;
+    private javax.swing.JSeparator jSeparator17;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JLabel lblAutorLibro;
+    private javax.swing.JLabel lblCanciones1;
+    private javax.swing.JLabel lblDirector;
     private javax.swing.JLabel lblDisponible;
-    private javax.swing.JLabel lblEditorial;
     private javax.swing.JLabel lblFecha;
-    private javax.swing.JLabel lblIdLibro;
-    private javax.swing.JLabel lblIsbn;
+    private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblNewLibro;
-    private javax.swing.JLabel lblPaginas;
-    private javax.swing.JLabel lblTipo;
-    private javax.swing.JLabel lblTituloLibro;
+    private javax.swing.JLabel lblTitulodvd;
     private javax.swing.JPanel pnlAgregarMenu;
-    private javax.swing.JTextField txtAutorLibro;
     private javax.swing.JTextField txtDisponible;
-    private javax.swing.JTextField txtEditorial;
+    private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtIdlibro;
-    private javax.swing.JTextField txtIsbn;
-    private javax.swing.JTextField txtPaginas;
-    private javax.swing.JTextField txtTipo;
-    private javax.swing.JTextField txtTituloLibro;
+    private javax.swing.JTextField txtTitulodvd;
     // End of variables declaration//GEN-END:variables
 }

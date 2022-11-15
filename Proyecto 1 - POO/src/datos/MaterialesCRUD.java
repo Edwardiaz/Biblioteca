@@ -160,8 +160,6 @@ public class MaterialesCRUD extends Utils{
                 + "fecha_publicacion,unidades_disponibles) VALUES (?,?,4,?,?,?,?,?,?)";
         PreparedStatement stmt = null;
         Connection conn = null;
-        //int resultado = 0;
-        //ResultSet rs = null;
         int rows = 0;
         
         //Llamar a los siguientes métodos, pasándole parámetros para obtener sus respectivos ID
@@ -191,6 +189,138 @@ public class MaterialesCRUD extends Utils{
             Conexion.close(stmt);
             Conexion.close(conn);
         }
+        return rows;
+    }
+    
+    public int insertarCV(String titulo, String num_pag, String autorCV, int u_disponible, java.sql.Date fecha, String ubicacion){        
+        String sql = "INSERT INTO materiales (id,titulo,codigo_tipo_material,"
+                + "numero_de_paginas, ubicacion, nombre_autor_CV,"
+                + "fecha_publicacion,unidades_disponibles, ubicacion) VALUES (?,?,6,?,?,?,?,?,?)";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        int rows = 0;
+        
+        //Llamar a los siguientes métodos, pasándole parámetros para obtener sus respectivos ID
+        //int autorID = consultarAutorPorNombre(autor);
+        //int editorialID = consultarEditorialPorNombre(editorial);
+
+        try{
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(sql);
+            int index = 1;
+            stmt.setString(index++, crearID("LIB"));
+            stmt.setString(index++, titulo);
+            stmt.setString(index++, num_pag);
+            stmt.setString(index++, ubicacion);
+            stmt.setString(index++, autorCV);
+            stmt.setDate(index++, fecha);
+            stmt.setInt(index, u_disponible);
+
+            rows = stmt.executeUpdate();
+            //resultado = 2;
+            //System.out.println("Registros afectados " + rows);
+        }catch(SQLException e){
+            Logger.getLogger(MaterialesCRUD.class.getName()).log(Level.ERROR, "Hubo un problema durante la insercion de datos", e);
+            //resultado = 0;
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return rows;
+    }
+    
+    public int insertarCD(String titulo, String duracion, String canciones, int u_disponible, String artista, String genero, java.sql.Date conversion){
+        String sql = "INSERT INTO materiales (id,titulo, fecha_publicacion, codigo_artista,codigo_tipo_material,codigo_genero,duracion,numero_de_canciones,unidades_disponibles)"
+        + "VALUES (?,?,?,1,?,?,?,?, ?)";
+        PreparedStatement stmt = null;
+        //ResultSet rs = null;
+        int rows = 0;
+        
+        int idArtista = consultarArtistaPorNombre(artista);
+        int idGenero = consultarGeneroPorNombre(genero);
+
+        try{
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            int index = 1;
+            stmt.setString(index++, crearID("CDA"));
+            stmt.setString(index++, titulo);
+            stmt.setDate(index++, conversion);
+            stmt.setInt(index++, idArtista);
+            stmt.setInt(index++, idGenero);
+            stmt.setString(index++, duracion);
+            stmt.setString(index++, canciones);
+            stmt.setInt(index, u_disponible);
+
+            rows = stmt.executeUpdate();
+            System.out.println("Registros afectados " + rows);
+        }catch(SQLException e){
+            System.out.println("Error" + e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+        return rows;
+    }
+    
+    public int insertarDVD(String titulo, String director, String genre, String duracion, java.sql.Date conversion, String u_disponible){
+        String sql = "INSERT INTO materiales (id,titulo,codigo_director,codigo_tipo_material,codigo_genero,duracion, u_disponibles)"
+                        + "VALUES (?,?,?,2,?,?, ?)";
+        int idGenero = consultarGeneroPorNombre(genre);
+        int idDirector = consultarDirectorPorNombre(director);
+        PreparedStatement stmt = null;
+        //ResultSet rs = null;
+        int rows = 0;
+
+        try{
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            int index = 1;
+            stmt.setString(index++, crearID("DVD"));
+            stmt.setString(index++, titulo);
+            stmt.setInt(index++, idDirector);
+            stmt.setInt(index++, idGenero);
+            stmt.setString(index, duracion);
+            stmt.setDate(index, conversion);
+            stmt.setString(index, u_disponible);
+
+            rows = stmt.executeUpdate();
+            System.out.println("Registros afectados " + rows);
+        }catch(SQLException e){
+            System.out.println("Error" + e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+        return rows;
+    }
+    
+    public int insertarRevista(String titulo, String editorial, String periodo, java.sql.Date conversion, int u_disponible){
+        String sql = "INSERT INTO materiales (id,titulo,codigo_editorial,codigo_tipo_material,periodicidad,fecha_publicacion,unidades_disponibles) "
+                 + "VALUES (?,?,?,3,?,?,?)";
+        int idEditorial = consultarEditorialPorNombre(editorial);
+         PreparedStatement stmt = null;
+         int rows = 0;
+
+         try{
+             con = Conexion.getConnection();
+             stmt = con.prepareStatement(sql);
+             int index = 1;
+             stmt.setString(index++, crearID("REV"));
+             stmt.setString(index++, titulo);
+             stmt.setInt(index++, idEditorial);
+             stmt.setString(index++, periodo);
+             stmt.setDate(index++, conversion);
+             stmt.setInt(index, u_disponible);
+
+             rows = stmt.executeUpdate();
+             System.out.println("Registros afectados " + rows);
+         }catch(SQLException e){
+             System.out.println("Error" + e);
+         } finally{
+             Conexion.close(stmt);
+             Conexion.close(con);
+         } 
         return rows;
     }
     

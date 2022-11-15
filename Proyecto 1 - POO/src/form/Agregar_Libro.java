@@ -14,7 +14,7 @@ import javax.swing.*;
 
 /**
  *
- * @author user
+ * @author Jorge Díaz
  */
 public class Agregar_Libro extends javax.swing.JFrame {
 
@@ -405,7 +405,6 @@ public class Agregar_Libro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDisponibleMousePressed
 
     private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
-        
         //Comprobar que los datos no sean nulos ni vaciós
         if(txtTituloLibro.getText().equals("Ingrese Título")
             || txtFecha.getText().equals("dia/mes/año")
@@ -413,13 +412,10 @@ public class Agregar_Libro extends javax.swing.JFrame {
             || txtIsbn.getText().equals("Ingrese ISBN (13 carácteres)")
             || txtDisponible.getText().equals("Ingrese cantidad")){
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos \n", "AVISO",JOptionPane.INFORMATION_MESSAGE);
-            
         } else { 
             try {
                 //Creación de variables que almacenan los datos introducidos
-                //String id = txtIdlibro.getText();
                 MaterialesCRUD crud = new MaterialesCRUD();
-                //String id = crud.crearID("LIB");
                 String titulo = txtTituloLibro.getText();
                 String autor = (String)jComboBox2.getSelectedItem();
                 String fecha = txtFecha.getText();
@@ -430,86 +426,50 @@ public class Agregar_Libro extends javax.swing.JFrame {
                 int pag=0;
                 int u_disponible=0;
                 
-                //Variable que almacenará el incremento del id autor
-                //int idAutor = 1;
-                /*try {
-                    idAutor = crud.incremento_id();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
-                
                 //Variable que almacenará el incremento del id editorial
                 int idEditorial = 1;
                 idEditorial = incrementarIdEditorial();
                 
-                //Condicional que evalua si se ha ingresado 8 caracteres dentro del apartado ID
-                //if(id.length()== 8){
-                    //Condicional que lanza mensaje de error si hay algún dato con tipo erróneo
-                    if(titulo == null || "".equals(titulo) || autor == null || "".equals(autor)
-                            || fecha == null || "".equals(fecha) || num_pag == null || "".equals(num_pag)
-                            || editorial == null || "".equals(editorial) || isbn == null || "".equals(isbn)|| isbn.length()>13
-                            || disponible == null
-                            || "".equals(disponible)){
-                        JOptionPane.showMessageDialog(this, "Rellenar los campos solicitados de forma correcta \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                        
-                    } else {
-                        
-                        //Convertir datos de tipo String a enteros
-                        pag = Integer.parseInt(num_pag);
-                        u_disponible = Integer.parseInt(disponible);
-                        
-                        //Convetir dato ingresado a formato Fecha
-                        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                        java.sql.Date conversion = null;
-                        
-                        try {
-                            Date fecha_publicacion = formato.parse(fecha);
-                            conversion = new java.sql.Date(fecha_publicacion.getTime());
-                        }catch(Exception e){
-                            Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, "Hubo un error en la conversion de la FECHA DE PUBLICACION", e);
-                        }
-                        
-                        //Llamar a los siguientes métodos, pasándole parámetros
-//                        
-//                        insertarAutor(idAutor, autor);
-//
-//                        insertarEditorial(idEditorial, editorial);
-                        
-                        //insertarTipo(tipo);
-                        
-                        //Bloque de código para insertar información en tabla materiales                       
-                        if(crud.insertarLibros(titulo, pag, idEditorial, isbn, conversion, u_disponible, autor, editorial)>=1){
-                            //Llamada al método limpiar campos
-                            limpiarCampos();
+                //Condicional que lanza mensaje de error si hay algún dato con tipo erróneo
+                if(titulo == null || "".equals(titulo) || autor == null || "".equals(autor)
+                        || fecha == null || "".equals(fecha) || num_pag == null || "".equals(num_pag)
+                        || editorial == null || "".equals(editorial) || isbn == null || "".equals(isbn)|| isbn.length()>13
+                        || disponible == null
+                        || "".equals(disponible)){
+                    JOptionPane.showMessageDialog(this, "Rellenar los campos solicitados de forma correcta \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    //Convertir datos de tipo String a enteros
+                    pag = Integer.parseInt(num_pag);
+                    u_disponible = Integer.parseInt(disponible);
+                    //Convetir dato ingresado a formato Fecha
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    java.sql.Date conversion = null;
 
-                            //Cerrar ventana
-                            //try {
-                            JOptionPane.showMessageDialog(this, "Datos ingresados correctamente. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                            Dashboard dash = new Dashboard();
-                            dash.setVisible(true);
-                            this.dispose();
-                            /*} catch (SQLException ex) {
-                                Logger.getLogger(Dashboard.class.getName()).log(Level.SEVERE, null, ex);
-                            }*/
-                        }
+                    try {
+                        Date fecha_publicacion = formato.parse(fecha);
+                        conversion = new java.sql.Date(fecha_publicacion.getTime());
+                    }catch(Exception e){
+                        Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, "Hubo un error en la conversion de la FECHA DE PUBLICACION", e);
                     }
-                /*} else if(id.length()<8) {
-                    JOptionPane.showMessageDialog(this, "Error en Campo ID. Pocos caracteres. Debe tener 8 caracteres \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                } else if(id.length()>8){
-                    JOptionPane.showMessageDialog(this, "Error en Campo ID. Excede de 8 caracteres \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-                }*/
-                
+                    //Bloque de código para insertar información en tabla materiales                       
+                    if(crud.insertarLibros(titulo, pag, idEditorial, isbn, conversion, u_disponible, autor, editorial)>=1){
+                        //Llamada al método limpiar campos
+                        limpiarCampos();
+                        //Cerrar ventana
+                        JOptionPane.showMessageDialog(this, "Datos ingresados correctamente. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                        Dashboard dash = new Dashboard();
+                        dash.setVisible(true);
+                        this.dispose();
+                    }
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, ex);
             }
-             
         }
     }//GEN-LAST:event_btnAgregarMousePressed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
-
         JOptionPane.showMessageDialog(this, "Acción cancelada. Volviendo al menú. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
-        
         try {
             Menu_Tipo_Material tipo = new Menu_Tipo_Material();
             tipo.setVisible(true);
@@ -561,88 +521,6 @@ public class Agregar_Libro extends javax.swing.JFrame {
         }
         return id;
     }
-    
-    /*public String crearID(String tipoMaterial){
-        //Estructura del ID: DVD00001
-        String sql = "SELECT id FROM materiales";
-        int[] arrayID = new int[8];
-        int i = 0;
-        String id = "";
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        try {
-            con = Conexion.getConnection();
-            stmt = con.prepareStatement(sql);
-            rs = stmt.executeQuery();
-            //vamos convirtiendo cada ID en int quitando las tres primera letras
-            //y depositando el numero en un array
-            while (rs.next()) {                
-                String nombreAutor = rs.getString("id");                
-                String tipoID = nombreAutor.length() < 2 ? nombreAutor : nombreAutor.substring(0, 3);
-                if(tipoID.equalsIgnoreCase(tipoMaterial)){
-                    int numberId = Integer.parseInt(nombreAutor.substring(3));
-                    arrayID[i] = numberId;
-                    i++;
-                }
-            }
-            //voy identificando el numero mayor
-            int numMayor = arrayID[0];
-            for (int j = 1; i < arrayID.length; i++){
-                if (arrayID[j] > numMayor) {
-                    numMayor = arrayID[j];
-                }
-            }
-            //vamos a ver cuantos digitos tiene el numero resultante
-            int conteo = (int)Math.floor(Math.log10(numMayor) + 1);
-                                    
-            //agregamos los ceros según la cantidad de digitos del numero mayor
-            int resultado = 0;
-            if(conteo == 1){
-                resultado = numMayor+1;
-                id = String.valueOf("LIB0000"+resultado);
-            } else if(conteo == 2) {
-                resultado = numMayor+1;
-                id = String.valueOf("LIB000"+resultado);
-            } else if(conteo == 3) {
-                resultado = numMayor+1;
-                id = String.valueOf("LIB00"+resultado);
-            } else if(conteo == 4) {
-                resultado = numMayor+1;
-                id = String.valueOf("LIB0"+resultado);
-            } else {
-                resultado = numMayor+1;
-                id = String.valueOf("LIB"+resultado);
-            }
-        } catch (Exception e) {
-            Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, e);
-        } finally{
-            Conexion.close(stmt);
-            Conexion.close(con);
-        }
-        return id;
-    }*/
-    
-        
-    /*public int incremento_id () throws SQLException {
-        int id = 1;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        con = Conexion.getConnection();
-        try{
-            ps = con.prepareStatement("SELECT MAX(id) FROM autores");
-            rs = ps.executeQuery();
-            while(rs.next()){
-                id = rs.getInt(1) + 1;
-            }
-        }catch(SQLException e){
-            Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, e);
-        } finally{
-            Conexion.close(con);
-            Conexion.close(ps);
-            Conexion.close(rs);
-        }
-        return id;
-    }*/
     
     public int incrementarIdEditorial() throws SQLException{
         int id = 1;
