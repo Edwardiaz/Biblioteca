@@ -144,7 +144,7 @@ public class Usuario {
                 int rolU = Globales.rolUsuario = rs.getInt("codigo_rol");
 
                 //Instanciar objeto dashboard
-                Dashboard db = new Dashboard();
+                //Dashboard db = new Dashboard();
                                         
                 switch (rolU) {
                     case 1:
