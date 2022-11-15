@@ -143,6 +143,75 @@ public class Utils {
         return id;
     }
     
+    public int consultarArtistaPorNombre(String artista){
+        String sql = "SELECT id, nombre_artista FROM ARTISTAS WHERE nombre_artista = '"+artista+"';";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int id = 0;
+        try {
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {                
+                String nombreArtista = rs.getString("nombre_artista");
+                id = rs.getInt("id");
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+        return id;
+    }
+    
+    public int consultarGeneroPorNombre(String genero){
+        String sql = "SELECT id, nombre_genero FROM GENEROS WHERE nombre_genero = '"+genero+"';";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int id = 0;
+        try {
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {                
+                String nombreGenero = rs.getString("nombre_genero");
+                id = rs.getInt("id");
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+        return id;
+    }
+    
+    public int consultarDirectorPorNombre(String director){
+        String sql = "SELECT id, nombre_director FROM DIRECTORES WHERE nombre_director = '"+director+"';";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int id = 0;
+        try {
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {                
+                String nombreDirector = rs.getString("nombre_director");
+                id = rs.getInt("id");
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+        return id;
+    }
+    
     public int insertarAutor (int idAutor, String autor){
         
         String sql = "INSERT INTO autores (id,nombre_autor) values (?,?)";
@@ -184,6 +253,78 @@ public class Utils {
             System.out.println("Registros afectados " + rows);
         }catch(SQLException e){
             Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+        return rows;
+    }
+    
+    public int insertarArtista(int idArtista, String artista){
+        String sql = "INSERT INTO artistas (id,nombre_artista) values (?,?)";
+        PreparedStatement stmt = null;
+        //ResultSet rs = null;
+        int rows = 0;
+
+        try{
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            int index = 1;
+            stmt.setInt(index++, idArtista);
+            stmt.setString(index, artista);
+
+            rows = stmt.executeUpdate();
+            System.out.println("Registros afectados " + rows);
+        }catch(SQLException e){
+            System.out.println("error" + e);
+        } finally{
+            Conexion.close(stmt);
+            Conexion.close(con);
+        }
+        return rows;
+    }
+    
+    public int insertarDirector(int idDirector, String director){
+        String sql = "INSERT INTO directores (id,nombre_director) values (?,?)";
+                    PreparedStatement stmt = null;
+                    //ResultSet rs = null;
+                    int rows = 0;
+                    
+                    try{
+                        con = Conexion.getConnection();
+                        stmt = con.prepareStatement(sql);
+                        int index = 1;
+                        stmt.setInt(index++, idDirector);
+                        stmt.setString(index, director);
+                        
+                        rows = stmt.executeUpdate();
+                        System.out.println("Registros afectados " + rows);
+                    }catch(SQLException e){
+                        System.out.println("error" + e);
+                    } finally{
+                        Conexion.close(stmt);
+                        Conexion.close(con);
+                    }
+                    return rows;
+    }
+    
+    public int insertarGenero(int idGenero, String genre){
+        String sql = "INSERT INTO generos (id,nombre_genero) values (?,?)";
+        PreparedStatement stmt = null;
+        //ResultSet rs = null;
+        int rows = 0;
+
+        try{
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            int index = 1;
+            stmt.setInt(index++, idGenero);
+            stmt.setString(index, genre);
+
+            rows = stmt.executeUpdate();
+            System.out.println("Registros afectados " + rows);
+        }catch(SQLException e){
+            System.out.println("error" + e);
         } finally{
             Conexion.close(stmt);
             Conexion.close(con);
