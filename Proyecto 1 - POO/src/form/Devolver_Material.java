@@ -25,7 +25,7 @@ public class Devolver_Material extends javax.swing.JFrame {
     Conexion conn = new Conexion();
     Connection con = conn.getConnection();
     Prestamo prestamos = new Prestamo();
-    
+
     public Devolver_Material() throws SQLException {
         initComponents();
         this.setTitle("Retornar material");
@@ -156,7 +156,6 @@ public class Devolver_Material extends javax.swing.JFrame {
             String idMater = tblPrestamos.getValueAt(fila, 1).toString();
             String nickname = txtUsuario.getText();
 
-            
             //Condicionales
             if (!prestamos.existeMaterial(idMater)) {
                 JOptionPane.showMessageDialog(this, "No existe ningún material con ese ID. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
@@ -205,7 +204,7 @@ public class Devolver_Material extends javax.swing.JFrame {
 
     private void tblPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPrestamosMouseClicked
         // TODO add your handling code here:
-        
+
         int seleccion = tblPrestamos.rowAtPoint(evt.getPoint());
         txtUsuario.setText(String.valueOf(tblPrestamos.getValueAt(seleccion, 2)));
     }//GEN-LAST:event_tblPrestamosMouseClicked
@@ -244,12 +243,12 @@ public class Devolver_Material extends javax.swing.JFrame {
             tblPrestamos.setModel(new DefaultTableModel(
                     lista,
                     new String[]{
-                        "ID", "Material", "Usuario", "Fecha de Prestamo", "Fecha de Devolución"
+                        "ID", "Material", "Usuario", "Fecha de Prestamo", "Fecha de Devolución",
                     }));
         } catch (SQLException ex) {
             System.out.println("ERROR: " + ex);
         } finally {
-            
+
         }
     }
 

@@ -279,15 +279,34 @@ public class Prestamo {
         if (rs.next()) {
             idUser = rs.getInt("id");
         }
-       
-        stmt2 = con.prepareStatement("DELETE FROM prestamos WHERE codigo_material = '" + material_id + "' AND codigo_usuario = '" + idUser + "' LIMIT 1");
-        stmt2.executeUpdate();
 
-        stmt3 = con.prepareStatement("UPDATE materiales SET unidades_disponibles = unidades_disponibles+1 WHERE id = '" + material_id + "';");
-        stmt3.executeUpdate();
-        JOptionPane.showMessageDialog(null, "¡Devolución realizada! Gracias por la entrega. \n", "HECHO", JOptionPane.INFORMATION_MESSAGE);
 
-        Conexion.close(con);
-        Conexion.close(rs);
+        ResultSet re = stmt.executeQuery("SELECT usuarios.id, materiales.id, prestamos.fecha_devolucion, DATEDIFF(now(),prestamos.fecha_devolucion) AS Atraso FROM prestamos JOIN usuarios ON prestamos.codigo_usuario = usuarios.id JOIN materiales ON materiales.id = prestamos.codigo_material AND prestamos.codigo_usuario='" + idUser + "'");
+        if (re.next()) {
+            String diferencia = re.getString("Atraso");
+            int diferencia_dias = Integer.parseInt(diferencia);
+            float costo = (float) 0.5;
+            
+            if (diferencia_dias > 0) {
+                float mora = (float) (diferencia_dias * costo);
+                
+                stmt = con.prepareStatement("UPDATE usuarios SET mora='" + mora + "' WHERE usuarios.id='" + idUser + "'");
+                stmt.executeUpdate();
+                stmt = con.prepareStatement("DELETE FROM prestamos WHERE codigo_material = '" + material_id + "' AND codigo_usuario = '" + idUser + "' LIMIT 1");
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "¡SANCIONADO POR ENTREGA ATRASADA! ($" + diferencia_dias + ") \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                stmt = con.prepareStatement("DELETE FROM prestamos WHERE codigo_material = '" + material_id + "' AND codigo_usuario = '" + idUser + "' LIMIT 1");
+                stmt.executeUpdate();
+                
+                stmt2 = con.prepareStatement("UPDATE materiales SET unidades_disponibles = unidades_disponibles+1 WHERE id = '" + material_id + "';");
+                stmt2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "¡Devolución realizada! Gracias por la entrega. \n", "HECHO", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            Conexion.close(con);
+            Conexion.close(rs);
+
+        }
     }
 }
