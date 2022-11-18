@@ -12,7 +12,7 @@ import org.apache.log4j.LogManager;
  *
  * @author Jorge Diaz
  */
-public class Eliminar_Material extends JFrame {
+public class Eliminar_Material extends javax.swing.JFrame {
 
     PreparedStatement ps = null;
     ResultSet rs = null;

@@ -52,13 +52,15 @@ public class Menu_Materiales extends javax.swing.JFrame {
         lblMostrarMat = new javax.swing.JLabel();
         lblRegresar = new javax.swing.JLabel();
         lblReturn = new javax.swing.JLabel();
+        lblEliminar = new javax.swing.JLabel();
+        lblBorrar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 51));
 
         lblAgregarMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add_Material.png"))); // NOI18N
-        lblAgregarMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAgregarMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAgregarMaterial.setName("lblAgregarMaterial"); // NOI18N
         lblAgregarMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -73,7 +75,7 @@ public class Menu_Materiales extends javax.swing.JFrame {
         lblAddMaterial.setName("lblAddMaterial"); // NOI18N
 
         lblVerMaterial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Ver user.png"))); // NOI18N
-        lblVerMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblVerMaterial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblVerMaterial.setName("lblVerMaterial"); // NOI18N
         lblVerMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -88,7 +90,7 @@ public class Menu_Materiales extends javax.swing.JFrame {
         lblMostrarMat.setName("lblNuevo"); // NOI18N
 
         lblRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Regresar.png"))); // NOI18N
-        lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblRegresar.setName("lblRegresar"); // NOI18N
         lblRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -102,6 +104,14 @@ public class Menu_Materiales extends javax.swing.JFrame {
         lblReturn.setText("Regresar");
         lblReturn.setName("lblReturn"); // NOI18N
 
+        lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Del_Material.png"))); // NOI18N
+
+        lblBorrar.setBackground(new java.awt.Color(0, 0, 51));
+        lblBorrar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        lblBorrar.setForeground(new java.awt.Color(255, 255, 255));
+        lblBorrar.setText("Borrar");
+        lblBorrar.setName("lblReturn"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,45 +119,55 @@ public class Menu_Materiales extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(lblAddMaterial))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(85, 85, 85)
                         .addComponent(lblAgregarMaterial))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(lblAddMaterial)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                        .addGap(67, 67, 67)
+                        .addComponent(lblEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblVerMaterial)
-                        .addGap(99, 99, 99))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblMostrarMat)
-                        .addGap(131, 131, 131))))
+                        .addGap(131, 131, 131))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblRegresar)
+                            .addComponent(lblVerMaterial))
+                        .addGap(99, 99, 99))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRegresar)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblReturn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(113, 113, 113)
+                .addComponent(lblBorrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblReturn)
+                .addGap(111, 111, 111))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblVerMaterial)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblMostrarMat))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblVerMaterial)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblMostrarMat))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblAgregarMaterial)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblAddMaterial)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(lblRegresar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblAgregarMaterial)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblAddMaterial)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addComponent(lblRegresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblReturn)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBorrar)
+                    .addComponent(lblReturn))
                 .addGap(59, 59, 59))
         );
 
@@ -231,6 +251,8 @@ public class Menu_Materiales extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAddMaterial;
     private javax.swing.JLabel lblAgregarMaterial;
+    private javax.swing.JLabel lblBorrar;
+    private javax.swing.JLabel lblEliminar;
     private javax.swing.JLabel lblMostrarMat;
     private javax.swing.JLabel lblRegresar;
     private javax.swing.JLabel lblReturn;
