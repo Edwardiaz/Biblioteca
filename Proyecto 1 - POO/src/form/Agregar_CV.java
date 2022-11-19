@@ -500,7 +500,23 @@ public class Agregar_CV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTituloLibro1MousePressed
 
     private void txtUbicacionLibro2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUbicacionLibro2MousePressed
-        // TODO add your handling code here:
+        if(txtDisponible.getText().equals("Ingrese cantidad"))
+        txtDisponible.setText("");
+        
+       if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
+        txtTituloLibro.setText("Ingrese título");
+       
+       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
+        txtPaginas.setText("Ingrese número de páginas");
+       
+       if(txtUbicacionLibro2.getText().equals("") || txtUbicacionLibro2.getText() == null)
+        txtUbicacionLibro2.setText("Ingrese los 13 digitos del ISBN");
+              
+       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+        txtFecha.setText("dia/mes/año");
+       
+       if(txtTituloLibro1.getText().equals("") || txtTituloLibro1.getText() == null)
+        txtTituloLibro1.setText("nombre del autor");
     }//GEN-LAST:event_txtUbicacionLibro2MousePressed
 /*
     public void consultarAutores(){

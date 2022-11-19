@@ -105,6 +105,11 @@ public class Menu_Materiales extends javax.swing.JFrame {
         lblReturn.setName("lblReturn"); // NOI18N
 
         lblEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Del_Material.png"))); // NOI18N
+        lblEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblEliminarMousePressed(evt);
+            }
+        });
 
         lblBorrar.setBackground(new java.awt.Color(0, 0, 51));
         lblBorrar.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -211,6 +216,17 @@ public class Menu_Materiales extends javax.swing.JFrame {
         evm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblVerMaterialMousePressed
+
+    private void lblEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEliminarMousePressed
+    Eliminar_Material eliminar;
+        try {
+            eliminar = new Eliminar_Material();
+            eliminar.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu_Materiales.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblEliminarMousePressed
 
     /**
      * @param args the command line arguments
