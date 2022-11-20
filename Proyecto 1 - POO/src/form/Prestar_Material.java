@@ -196,6 +196,14 @@ public class Prestar_Material extends javax.swing.JFrame {
                 txtUsuario.requestFocus();
             } else if (prestamos.verificarMora(usuario)) {
                 JOptionPane.showMessageDialog(this, "El usuario " + usuario + " no puede realizar prestamo. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                int opcion = JOptionPane.showConfirmDialog(this, "" + usuario + "¿Desea cancelar la deuda?. \n", "CONFIRMAR", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if(opcion==JOptionPane.YES_OPTION){
+                    Pagar_Deuda deuda = new Pagar_Deuda();
+                    deuda.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this,"Deuda no cancelada. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
+                }
                 txtUsuario.setText("");
             } else if (prestamos.verificarPrestamo(usuario, idMater)) {
                 JOptionPane.showMessageDialog(this, "El usuario " + usuario + " ya cuenta con el material seleccionado. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);

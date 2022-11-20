@@ -267,7 +267,6 @@ public class Prestamo {
         int idUser = 0;
         PreparedStatement stmt = null;
         PreparedStatement stmt2 = null;
-        PreparedStatement stmt3 = null;
         ResultSet rs = null;
         Conexion conn = new Conexion();
         Connection con = conn.getConnection();
