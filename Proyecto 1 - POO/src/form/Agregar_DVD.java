@@ -78,6 +78,9 @@ public class Agregar_DVD extends javax.swing.JFrame {
         txtDisponible = new javax.swing.JTextField();
         jSeparator17 = new javax.swing.JSeparator();
         jComboBox1 = new javax.swing.JComboBox<>();
+        lblTituloLibro1 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        txtUbicacionCV = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -281,6 +284,32 @@ public class Agregar_DVD extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- -  - -" }));
         pnlAgregarMenu.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 260, -1));
 
+        lblTituloLibro1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTituloLibro1.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloLibro1.setText("Ubicación");
+        lblTituloLibro1.setName("lblTituloLibro"); // NOI18N
+        pnlAgregarMenu.add(lblTituloLibro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
+
+        jSeparator11.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator11.setPreferredSize(new java.awt.Dimension(200, 10));
+        pnlAgregarMenu.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 260, 10));
+
+        txtUbicacionCV.setBackground(new java.awt.Color(0, 0, 51));
+        txtUbicacionCV.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txtUbicacionCV.setForeground(new java.awt.Color(102, 102, 102));
+        txtUbicacionCV.setText("Ingrese la ubicación");
+        txtUbicacionCV.setAlignmentX(0.8F);
+        txtUbicacionCV.setBorder(null);
+        txtUbicacionCV.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtUbicacionCV.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtUbicacionCV.setName("txtTituloLibro"); // NOI18N
+        txtUbicacionCV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtUbicacionCVMousePressed(evt);
+            }
+        });
+        pnlAgregarMenu.add(txtUbicacionCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 260, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -310,6 +339,9 @@ public class Agregar_DVD extends javax.swing.JFrame {
 
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
             txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año))");
+        
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtTitulodvdMousePressed
 
     private void txtTitulodvdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitulodvdActionPerformed
@@ -327,6 +359,9 @@ public class Agregar_DVD extends javax.swing.JFrame {
         
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
             txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año))");
+                      
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtDuracionMousePressed
 
     private void txtDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuracionActionPerformed
@@ -338,6 +373,7 @@ public class Agregar_DVD extends javax.swing.JFrame {
         //Comprobar que los datos no sean nulos ni vaciós
         if(txtTitulodvd.getText().equals("Ingrese título")
             || txtDuracion.getText().equals("Ingrese duracion")
+            || txtUbicacionCV.getText().equals("Ingrese la ubicación")
             || txtFecha.getText().equals("Ingrese fecha de pulicación (dia/mes/año))")){
             JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -351,6 +387,7 @@ public class Agregar_DVD extends javax.swing.JFrame {
                 String duracion = txtDuracion.getText();
                 String fecha = txtFecha.getText();
                 String disponible = txtDisponible.getText();
+                String ubicacion = txtUbicacionCV.getText();
                 
                 //Variable que almacenará el incremento del id artista y género
                 int idDirector = 1;
@@ -359,13 +396,12 @@ public class Agregar_DVD extends javax.swing.JFrame {
                 int idGenero = 1;
                 idGenero = incrementarGenero();
 
-                //Condicional que evalua si se ha ingresado 8 caracteres dentro del apartado ID
-                //if(id.length()== 8){
-                    //Condicional que lanza mensaje de error si hay algún dato con tipo erróneo
+                //Condicional que lanza mensaje de error si hay algún dato con tipo erróneo
                 if( titulo == null || "".equals(titulo)
                     || director == null || "".equals(director)
                     || genre == null || "".equals(genre)
                     || duracion == null || "".equals(duracion)
+                    || ubicacion == null || "".equals(ubicacion)
                     || fecha == null || "".equals(fecha)){
                     JOptionPane.showMessageDialog(this, "Rellenar los campos solicitados \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -386,7 +422,7 @@ public class Agregar_DVD extends javax.swing.JFrame {
                     }
 
                     //Bloque de código para insertar información en tabla materiales
-                    if(crud.insertarDVD(titulo, director, genre, duracion, conversion, disponible)>=1){
+                    if(crud.insertarDVD(titulo, director, genre, duracion, conversion, disponible, ubicacion)>=1){
                     //Llamada al método limpiar campos
                     limpiarCampos();
 
@@ -404,7 +440,6 @@ public class Agregar_DVD extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarMousePressed
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
-        // TODO add your handling code here:
         try {
             Menu_Tipo_Material tipo = new Menu_Tipo_Material();
             tipo.setVisible(true);
@@ -427,6 +462,9 @@ public class Agregar_DVD extends javax.swing.JFrame {
 
         if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
         txtDisponible.setText("Ingrese cantidad");
+                      
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtFechaMousePressed
 
     private void txtDisponibleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDisponibleMousePressed
@@ -442,11 +480,28 @@ public class Agregar_DVD extends javax.swing.JFrame {
 
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
         txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año)");
+        
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtDisponibleMousePressed
 
     private void txtDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDisponibleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDisponibleActionPerformed
+
+    private void txtUbicacionCVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUbicacionCVMousePressed
+        if(txtUbicacionCV.getText().equals("Ingrese la ubicación"))
+        txtUbicacionCV.setText("");
+
+        if(txtTitulodvd.getText().equals("") || txtTitulodvd.getText() == null)
+        txtTitulodvd.setText("Ingrese título");
+
+        if(txtDuracion.getText().equals("") || txtDuracion.getText() == null)
+        txtDuracion.setText("Ingrese duracion");
+
+        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+        txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año)");
+    }//GEN-LAST:event_txtUbicacionCVMousePressed
 
     /*
     public int insertarGenero(int idGenero, String genre){
@@ -608,6 +663,7 @@ public class Agregar_DVD extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator15;
@@ -624,11 +680,13 @@ public class Agregar_DVD extends javax.swing.JFrame {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblNewLibro;
+    private javax.swing.JLabel lblTituloLibro1;
     private javax.swing.JLabel lblTitulodvd;
     private javax.swing.JPanel pnlAgregarMenu;
     private javax.swing.JTextField txtDisponible;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtTitulodvd;
+    private javax.swing.JTextField txtUbicacionCV;
     // End of variables declaration//GEN-END:variables
 }

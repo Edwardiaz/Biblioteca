@@ -83,6 +83,9 @@ public class Agregar_Libro extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
+        lblTituloLibro1 = new javax.swing.JLabel();
+        txtUbicacionCV = new javax.swing.JTextField();
+        jSeparator11 = new javax.swing.JSeparator();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -305,6 +308,32 @@ public class Agregar_Libro extends javax.swing.JFrame {
         jComboBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAgregarMenu.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 260, -1));
 
+        lblTituloLibro1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTituloLibro1.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloLibro1.setText("Ubicación");
+        lblTituloLibro1.setName("lblTituloLibro"); // NOI18N
+        pnlAgregarMenu.add(lblTituloLibro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
+
+        txtUbicacionCV.setBackground(new java.awt.Color(0, 0, 51));
+        txtUbicacionCV.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txtUbicacionCV.setForeground(new java.awt.Color(102, 102, 102));
+        txtUbicacionCV.setText("Ingrese la ubicación");
+        txtUbicacionCV.setAlignmentX(0.8F);
+        txtUbicacionCV.setBorder(null);
+        txtUbicacionCV.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtUbicacionCV.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtUbicacionCV.setName("txtTituloLibro"); // NOI18N
+        txtUbicacionCV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtUbicacionCVMousePressed(evt);
+            }
+        });
+        pnlAgregarMenu.add(txtUbicacionCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 260, 30));
+
+        jSeparator11.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator11.setPreferredSize(new java.awt.Dimension(200, 10));
+        pnlAgregarMenu.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, 260, 10));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -335,7 +364,9 @@ public class Agregar_Libro extends javax.swing.JFrame {
        
        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
         txtDisponible.setText("Ingrese cantidad"); 
-       
+                     
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtTituloLibroMousePressed
 
     private void txtPaginasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPaginasMousePressed
@@ -354,7 +385,9 @@ public class Agregar_Libro extends javax.swing.JFrame {
        
        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
         txtDisponible.setText("Ingrese cantidad");
-
+                     
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtPaginasMousePressed
 
     private void txtIsbnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIsbnMousePressed
@@ -373,7 +406,9 @@ public class Agregar_Libro extends javax.swing.JFrame {
        
        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
         txtDisponible.setText("Ingrese cantidad");
-
+                     
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtIsbnMousePressed
 
     private void txtFechaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFechaMousePressed
@@ -392,7 +427,9 @@ public class Agregar_Libro extends javax.swing.JFrame {
        
        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
         txtDisponible.setText("Ingrese cantidad");
-
+                     
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtFechaMousePressed
 
     private void txtDisponibleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDisponibleMousePressed
@@ -411,7 +448,9 @@ public class Agregar_Libro extends javax.swing.JFrame {
               
        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
         txtFecha.setText("dia/mes/año");
-
+                     
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtDisponibleMousePressed
 
     private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
@@ -420,6 +459,7 @@ public class Agregar_Libro extends javax.swing.JFrame {
             || txtFecha.getText().equals("dia/mes/año")
             || txtPaginas.getText().equals("Ingrese número de páginas")
             || txtIsbn.getText().equals("Ingrese ISBN (13 carácteres)")
+            || txtUbicacionCV.getText().equals("Ingrese la ubicación")
             || txtDisponible.getText().equals("Ingrese cantidad")){
             JOptionPane.showMessageDialog(this,"Debe llenar todos los campos \n", "AVISO",JOptionPane.INFORMATION_MESSAGE);
         } else { 
@@ -433,6 +473,7 @@ public class Agregar_Libro extends javax.swing.JFrame {
                 String editorial = (String)jComboBox3.getSelectedItem();
                 String isbn = txtIsbn.getText();
                 String disponible = txtDisponible.getText();
+                String ubicacion = txtUbicacionCV.getText();
                 int pag=0;
                 int u_disponible=0;
                 
@@ -441,7 +482,8 @@ public class Agregar_Libro extends javax.swing.JFrame {
                 idEditorial = incrementarIdEditorial();
                 
                 //Condicional que lanza mensaje de error si hay algún dato con tipo erróneo
-                if(titulo == null || "".equals(titulo) || autor == null || "".equals(autor)
+                if(titulo == null || "".equals(titulo) || autor == null || "".equals(autor) 
+                        || ubicacion == null || "".equals(ubicacion)
                         || fecha == null || "".equals(fecha) || num_pag == null || "".equals(num_pag)
                         || editorial == null || "".equals(editorial) || isbn == null || "".equals(isbn)|| isbn.length()>13
                         || disponible == null
@@ -462,7 +504,7 @@ public class Agregar_Libro extends javax.swing.JFrame {
                         Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, "Hubo un error en la conversion de la FECHA DE PUBLICACION", e);
                     }
                     //Bloque de código para insertar información en tabla materiales                       
-                    if(crud.insertarLibros(titulo, pag, idEditorial, isbn, conversion, u_disponible, autor, editorial)>=1){
+                    if(crud.insertarLibros(titulo, pag, idEditorial, isbn, conversion, u_disponible, autor, editorial, ubicacion, 1)>=1){
                         //Llamada al método limpiar campos
                         limpiarCampos();
                         //Cerrar ventana
@@ -488,6 +530,23 @@ public class Agregar_Libro extends javax.swing.JFrame {
             Logger.getLogger(Agregar_Libro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void txtUbicacionCVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUbicacionCVMousePressed
+        if(txtUbicacionCV.getText().equals("Ingrese la ubicación"))
+        txtUbicacionCV.setText("");
+
+        if(txtTituloLibro.getText().equals("") || txtTituloLibro.getText() == null)
+        txtTituloLibro.setText("Ingrese título");
+       
+       if(txtPaginas.getText().equals("") || txtPaginas.getText() == null)
+        txtPaginas.setText("Ingrese número de páginas");
+       
+       if(txtIsbn.getText().equals("") || txtIsbn.getText() == null)
+        txtIsbn.setText("Ingrese los 13 digitos del ISBN");
+              
+       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+        txtFecha.setText("dia/mes/año");
+    }//GEN-LAST:event_txtUbicacionCVMousePressed
 
     public void consultarAutores(){
         String sql = "SELECT nombre_autor FROM AUTORES;";
@@ -577,6 +636,7 @@ public class Agregar_Libro extends javax.swing.JFrame {
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem2;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
@@ -595,11 +655,13 @@ public class Agregar_Libro extends javax.swing.JFrame {
     private javax.swing.JLabel lblNewLibro;
     private javax.swing.JLabel lblPaginas;
     private javax.swing.JLabel lblTituloLibro;
+    private javax.swing.JLabel lblTituloLibro1;
     private javax.swing.JPanel pnlAgregarMenu;
     private javax.swing.JTextField txtDisponible;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtIsbn;
     private javax.swing.JTextField txtPaginas;
     private javax.swing.JTextField txtTituloLibro;
+    private javax.swing.JTextField txtUbicacionCV;
     // End of variables declaration//GEN-END:variables
 }

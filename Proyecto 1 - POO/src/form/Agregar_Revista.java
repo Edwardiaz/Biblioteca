@@ -65,6 +65,9 @@ public class Agregar_Revista extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jComboBox3 = new javax.swing.JComboBox<>();
+        lblTituloLibro1 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        txtUbicacionCV = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -258,6 +261,32 @@ public class Agregar_Revista extends javax.swing.JFrame {
         jComboBox3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlAgregarMenu.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 260, -1));
 
+        lblTituloLibro1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTituloLibro1.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloLibro1.setText("Ubicación");
+        lblTituloLibro1.setName("lblTituloLibro"); // NOI18N
+        pnlAgregarMenu.add(lblTituloLibro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, -1, -1));
+
+        jSeparator11.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator11.setPreferredSize(new java.awt.Dimension(200, 10));
+        pnlAgregarMenu.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 260, 10));
+
+        txtUbicacionCV.setBackground(new java.awt.Color(0, 0, 51));
+        txtUbicacionCV.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txtUbicacionCV.setForeground(new java.awt.Color(102, 102, 102));
+        txtUbicacionCV.setText("Ingrese la ubicación");
+        txtUbicacionCV.setAlignmentX(0.8F);
+        txtUbicacionCV.setBorder(null);
+        txtUbicacionCV.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtUbicacionCV.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtUbicacionCV.setName("txtTituloLibro"); // NOI18N
+        txtUbicacionCV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtUbicacionCVMousePressed(evt);
+            }
+        });
+        pnlAgregarMenu.add(txtUbicacionCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 260, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,19 +306,20 @@ public class Agregar_Revista extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTituloRevistaMouseEntered
 
     private void txtTituloRevistaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTituloRevistaMousePressed
-        // TODO add your handling code here:
+        if(txtTituloRevista.getText().equals("Ingrese título"))
+             txtTituloRevista.setText("");
 
-       if(txtTituloRevista.getText().equals("Ingrese título"))
-            txtTituloRevista.setText("");
+        if(txtPeriod.getText().equals("") || txtPeriod.getText() == null)
+             txtPeriod.setText("Ingrese Periodicidad");
 
-       if(txtPeriod.getText().equals("") || txtPeriod.getText() == null)
-            txtPeriod.setText("Ingrese Periodicidad");
+        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+             txtFecha.setText("dia/mes/año");
 
-       if(txtFecha.getText().equals("") || txtFecha.getText() == null)
-            txtFecha.setText("dia/mes/año");
+        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
+             txtDisponible.setText("Ingrese cantidad");
 
-       if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
-            txtDisponible.setText("Ingrese cantidad");
+        if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+         txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtTituloRevistaMousePressed
 
     private void txtTituloRevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloRevistaActionPerformed
@@ -297,8 +327,6 @@ public class Agregar_Revista extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTituloRevistaActionPerformed
 
     private void txtPeriodMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPeriodMousePressed
-        // TODO add your handling code here:
-
         if(txtPeriod.getText().equals("Ingrese Periodicidad"))
             txtPeriod.setText("");
 
@@ -310,6 +338,9 @@ public class Agregar_Revista extends javax.swing.JFrame {
 
         if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
             txtDisponible.setText("Ingrese cantidad");
+        
+        if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+            txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtPeriodMousePressed
 
     private void txtPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPeriodActionPerformed
@@ -328,6 +359,9 @@ public class Agregar_Revista extends javax.swing.JFrame {
 
         if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
             txtDisponible.setText("Ingrese cantidad");
+        
+        if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+            txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtFechaMousePressed
 
     private void txtFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaActionPerformed
@@ -346,6 +380,9 @@ public class Agregar_Revista extends javax.swing.JFrame {
         
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
             txtFecha.setText("dia/mes/año");
+        
+        if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+            txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtDisponibleMousePressed
 
     private void txtDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDisponibleActionPerformed
@@ -355,7 +392,9 @@ public class Agregar_Revista extends javax.swing.JFrame {
     private void btnAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMousePressed
         //Comprobar que los datos no sean nulos ni vaciós
         if(txtTituloRevista.getText().equals("Ingrese título")
-            || txtPeriod.getText().equals("Ingrese Periodicidad")|| txtDisponible.getText().equals("Ingrese cantidad")
+            || txtPeriod.getText().equals("Ingrese Periodicidad")
+            || txtDisponible.getText().equals("Ingrese cantidad")
+            || txtUbicacionCV.getText().equals("Ingrese la ubicación")
             || txtFecha.getText().equals("dia/mes/año")){
             JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -367,6 +406,7 @@ public class Agregar_Revista extends javax.swing.JFrame {
                 String period = txtPeriod.getText();
                 String fecha = txtFecha.getText();
                 String disponible = txtDisponible.getText();
+                String ubicacion = txtUbicacionCV.getText();
                 int u_disponible=0;
                 
                 //Variable que almacenará el incremento del id editorial
@@ -377,6 +417,7 @@ public class Agregar_Revista extends javax.swing.JFrame {
                         || editorial == null || "".equals(editorial)
                         || period == null || "".equals(period)
                         || fecha == null || "".equals(fecha)
+                        || ubicacion == null || "".equals(ubicacion)
                         || disponible == null || "".equals(disponible)){
                     JOptionPane.showMessageDialog(this, "Rellenar los campos solicitados \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -394,7 +435,7 @@ public class Agregar_Revista extends javax.swing.JFrame {
                     }
                     
                     //Bloque de código para insertar información en tabla materiales
-                    if(crud.insertarRevista(titulo, editorial, period, conversion, u_disponible)>=1){
+                    if(crud.insertarRevista(titulo, editorial, period, conversion, u_disponible, ubicacion)>=1){
                         //Llamada al método limpiar campos
                         limpiarCampos();
                         //Cerrar ventana
@@ -420,6 +461,23 @@ public class Agregar_Revista extends javax.swing.JFrame {
             Logger.getLogger(Agregar_Revista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCancelarMousePressed
+
+    private void txtUbicacionCVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUbicacionCVMousePressed
+        if(txtUbicacionCV.getText().equals("Ingrese la ubicación"))
+            txtUbicacionCV.setText("");
+        
+        if(txtTituloRevista.getText().equals("") || txtTituloRevista.getText() == null)
+            txtTituloRevista.setText("Ingrese título");
+
+        if(txtPeriod.getText().equals("") || txtPeriod.getText() == null)
+            txtPeriod.setText("Ingrese Periodicidad");
+        
+        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+            txtFecha.setText("dia/mes/año");
+        
+        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
+            txtDisponible.setText("Ingrese cantidad");
+    }//GEN-LAST:event_txtUbicacionCVMousePressed
     
     public int insertarEditorial(int idEditorial, String editorial){
         String sql = "INSERT INTO editoriales (id,nombre_editorial) values (?,?)";
@@ -538,6 +596,7 @@ public class Agregar_Revista extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
@@ -551,11 +610,13 @@ public class Agregar_Revista extends javax.swing.JFrame {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblNewLibro;
     private javax.swing.JLabel lblPeriodicidad;
+    private javax.swing.JLabel lblTituloLibro1;
     private javax.swing.JLabel lblTituloRevista;
     private javax.swing.JPanel pnlAgregarMenu;
     private javax.swing.JTextField txtDisponible;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtPeriod;
     private javax.swing.JTextField txtTituloRevista;
+    private javax.swing.JTextField txtUbicacionCV;
     // End of variables declaration//GEN-END:variables
 }

@@ -79,7 +79,7 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
         });
         pnlVerUser.add(btncd, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 130, 90));
 
-        btndvd.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\DVD_logo.png")); // NOI18N
+        btndvd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/DVD_logo.png"))); // NOI18N
         btndvd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndvdActionPerformed(evt);
@@ -87,7 +87,7 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
         });
         pnlVerUser.add(btndvd, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 160, 90));
 
-        btnrevistas.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\png-transparent-magazine-computer-icons-book-skeptic-icon-magazine-logo-symbol-skeptic.png")); // NOI18N
+        btnrevistas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/png-transparent-magazine-computer-icons-book-skeptic-icon-magazine-logo-symbol-skeptic.png"))); // NOI18N
         btnrevistas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnrevistasActionPerformed(evt);
@@ -95,7 +95,7 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
         });
         pnlVerUser.add(btnrevistas, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 120, 90));
 
-        btnlibros.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\libro.png")); // NOI18N
+        btnlibros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/libro.png"))); // NOI18N
         btnlibros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlibrosActionPerformed(evt);
@@ -103,7 +103,7 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
         });
         pnlVerUser.add(btnlibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 130, 90));
 
-        btndocumentos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\documentos.png")); // NOI18N
+        btndocumentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/documentos.png"))); // NOI18N
         btndocumentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btndocumentosActionPerformed(evt);
@@ -111,7 +111,7 @@ public class ElegirVistaMateriales extends javax.swing.JFrame {
         });
         pnlVerUser.add(btndocumentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, 90));
 
-        btntesis.setIcon(new javax.swing.ImageIcon("C:\\Users\\Eduardo\\Documents\\UDB - 2022\\CICLO 2 - 2022\\PROGRAMACION ORIENTADA A OBJETOS\\UNIDAD 4\\Imagenes para consultar libros\\final\\tesis.png")); // NOI18N
+        btntesis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tesis.png"))); // NOI18N
         btntesis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btntesisActionPerformed(evt);

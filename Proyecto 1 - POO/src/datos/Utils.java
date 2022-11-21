@@ -51,7 +51,7 @@ public class Utils {
                                     
             //agregamos los ceros según la cantidad de digitos del numero mayor
             int resultado = 0;
-            if(conteo == 1){
+            if(conteo <= 1){
                 resultado = numMayor+1;
                 id = String.valueOf(tipoMaterial+"0000"+resultado);
             } else if(conteo == 2) {

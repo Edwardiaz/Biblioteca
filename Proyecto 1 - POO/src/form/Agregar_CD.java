@@ -74,6 +74,9 @@ public class Agregar_CD extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         lblCanciones1 = new javax.swing.JLabel();
+        lblTituloLibro1 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
+        txtUbicacionCV = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,16 +114,8 @@ public class Agregar_CD extends javax.swing.JFrame {
         txtTituloCd.setMinimumSize(new java.awt.Dimension(5, 20));
         txtTituloCd.setName("txtTituloCd"); // NOI18N
         txtTituloCd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtTituloCdMouseEntered(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtTituloCdMousePressed(evt);
-            }
-        });
-        txtTituloCd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTituloCdActionPerformed(evt);
             }
         });
         pnlAgregarMenu.add(txtTituloCd, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 260, 30));
@@ -304,6 +299,32 @@ public class Agregar_CD extends javax.swing.JFrame {
         lblCanciones1.setName("lblCanciones"); // NOI18N
         pnlAgregarMenu.add(lblCanciones1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 270, -1, -1));
 
+        lblTituloLibro1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTituloLibro1.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloLibro1.setText("Ubicación");
+        lblTituloLibro1.setName("lblTituloLibro"); // NOI18N
+        pnlAgregarMenu.add(lblTituloLibro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, -1, -1));
+
+        jSeparator11.setForeground(new java.awt.Color(102, 0, 204));
+        jSeparator11.setPreferredSize(new java.awt.Dimension(200, 10));
+        pnlAgregarMenu.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 260, 10));
+
+        txtUbicacionCV.setBackground(new java.awt.Color(0, 0, 51));
+        txtUbicacionCV.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        txtUbicacionCV.setForeground(new java.awt.Color(102, 102, 102));
+        txtUbicacionCV.setText("Ingrese la ubicación");
+        txtUbicacionCV.setAlignmentX(0.8F);
+        txtUbicacionCV.setBorder(null);
+        txtUbicacionCV.setMargin(new java.awt.Insets(5, 15, 5, 5));
+        txtUbicacionCV.setMinimumSize(new java.awt.Dimension(5, 20));
+        txtUbicacionCV.setName("txtTituloLibro"); // NOI18N
+        txtUbicacionCV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtUbicacionCVMousePressed(evt);
+            }
+        });
+        pnlAgregarMenu.add(txtUbicacionCV, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 360, 260, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -318,13 +339,7 @@ public class Agregar_CD extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTituloCdMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTituloCdMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTituloCdMouseEntered
-
     private void txtTituloCdMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTituloCdMousePressed
-        // TODO add your handling code here:
-
         if(txtTituloCd.getText().equals("Ingrese título"))
             txtTituloCd.setText("");
 
@@ -339,11 +354,10 @@ public class Agregar_CD extends javax.swing.JFrame {
 
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
             txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año))");
+                      
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtTituloCdMousePressed
-
-    private void txtTituloCdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloCdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTituloCdActionPerformed
 
     private void txtDuracionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDuracionMousePressed
         // TODO add your handling code here:
@@ -362,6 +376,9 @@ public class Agregar_CD extends javax.swing.JFrame {
 
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
         txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año))");
+                      
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtDuracionMousePressed
 
     private void txtDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDuracionActionPerformed
@@ -385,6 +402,9 @@ public class Agregar_CD extends javax.swing.JFrame {
 
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
         txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año))");
+                      
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtCancionesMousePressed
 
     private void txtCancionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCancionesActionPerformed
@@ -398,6 +418,7 @@ public class Agregar_CD extends javax.swing.JFrame {
             || txtCanciones.getText().equals("Ingrese canciones")
             || txtDuracion.getText().equals("Ingrese duracion")
             || txtDisponible.getText().equals("Ingrese cantidad")
+            || txtUbicacionCV.getText().equals("Ingrese la ubicación")
             || txtFecha.getText().equals("Ingrese fecha de pulicación (dia/mes/año))")){
             JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -411,6 +432,7 @@ public class Agregar_CD extends javax.swing.JFrame {
                 String canciones = txtCanciones.getText();
                 String disponible = txtDisponible.getText();
                 String fecha = txtFecha.getText();
+                String ubicacion = txtUbicacionCV.getText();
                 int u_disponible=0;
                 int num_canciones = 0;
 
@@ -429,7 +451,8 @@ public class Agregar_CD extends javax.swing.JFrame {
                         || genre == null || "".equals(genre)
                         || duracion == null || "".equals(duracion)
                         || canciones == null || "".equals(canciones)
-                        || disponible == null || "".equals(disponible) 
+                        || disponible == null || "".equals(disponible)
+                        || ubicacion == null || "".equals(ubicacion)
                         || fecha == null || "".equals(fecha)){
                         JOptionPane.showMessageDialog(this, "Rellenar los campos solicitados \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -448,7 +471,7 @@ public class Agregar_CD extends javax.swing.JFrame {
                             Logger.getLogger(Agregar_CD.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         //Bloque de código para insertar información en tabla materiales
-                        if(crud.insertarCD(titulo, duracion, canciones, u_disponible, artista, genre, conversion)>=1){
+                        if(crud.insertarCD(titulo, duracion, canciones, u_disponible, artista, genre, conversion, ubicacion)>=1){
 
                             //Llamada al método limpiar campos
                         limpiarCampos();
@@ -498,6 +521,9 @@ public class Agregar_CD extends javax.swing.JFrame {
         
          if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
             txtDisponible.setText("Ingrese cantidad");
+                       
+       if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+        txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtFechaMousePressed
 
     private void txtDisponibleMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDisponibleMousePressed
@@ -516,11 +542,34 @@ public class Agregar_CD extends javax.swing.JFrame {
 
         if(txtFecha.getText().equals("") || txtFecha.getText() == null)
             txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año)");
+        
+        if(txtUbicacionCV.getText().equals("") || txtUbicacionCV.getText() == null)
+         txtUbicacionCV.setText("Ingrese la ubicación");
     }//GEN-LAST:event_txtDisponibleMousePressed
 
     private void txtDisponibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDisponibleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDisponibleActionPerformed
+
+    private void txtUbicacionCVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUbicacionCVMousePressed
+        if(txtUbicacionCV.getText().equals("Ingrese la ubicación"))
+        txtUbicacionCV.setText("");
+
+        if(txtTituloCd.getText().equals("") || txtTituloCd.getText() == null)
+            txtTituloCd.setText("Ingrese título");
+
+        if(txtDuracion.getText().equals("") || txtDuracion.getText() == null)
+            txtDuracion.setText("Ingrese duracion");
+        
+        if(txtCanciones.getText().equals("") || txtCanciones.getText() == null)
+            txtCanciones.setText("Ingrese canciones");
+
+        if(txtFecha.getText().equals("") || txtFecha.getText() == null)
+            txtFecha.setText("Ingrese fecha de pulicación (dia/mes/año)");
+        
+        if(txtDisponible.getText().equals("") || txtDisponible.getText() == null)
+            txtDisponible.setText("Ingrese cantidad");
+    }//GEN-LAST:event_txtUbicacionCVMousePressed
 
     public int incrementarArtista() throws SQLException{
         int id = 1;
@@ -620,6 +669,7 @@ public class Agregar_CD extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
@@ -637,6 +687,7 @@ public class Agregar_CD extends javax.swing.JFrame {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblNewLibro;
+    private javax.swing.JLabel lblTituloLibro1;
     private javax.swing.JLabel lblTitulocd;
     private javax.swing.JPanel pnlAgregarMenu;
     private javax.swing.JTextField txtCanciones;
@@ -644,5 +695,6 @@ public class Agregar_CD extends javax.swing.JFrame {
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtTituloCd;
+    private javax.swing.JTextField txtUbicacionCV;
     // End of variables declaration//GEN-END:variables
 }

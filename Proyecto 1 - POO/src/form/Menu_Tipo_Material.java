@@ -168,7 +168,7 @@ public class Menu_Tipo_Material extends javax.swing.JFrame {
         btnAtras.setForeground(new java.awt.Color(102, 0, 153));
         btnAtras.setText("Atrás");
         btnAtras.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnAtrasMousePressed(evt);
@@ -177,7 +177,7 @@ public class Menu_Tipo_Material extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setForeground(new java.awt.Color(51, 0, 153));
-        jButton2.setText("Documento");
+        jButton2.setText("Obra");
         jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,7 +358,7 @@ public class Menu_Tipo_Material extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-         Agregar_Documento doc = new Agregar_Documento();
+         Agregar_Obra doc = new Agregar_Obra();
          doc.setVisible(true);
          this.dispose();
      } catch (SQLException ex) {

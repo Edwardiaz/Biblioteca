@@ -141,10 +141,7 @@ public class MaterialesCRUD extends Utils{
             } else {
                 stmt.setNull(index++, java.sql.Types.INTEGER);
             }
-            System.out.println("Ejecutando query:" + SQL_INSERT_INTO_MATERIALES);
             rows = stmt.executeUpdate();//no. registros afectados
-            System.out.println("Registros afectados:" + rows);
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -154,10 +151,10 @@ public class MaterialesCRUD extends Utils{
         return rows;
     }
     
-    public int insertarLibros(String titulo, int pag, int idEditorial, String isbn, java.sql.Date conversion, int u_disponible, String autor, String editorial){        
+    public int insertarLibros(String titulo, int pag, int idEditorial, String isbn, java.sql.Date conversion, int u_disponible, String autor, String editorial, String ubicacion, int codigo){        
         String sql = "INSERT INTO materiales (id,titulo,codigo_tipo_material,"
                 + "codigo_autor,numero_de_paginas,codigo_editorial,isbn,"
-                + "fecha_publicacion,unidades_disponibles) VALUES (?,?,4,?,?,?,?,?,?)";
+                + "fecha_publicacion,unidades_disponibles, ubicacion) VALUES (?,?,4,?,?,?,?,?,?,?)";
         PreparedStatement stmt = null;
         Connection conn = null;
         int rows = 0;
@@ -170,21 +167,23 @@ public class MaterialesCRUD extends Utils{
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             int index = 1;
-            stmt.setString(index++, crearID("LIB"));
+            if(codigo==1){
+                stmt.setString(index++, crearID("LIB"));
+            } else {
+                stmt.setString(index++, crearID("OBR"));   
+            }
             stmt.setString(index++, titulo);
             stmt.setInt(index++, autorID);
             stmt.setInt(index++, pag);
             stmt.setInt(index++, editorialID);
             stmt.setString(index++, isbn);
             stmt.setDate(index++, conversion);
-            stmt.setInt(index, u_disponible);
+            stmt.setInt(index++, u_disponible);
+            stmt.setString(index++, ubicacion);
 
             rows = stmt.executeUpdate();
-            //resultado = 2;
-            //System.out.println("Registros afectados " + rows);
         }catch(SQLException e){
             Logger.getLogger(MaterialesCRUD.class.getName()).log(Level.ERROR, "Hubo un problema durante la insercion de datos", e);
-            //resultado = 0;
         } finally{
             Conexion.close(stmt);
             Conexion.close(conn);
@@ -195,7 +194,7 @@ public class MaterialesCRUD extends Utils{
     public int insertarCV(String titulo, String num_pag, String autorCV, int u_disponible, java.sql.Date fecha, String ubicacion){        
         String sql = "INSERT INTO materiales (id,titulo,codigo_tipo_material,"
                 + "numero_de_paginas, ubicacion, nombre_autor_CV,"
-                + "fecha_publicacion,unidades_disponibles, ubicacion) VALUES (?,?,6,?,?,?,?,?,?)";
+                + "fecha_publicacion,unidades_disponibles) VALUES (?,?,6,?,?,?,?,?)";
         PreparedStatement stmt = null;
         Connection conn = null;
         int rows = 0;
@@ -208,17 +207,14 @@ public class MaterialesCRUD extends Utils{
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(sql);
             int index = 1;
-            stmt.setString(index++, crearID("LIB"));
+            stmt.setString(index++, crearID("CV"));
             stmt.setString(index++, titulo);
             stmt.setString(index++, num_pag);
             stmt.setString(index++, ubicacion);
             stmt.setString(index++, autorCV);
             stmt.setDate(index++, fecha);
-            stmt.setInt(index, u_disponible);
-
+            stmt.setInt(index++, u_disponible);
             rows = stmt.executeUpdate();
-            //resultado = 2;
-            //System.out.println("Registros afectados " + rows);
         }catch(SQLException e){
             Logger.getLogger(MaterialesCRUD.class.getName()).log(Level.ERROR, "Hubo un problema durante la insercion de datos", e);
             //resultado = 0;
@@ -229,13 +225,11 @@ public class MaterialesCRUD extends Utils{
         return rows;
     }
     
-    public int insertarCD(String titulo, String duracion, String canciones, int u_disponible, String artista, String genero, java.sql.Date conversion){
-        String sql = "INSERT INTO materiales (id,titulo, fecha_publicacion, codigo_artista,codigo_tipo_material,codigo_genero,duracion,numero_de_canciones,unidades_disponibles)"
-        + "VALUES (?,?,?,1,?,?,?,?, ?)";
+    public int insertarCD(String titulo, String duracion, String canciones, int u_disponible, String artista, String genero, java.sql.Date conversion, String ubicacion){
+        String sql = "INSERT INTO materiales (id,titulo, fecha_publicacion, codigo_artista,codigo_tipo_material,codigo_genero,duracion,numero_de_canciones,unidades_disponibles, ubicacion)"
+        + "VALUES (?,?,?,1,?,?,?,?,?,?)";
         PreparedStatement stmt = null;
-        //ResultSet rs = null;
         int rows = 0;
-        
         int idArtista = consultarArtistaPorNombre(artista);
         int idGenero = consultarGeneroPorNombre(genero);
 
@@ -250,12 +244,11 @@ public class MaterialesCRUD extends Utils{
             stmt.setInt(index++, idGenero);
             stmt.setString(index++, duracion);
             stmt.setString(index++, canciones);
-            stmt.setInt(index, u_disponible);
+            stmt.setInt(index++, u_disponible);
 
             rows = stmt.executeUpdate();
-            System.out.println("Registros afectados " + rows);
-        }catch(SQLException e){
-            System.out.println("Error" + e);
+        }catch(Exception e){
+            Logger.getLogger(MaterialesCRUD.class.getName()).log(Level.FATAL, "Error al hacer la instruccion INSERTARCD...", e);
         } finally{
             Conexion.close(stmt);
             Conexion.close(con);
@@ -263,9 +256,9 @@ public class MaterialesCRUD extends Utils{
         return rows;
     }
     
-    public int insertarDVD(String titulo, String director, String genre, String duracion, java.sql.Date conversion, String u_disponible){
-        String sql = "INSERT INTO materiales (id,titulo,codigo_director,codigo_tipo_material,codigo_genero,duracion, u_disponibles)"
-                        + "VALUES (?,?,?,2,?,?, ?)";
+    public int insertarDVD(String titulo, String director, String genre, String duracion, java.sql.Date conversion, String u_disponible, String ubicacion){
+        String sql = "INSERT INTO materiales (id,titulo,codigo_director,codigo_tipo_material,codigo_genero,duracion, u_disponibles, ubicacion)"
+                        + "VALUES (?,?,?,2,?,?, ?, ?)";
         int idGenero = consultarGeneroPorNombre(genre);
         int idDirector = consultarDirectorPorNombre(director);
         PreparedStatement stmt = null;
@@ -281,13 +274,12 @@ public class MaterialesCRUD extends Utils{
             stmt.setInt(index++, idDirector);
             stmt.setInt(index++, idGenero);
             stmt.setString(index, duracion);
-            stmt.setDate(index, conversion);
-            stmt.setString(index, u_disponible);
-
+            stmt.setDate(index++, conversion);
+            stmt.setString(index++, u_disponible);
+            stmt.setString(index++, ubicacion);
             rows = stmt.executeUpdate();
-            System.out.println("Registros afectados " + rows);
         }catch(SQLException e){
-            System.out.println("Error" + e);
+            Logger.getLogger(MaterialesCRUD.class.getName()).log(Level.FATAL, "Hubo un error al ejecutar la instruccion INSERTARDVD...", e);
         } finally{
             Conexion.close(stmt);
             Conexion.close(con);
@@ -295,28 +287,26 @@ public class MaterialesCRUD extends Utils{
         return rows;
     }
     
-    public int insertarRevista(String titulo, String editorial, String periodo, java.sql.Date conversion, int u_disponible){
-        String sql = "INSERT INTO materiales (id,titulo,codigo_editorial,codigo_tipo_material,periodicidad,fecha_publicacion,unidades_disponibles) "
-                 + "VALUES (?,?,?,3,?,?,?)";
+    public int insertarRevista(String titulo, String editorial, String periodo, java.sql.Date conversion, int u_disponible, String ubicacion){
+        String sql = "INSERT INTO materiales (id,titulo,codigo_editorial,codigo_tipo_material,periodicidad,fecha_publicacion,unidades_disponibles, ubicacion)"
+                 + "VALUES (?,?,?,3,?,?,?,?)";
         int idEditorial = consultarEditorialPorNombre(editorial);
          PreparedStatement stmt = null;
          int rows = 0;
 
          try{
-             con = Conexion.getConnection();
-             stmt = con.prepareStatement(sql);
-             int index = 1;
-             stmt.setString(index++, crearID("REV"));
-             stmt.setString(index++, titulo);
-             stmt.setInt(index++, idEditorial);
-             stmt.setString(index++, periodo);
-             stmt.setDate(index++, conversion);
-             stmt.setInt(index, u_disponible);
-
-             rows = stmt.executeUpdate();
-             System.out.println("Registros afectados " + rows);
+            con = Conexion.getConnection();
+            stmt = con.prepareStatement(sql);
+            int index = 1;
+            stmt.setString(index++, crearID("REV"));
+            stmt.setString(index++, titulo);
+            stmt.setInt(index++, idEditorial);
+            stmt.setString(index++, periodo);
+            stmt.setDate(index++, conversion);
+            stmt.setInt(index++, u_disponible);
+            rows = stmt.executeUpdate();
          }catch(SQLException e){
-             System.out.println("Error" + e);
+            
          } finally{
              Conexion.close(stmt);
              Conexion.close(con);
@@ -355,7 +345,6 @@ public class MaterialesCRUD extends Utils{
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_UPDATE_MATERIALES);
             stmt = conn.prepareStatement(SQL_UPDATE_MATERIALES);
             int index = 1;
 
@@ -423,9 +412,9 @@ public class MaterialesCRUD extends Utils{
             }
             stmt.setString(index++, id);
             rows = stmt.executeUpdate();
-            System.out.println("Registros actualizados:" + rows);
         } catch (SQLException e) {
             e.printStackTrace();
+            Logger.getLogger(MaterialesCRUD.class.getName()).log(Level.FATAL, "Hubo un error al ejecutar la instruccion de UPDATE", e);
         } finally {
             Conexion.close(stmt);
             Conexion.close(conn);
@@ -445,11 +434,9 @@ public class MaterialesCRUD extends Utils{
         int rows = 0;
         try {
             conn = Conexion.getConnection();
-            System.out.println("Ejecutando query:" + SQL_DELETE_MATERIALES);
             stmt = conn.prepareStatement(SQL_DELETE_MATERIALES);
             stmt.setString(1, id);
             rows = stmt.executeUpdate();
-            System.out.println("Registros eliminados:" + rows);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
